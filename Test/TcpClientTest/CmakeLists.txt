@@ -1,0 +1,12 @@
+SET(PROJECT_NAME "TcpClientTest")
+project(${PROJECT_NAME})
+
+include(../../Common.cmake)
+
+
+add_package(src ./src)
+add_package(SocketInit ../../source/SocketInit)
+
+
+add_executable(${PROJECT_NAME} ${all_file})
+

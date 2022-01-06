@@ -1,0 +1,7 @@
+cmake_minimum_required (VERSION 3.8)
+SET(PROJECT_NAME "PersonalRepository")
+project(${PROJECT_NAME})
+
+
+add_subdirectory(Target)
+add_subdirectory(Test)
