@@ -9,7 +9,7 @@ Its!!@name!!::Its!!@name!!()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-Its!!@name!!::Its!!@name!!(const vector<string>& items)
+Its!!@name!!::Its!!@name!!(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 !!entry items!!

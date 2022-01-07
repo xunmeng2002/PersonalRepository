@@ -3,7 +3,6 @@
 #include "Logger.h"
 #include <Windows.h>
 
-using namespace std;
 
 ThreadBase::ThreadBase(const char* name)
 	:m_ShouldRun(false)
@@ -20,7 +19,7 @@ bool ThreadBase::Start()
 		return false;
 
 	m_ShouldRun.store(true);
-	m_Thread = thread(std::bind(&ThreadBase::ThreadFunc, this));
+	m_Thread = std::thread(std::bind(&ThreadBase::ThreadFunc, this));
 	return true;
 }
 void ThreadBase::Stop()
@@ -59,12 +58,12 @@ void ThreadBase::ThreadExit()
 
 void ThreadBase::CheckEvent()
 {
-	unique_lock<mutex> guard(m_ThreadMutex);
+	std::unique_lock<std::mutex> guard(m_ThreadMutex);
 	m_ThreadConditionVariable.wait_for(guard, std::chrono::seconds(1), [&] {return !m_Events.empty();});
 }
 Event* ThreadBase::GetEvent()
 {
-	lock_guard<mutex> guard(m_EventMutex);
+	std::lock_guard<std::mutex> guard(m_EventMutex);
 	if (m_Events.empty())
 	{
 		return nullptr;
@@ -75,7 +74,7 @@ Event* ThreadBase::GetEvent()
 }
 void ThreadBase::OnEvent(Event* event)
 {
-	lock_guard<mutex> guard(m_EventMutex);
+	std::lock_guard<std::mutex> guard(m_EventMutex);
 	m_Events.push_back(event);
 
 	m_ThreadConditionVariable.notify_one();

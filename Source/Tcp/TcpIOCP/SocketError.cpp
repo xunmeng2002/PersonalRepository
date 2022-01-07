@@ -1,12 +1,9 @@
 #include "SocketError.h"
-#include <Windows.h>
 #include <map>
 #include <string>
 
-using namespace std;
 
-
-std::map<int, string> g_SocketErrors = {
+std::map<int, std::string> g_SocketErrors = {
 	{10093, "WSANOTINITIALISED：在使用此API之前应首先成功地调用WSAStartup()。"},
 	{10050, "WSAENETDOWN：WINDOWS套接口实现检测到网络子系统失效。"},
 	{10004, "WSAEINTR：通过一个WSACancelBlockingCall()来取消一个（阻塞的）调用。"},

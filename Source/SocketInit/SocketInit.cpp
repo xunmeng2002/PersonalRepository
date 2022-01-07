@@ -3,12 +3,10 @@
 
 static SocketInit _SOCKET_INIT;
 
-using namespace std;
-
 SocketInit::SocketInit()
 {
 #ifdef WINDOWS
-	cout << "ON WINDOWS" << endl;
+	std::cout << "ON WINDOWS" << std::endl;
 	WSADATA initData;
 	initData.wVersion = 0;
 	initData.wHighVersion = 2;
@@ -22,7 +20,7 @@ SocketInit::SocketInit()
 	}
 #endif
 #ifdef LINUX
-	cout << "ON LINUX" << endl;
+	std::cout << "ON LINUX" << endl;
 #endif
 }
 

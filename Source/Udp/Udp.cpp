@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <iostream>
 
-using namespace std;
-
 Udp Udp::m_Instance;
 
 Udp::Udp()

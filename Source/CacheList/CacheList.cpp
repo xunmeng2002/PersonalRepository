@@ -1,7 +1,9 @@
 #include "CacheList.h"
 #include <algorithm>
 #include <assert.h>
-using namespace std;
+#include <cstring>
+
+
 
 CacheNode::CacheNode(int blockSize)
 	:m_BlockSize(blockSize), m_Length(0), m_Next(nullptr)
@@ -16,18 +18,18 @@ CacheNode::~CacheNode()
 }
 int CacheNode::PushBack(void* data, int length)
 {
-	length = min(length, int(m_End - m_Write));
-	::memcpy(m_Write, data, length);
+	length = std::min(length, int(m_End - m_Write));
+	std::memcpy(m_Write, data, length);
 	m_Write += length;
 	m_Length += length;
 	return length;
 }
 int CacheNode::PopFront(void* data, int length)
 {
-	length = min(length, m_Length);
+	length = std::min(length, m_Length);
 	if (data)
 	{
-		::memcpy(data, m_Read, length);
+		std::memcpy(data, m_Read, length);
 	}
 	m_Read += length;
 	m_Length -= length;
@@ -90,7 +92,7 @@ CacheList::~CacheList()
 }
 void CacheList::PushBack(const void* data, int length)
 {
-	lock_guard<mutex> guard(m_Mutex);
+	std::lock_guard<std::mutex> guard(m_Mutex);
 	int pushLen = 0;
 	while (pushLen < length)
 	{
@@ -108,7 +110,7 @@ void CacheList::PushBack(const void* data, int length)
 }
 bool CacheList::PopFront(void* data, int length)
 {
-	lock_guard<mutex> guard(m_Mutex);
+	std::lock_guard<std::mutex> guard(m_Mutex);
 	if (m_Length < length)
 	{
 		assert(false);
@@ -144,22 +146,22 @@ bool CacheList::PopFront(void* data, int length)
 }
 void* CacheList::GetData(int& length)
 {
-	lock_guard<mutex> guard(m_Mutex);
+	std::lock_guard<std::mutex> guard(m_Mutex);
 	return m_HeadNode->GetData(length);
 }
 int CacheList::GetLength()
 {
-	lock_guard<mutex> guard(m_Mutex);
+	std::lock_guard<std::mutex> guard(m_Mutex);
 	return m_Length;
 }
 bool CacheList::IsEmpty()
 {
-	lock_guard<mutex> guard(m_Mutex);
+	std::lock_guard<std::mutex> guard(m_Mutex);
 	return m_HeadNode->IsEmpty();
 }
 void CacheList::Clear()
 {
-	lock_guard<mutex> guard(m_Mutex);
+	std::lock_guard<std::mutex> guard(m_Mutex);
 	while (m_HeadNode != m_WriteNode)
 	{
 		PopFrontNode();

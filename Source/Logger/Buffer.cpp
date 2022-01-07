@@ -1,9 +1,8 @@
 #include "Buffer.h"
 #include <memory>
+#include <cstring>
 
 #define LOG_BUFFER_SIZE 10 * 1024 * 1024
-
-using namespace std;
 
 Buffer::Buffer()
 {
@@ -17,7 +16,7 @@ Buffer::~Buffer()
 }
 void Buffer::Append(const void* data, int len)
 {
-	::memcpy(m_Buffer + m_Length, data, len);
+	std::memcpy(m_Buffer + m_Length, data, len);
 	m_Length += len;
 }
 const char* Buffer::GetData()

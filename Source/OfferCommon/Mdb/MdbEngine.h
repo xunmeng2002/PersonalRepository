@@ -3,9 +3,6 @@
 #include "ItsInterface.h"
 #include "MdbInterface.h"
 #include <set>
-#include <map>
-
-using namespace std;
 
 struct sqlite3;
 class MdbEngine : public ThreadBase, public ItsSubscriber, public MdbPublisher, public MdbCallback

@@ -1,6 +1,5 @@
 #include "TcpIOCPClient.h"
 
-using namespace std;
 
 TcpIOCPClient TcpIOCPClient::m_Instance;
 

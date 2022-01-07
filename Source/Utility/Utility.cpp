@@ -1,37 +1,33 @@
 #include "Utility.h"
 #include <iostream>
-
-using namespace std;
-
+#include <cstring>
 
 
 void ParseProcessName(const char* fullProcessName, char* processName, int len)
 {
+#if WINDOWS
 	const char* temp = strrchr(fullProcessName, '\\');
-	if (temp != NULL)
-	{
-		temp++;
-	}
-	else
-	{
-		temp = fullProcessName;
-	}
-	char* last_pos;
-	temp = strtok_s((char*)temp, ".", &last_pos);
+	temp = temp == nullptr ? fullProcessName : ++temp;
+	temp = strtok((char*)temp, ".");
+#endif
+#if LINUX
+	const char* temp = strrchr(fullProcessName, '/');
+	temp = temp == nullptr ? fullProcessName : ++temp;
+#endif
 	strncpy(processName, temp, len);
 }
 
-string ItoA(int value)
+std::string ItoA(int value)
 {
 	static char buff[32];
 	sprintf(buff, "%d", value);
-	return string(buff);
+	return std::string(buff);
 }
 
-string FtoA(double value)
+std::string FtoA(double value)
 {
 	static char buff[32];
 	sprintf(buff, "%f", value);
-	return string(buff);
+	return std::string(buff);
 }
 

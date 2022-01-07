@@ -1,7 +1,5 @@
 #include "SocketMemCache.h"
 
-using namespace std;
-
 SocketMemCache::SocketMemCache()
 	:m_Family(AF_INET)
 {

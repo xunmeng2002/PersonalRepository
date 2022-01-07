@@ -1,8 +1,5 @@
 ﻿#pragma once
-#include <string>
 #include "ItsFields.h"
-
-using namespace std;
 
 class ItsSubscriber
 {

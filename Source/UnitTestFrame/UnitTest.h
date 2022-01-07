@@ -1,10 +1,8 @@
 #ifndef __h_test_case_h__
 #define __h_test_case_h__
 #include <string>
-#include <vector>
 #include "TestCommon.h"
 
-using namespace std;
 namespace UTest
 {
 	typedef bool(*TestFunc)(std::string& errorMsg);

@@ -2,31 +2,29 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class ItsReqQryPrimaryAccountInfo
 {
 public:
 	ItsReqQryPrimaryAccountInfo();
-	ItsReqQryPrimaryAccountInfo(const vector<string>& items);
+	ItsReqQryPrimaryAccountInfo(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string Command;
-	string SequenceNo;
-	string Reserve1;
-	string Reserve2;
-	string Reserve3;
-	string Reserve4;
-	string Reserve5;
-	string Reserve6;
-	string Unknown;
-	string ChannelID;
+	std::string ProtocolType;
+	std::string Command;
+	std::string SequenceNo;
+	std::string Reserve1;
+	std::string Reserve2;
+	std::string Reserve3;
+	std::string Reserve4;
+	std::string Reserve5;
+	std::string Reserve6;
+	std::string Unknown;
+	std::string ChannelID;
 
 	static constexpr char* TableName = "t_ItsReqQryPrimaryAccountInfo";
 private:
@@ -37,24 +35,24 @@ class ItsRspQryPrimaryAccountInfo
 {
 public:
 	ItsRspQryPrimaryAccountInfo();
-	ItsRspQryPrimaryAccountInfo(const vector<string>& items);
+	ItsRspQryPrimaryAccountInfo(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string SequenceNo;
-	string IsLast;
-	string Reserve1;
-	string ErrorCode;
-	string ErrorMessage;
-	string ChannelID;
-	string PrimaryAccountID;
-	string Password;
-	string Port;
+	std::string ProtocolType;
+	std::string SequenceNo;
+	std::string IsLast;
+	std::string Reserve1;
+	std::string ErrorCode;
+	std::string ErrorMessage;
+	std::string ChannelID;
+	std::string PrimaryAccountID;
+	std::string Password;
+	std::string Port;
 
 	static constexpr char* TableName = "t_ItsRspQryPrimaryAccountInfo";
 private:
@@ -65,41 +63,41 @@ class ItsInsertOrder
 {
 public:
 	ItsInsertOrder();
-	ItsInsertOrder(const vector<string>& items);
+	ItsInsertOrder(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string Command;
-	string SequenceNo;
-	string Reserve1;
-	string Reserve2;
-	string Reserve3;
-	string Reserve4;
-	string Reserve5;
-	string Reserve6;
-	string ExchangeID;
-	string InstrumentID;
-	string Price;
-	string Direction;
-	string Reserve7;
-	string CombHedgeFlag;
-	string Volume;
-	string OrderPriceType;
-	string RequestID;
-	string Reserve8;
-	string TimeCondition;
-	string GTDDate;
-	string VolumeCondition;
-	string MinVolume;
-	string IsSwapOrder;
-	string ForceCloseReason;
-	string AccountID;
-	string TradingDay;
+	std::string ProtocolType;
+	std::string Command;
+	std::string SequenceNo;
+	std::string Reserve1;
+	std::string Reserve2;
+	std::string Reserve3;
+	std::string Reserve4;
+	std::string Reserve5;
+	std::string Reserve6;
+	std::string ExchangeID;
+	std::string InstrumentID;
+	std::string Price;
+	std::string Direction;
+	std::string Reserve7;
+	std::string CombHedgeFlag;
+	std::string Volume;
+	std::string OrderPriceType;
+	std::string RequestID;
+	std::string Reserve8;
+	std::string TimeCondition;
+	std::string GTDDate;
+	std::string VolumeCondition;
+	std::string MinVolume;
+	std::string IsSwapOrder;
+	std::string ForceCloseReason;
+	std::string AccountID;
+	std::string TradingDay;
 
 	static constexpr char* TableName = "t_ItsInsertOrder";
 private:
@@ -110,33 +108,33 @@ class ItsInsertOrderCancel
 {
 public:
 	ItsInsertOrderCancel();
-	ItsInsertOrderCancel(const vector<string>& items);
+	ItsInsertOrderCancel(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string Command;
-	string SequenceNo;
-	string Reserve1;
-	string Reserve2;
-	string Reserve3;
-	string Reserve4;
-	string Reserve5;
-	string Reserve6;
-	string OrderRef;
-	string FrontID;
-	string SessionID;
-	string ExchangeID;
-	string OrderSysID;
-	string ChannelOrderID;
-	string BrokerOrderID;
-	string InstrumentID;
-	string Direction;
-	string TradingDay;
+	std::string ProtocolType;
+	std::string Command;
+	std::string SequenceNo;
+	std::string Reserve1;
+	std::string Reserve2;
+	std::string Reserve3;
+	std::string Reserve4;
+	std::string Reserve5;
+	std::string Reserve6;
+	std::string OrderRef;
+	std::string FrontID;
+	std::string SessionID;
+	std::string ExchangeID;
+	std::string OrderSysID;
+	std::string ChannelOrderID;
+	std::string BrokerOrderID;
+	std::string InstrumentID;
+	std::string Direction;
+	std::string TradingDay;
 
 	static constexpr char* TableName = "t_ItsInsertOrderCancel";
 private:
@@ -147,21 +145,21 @@ class ItsRspOrder
 {
 public:
 	ItsRspOrder();
-	ItsRspOrder(const vector<string>& items);
+	ItsRspOrder(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string SequenceNo;
-	string Reserve1;
-	string Reserve2;
-	string ErrorID;
-	string ErrorMsg;
-	string TradingDay;
+	std::string ProtocolType;
+	std::string SequenceNo;
+	std::string Reserve1;
+	std::string Reserve2;
+	std::string ErrorID;
+	std::string ErrorMsg;
+	std::string TradingDay;
 
 	static constexpr char* TableName = "t_ItsRspOrder";
 private:
@@ -172,53 +170,53 @@ class ItsOrder
 {
 public:
 	ItsOrder();
-	ItsOrder(const vector<string>& items);
+	ItsOrder(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string Command;
-	string Reserve1;
-	string Reserve2;
-	string Reserve3;
-	string Reserve4;
-	string ChannelID;
-	string ExchangeID;
-	string InstrumentID;
-	string OrderRef;
-	string InsertTime;
-	string CancelTime;
-	string OrderSysID;
-	string StatusMsg;
-	string Direction;
-	string CombOffsetFlag;
-	string CombHedgeFlag;
-	string OrderPriceType;
-	string OrderStatus;
-	string ForceCloseReason;
-	string RequestID;
-	string FrontID;
-	string SessionID;
-	string BrokerOrderID;
-	string VolumeTotalOriginal;
-	string VolumeTraded;
-	string InsertDate;
-	string TradingDay;
-	string LimitPrice;
-	string IsLocalOrder;
-	string UserProductInfo;
-	string TimeCondition;
-	string GTDDate;
-	string VolumeCondition;
-	string MinVolume;
-	string ContingentCondition;
-	string StopPrice;
-	string IsSwapOrder;
-	string Reserve5;
+	std::string ProtocolType;
+	std::string Command;
+	std::string Reserve1;
+	std::string Reserve2;
+	std::string Reserve3;
+	std::string Reserve4;
+	std::string ChannelID;
+	std::string ExchangeID;
+	std::string InstrumentID;
+	std::string OrderRef;
+	std::string InsertTime;
+	std::string CancelTime;
+	std::string OrderSysID;
+	std::string StatusMsg;
+	std::string Direction;
+	std::string CombOffsetFlag;
+	std::string CombHedgeFlag;
+	std::string OrderPriceType;
+	std::string OrderStatus;
+	std::string ForceCloseReason;
+	std::string RequestID;
+	std::string FrontID;
+	std::string SessionID;
+	std::string BrokerOrderID;
+	std::string VolumeTotalOriginal;
+	std::string VolumeTraded;
+	std::string InsertDate;
+	std::string TradingDay;
+	std::string LimitPrice;
+	std::string IsLocalOrder;
+	std::string UserProductInfo;
+	std::string TimeCondition;
+	std::string GTDDate;
+	std::string VolumeCondition;
+	std::string MinVolume;
+	std::string ContingentCondition;
+	std::string StopPrice;
+	std::string IsSwapOrder;
+	std::string Reserve5;
 
 	static constexpr char* TableName = "t_ItsOrder";
 private:
@@ -229,40 +227,40 @@ class ItsTrade
 {
 public:
 	ItsTrade();
-	ItsTrade(const vector<string>& items);
+	ItsTrade(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string Command;
-	string Reserve1;
-	string Reserve2;
-	string Reserve3;
-	string Reserve4;
-	string ChannelID;
-	string ExchangeID;
-	string InstrumentID;
-	string OrderRef;
-	string OrderSysID;
-	string TradeTime;
-	string TradeID;
-	string Direction;
-	string OffsetFlag;
-	string HedgeFlag;
-	string BrokerOrderID;
-	string Volume;
-	string TradeDate;
-	string TradingDay;
-	string Price;
-	string Reserve5;
-	string TradeType;
-	string ExchangeTradeID;
-	string Reserve7;
-	string Reserve8;
+	std::string ProtocolType;
+	std::string Command;
+	std::string Reserve1;
+	std::string Reserve2;
+	std::string Reserve3;
+	std::string Reserve4;
+	std::string ChannelID;
+	std::string ExchangeID;
+	std::string InstrumentID;
+	std::string OrderRef;
+	std::string OrderSysID;
+	std::string TradeTime;
+	std::string TradeID;
+	std::string Direction;
+	std::string OffsetFlag;
+	std::string HedgeFlag;
+	std::string BrokerOrderID;
+	std::string Volume;
+	std::string TradeDate;
+	std::string TradingDay;
+	std::string Price;
+	std::string Reserve5;
+	std::string TradeType;
+	std::string ExchangeTradeID;
+	std::string Reserve7;
+	std::string Reserve8;
 
 	static constexpr char* TableName = "t_ItsTrade";
 private:
@@ -273,31 +271,31 @@ class ItsErrRtnOrderCancel
 {
 public:
 	ItsErrRtnOrderCancel();
-	ItsErrRtnOrderCancel(const vector<string>& items);
+	ItsErrRtnOrderCancel(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
-	string ProtocolType;
-	string Command;
-	string Reserve1;
-	string Reserve2;
-	string Reserve3;
-	string Reserve4;
-	string ChannelID;
-	string BrokerOrderID;
-	string OrderRef;
-	string FrontID;
-	string SessionID;
-	string ExchangeID;
-	string OrderSysID;
-	string Reserve5;
-	string ErrorID;
-	string ErrorMsg;
-	string TradingDay;
+	std::string ProtocolType;
+	std::string Command;
+	std::string Reserve1;
+	std::string Reserve2;
+	std::string Reserve3;
+	std::string Reserve4;
+	std::string ChannelID;
+	std::string BrokerOrderID;
+	std::string OrderRef;
+	std::string FrontID;
+	std::string SessionID;
+	std::string ExchangeID;
+	std::string OrderSysID;
+	std::string Reserve5;
+	std::string ErrorID;
+	std::string ErrorMsg;
+	std::string TradingDay;
 
 	static constexpr char* TableName = "t_ItsErrRtnOrderCancel";
 private:

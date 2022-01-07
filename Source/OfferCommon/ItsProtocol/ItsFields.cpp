@@ -7,7 +7,7 @@ ItsReqQryPrimaryAccountInfo::ItsReqQryPrimaryAccountInfo()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsReqQryPrimaryAccountInfo::ItsReqQryPrimaryAccountInfo(const vector<string>& items)
+ItsReqQryPrimaryAccountInfo::ItsReqQryPrimaryAccountInfo(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];
@@ -64,7 +64,7 @@ ItsRspQryPrimaryAccountInfo::ItsRspQryPrimaryAccountInfo()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsRspQryPrimaryAccountInfo::ItsRspQryPrimaryAccountInfo(const vector<string>& items)
+ItsRspQryPrimaryAccountInfo::ItsRspQryPrimaryAccountInfo(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];
@@ -119,7 +119,7 @@ ItsInsertOrder::ItsInsertOrder()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsInsertOrder::ItsInsertOrder(const vector<string>& items)
+ItsInsertOrder::ItsInsertOrder(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];
@@ -208,7 +208,7 @@ ItsInsertOrderCancel::ItsInsertOrderCancel()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsInsertOrderCancel::ItsInsertOrderCancel(const vector<string>& items)
+ItsInsertOrderCancel::ItsInsertOrderCancel(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];
@@ -281,7 +281,7 @@ ItsRspOrder::ItsRspOrder()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsRspOrder::ItsRspOrder(const vector<string>& items)
+ItsRspOrder::ItsRspOrder(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];
@@ -330,7 +330,7 @@ ItsOrder::ItsOrder()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsOrder::ItsOrder(const vector<string>& items)
+ItsOrder::ItsOrder(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];
@@ -443,7 +443,7 @@ ItsTrade::ItsTrade()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsTrade::ItsTrade(const vector<string>& items)
+ItsTrade::ItsTrade(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];
@@ -530,7 +530,7 @@ ItsErrRtnOrderCancel::ItsErrRtnOrderCancel()
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 }
-ItsErrRtnOrderCancel::ItsErrRtnOrderCancel(const vector<string>& items)
+ItsErrRtnOrderCancel::ItsErrRtnOrderCancel(const std::vector<std::string>& items)
 {
 	memset(m_Buff, 0, sizeof(m_Buff));
 	ProtocolType = items[0];

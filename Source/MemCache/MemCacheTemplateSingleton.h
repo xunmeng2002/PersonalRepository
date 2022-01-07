@@ -1,7 +1,6 @@
 #include <list>
 #include <mutex>
 #pragma once
-using namespace std;
 
 
 template <typename T>
@@ -38,7 +37,7 @@ public:
 
 	T* Allocate()
 	{
-		lock_guard<mutex> guard(m_Mutex);
+		std::lock_guard<std::mutex> guard(m_Mutex);
 		if (!m_Items.empty())
 		{
 			auto item = m_Items.front();
@@ -49,7 +48,7 @@ public:
 	}
 	void Free(T* item)
 	{
-		lock_guard<mutex> guard(m_Mutex);
+		std::lock_guard<std::mutex> guard(m_Mutex);
 		m_Items.push_back(item);
 	}
 

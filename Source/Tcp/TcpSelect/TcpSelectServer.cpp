@@ -2,8 +2,6 @@
 #include "Logger.h"
 #include "Event.h"
 
-using namespace std;
-
 
 TcpSelectServer::TcpSelectServer()
 	:TcpSelectBase("TcpSelectServer")

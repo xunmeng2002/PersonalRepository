@@ -1,5 +1,6 @@
 #pragma once
 
+#include <list>
 #include <set>
 #include <map>
 #include "ThreadBase.h"
@@ -26,7 +27,7 @@ public:
 protected:
 	virtual void Run() override;
 	virtual void HandleEvent();
-	virtual void DoConnect(const string& ip, int port) {}
+	virtual void DoConnect(const std::string& ip, int port) {}
 	virtual void DoDisConnect(int sessionID);
 	virtual void PrepareFds();
 	virtual void CheckConnect() {}
@@ -47,7 +48,7 @@ protected:
 	void PushSendEvent(TcpEvent* tcpEvent);
 
 protected:
-	set<TcpSubscriber*> m_Subscribers;
+	std::set<TcpSubscriber*> m_Subscribers;
 
 	int m_AF;
 	int m_Type;
@@ -63,5 +64,5 @@ protected:
 	timeval m_TimeOut;
 
 	std::map<int, ConnectData*> m_ConnectDatas;
-	std::map<int, list<TcpEvent*>> m_SendEvents;
+	std::map<int, std::list<TcpEvent*>> m_SendEvents;
 };

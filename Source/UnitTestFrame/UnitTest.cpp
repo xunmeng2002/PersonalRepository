@@ -1,8 +1,6 @@
 #include "UnitTest.h"
 #include <iostream>
 
-using namespace std;
-
 namespace UTest
 {
 

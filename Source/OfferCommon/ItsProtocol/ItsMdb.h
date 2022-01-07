@@ -4,8 +4,6 @@
 #include "Logger.h"
 #include "ItsFields.h"
 
-using namespace std;
-
 
 class ItsMdb
 {
@@ -24,7 +22,7 @@ public:
 	template<typename T>
 	int CreateTable()
 	{
-		string sql = T::CreateSql();
+		std::string sql = T::CreateSql();
 		WRITE_LOG(LogLevel::Debug, "CreateSql SQL:[%s]", sql.c_str());
 
 		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, "CreateTable", &m_ErrorMsg);
@@ -38,7 +36,7 @@ public:
 	template<typename T>
 	int TruncateTable()
 	{
-		string sql = string("DELETE FROM ") + T::TableName + ";";
+		std::string sql = std::string("DELETE FROM ") + T::TableName + ";";
 		WRITE_LOG(LogLevel::Debug, "TruncateSql SQL:[%s]", sql.c_str());
 
 		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, "TruncateTable", &m_ErrorMsg);
@@ -52,7 +50,7 @@ public:
 	template<typename T>
 	int InsertRecord(T* field)
 	{
-		string sql = field->InsertSql();
+		std::string sql = field->InsertSql();
 		WRITE_LOG(LogLevel::Debug, "InsertRecord SQL:[%s]", sql.c_str());
 
 		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, "InsertRecord", &m_ErrorMsg);
@@ -66,7 +64,7 @@ public:
 	template<typename T>
 	int SelectTable()
 	{
-		string sql = string("SELECT * FROM ") + T::TableName + ";";
+		std::string sql = std::string("SELECT * FROM ") + T::TableName + ";";
 		WRITE_LOG(LogLevel::Debug, "SelectTable SQL:[%s]", sql.c_str());
 
 		int rc = sqlite3_exec(m_DB, sql.c_str(), T::OnSelectCallback, m_Callback, &m_ErrorMsg);

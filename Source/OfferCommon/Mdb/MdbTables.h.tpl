@@ -2,7 +2,6 @@
 #include <string>
 #include "MdbEnumDict.h"
 
-using namespace std;
 
 
 !!entry tables!!
@@ -12,8 +11,8 @@ class !!@name!!
 public:
 	int ToStream(char* buff, int size) const;
 	int ToString(char* buff, int size) const;
-	static string CreateSql();
-	string InsertSql();
+	static std::string CreateSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:

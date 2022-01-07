@@ -2,25 +2,23 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 !!travel!!
 !!travel!!
 class Its!!@name!!
 {
 public:
 	Its!!@name!!();
-	Its!!@name!!(const vector<string>& items);
+	Its!!@name!!(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
 	static string CreateSql();
-	string InsertSql();
+	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
 !!entry items!!
 !!travel!!
-	string !!@name!!;
+	std::string !!@name!!;
 !!leave!!
 !!leave!!
 

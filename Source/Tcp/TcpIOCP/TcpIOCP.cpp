@@ -386,7 +386,7 @@ void TcpIOCP::AddConnect(OverlappedData* overlappedData)
     WRITE_LOG(LogLevel::Info, "AddConnect  SessionID:[%d] Socket:[%lld].", overlappedData->SessionID, overlappedData->ConnectSocket);
 
     auto connectData = ConnectData::Allocate(overlappedData->SessionID, overlappedData->ConnectSocket, inet_ntoa(overlappedData->RemoteAddress.sin_addr), ntohs(overlappedData->RemoteAddress.sin_port));
-    m_ConnectDatas.insert(make_pair(overlappedData->SessionID, connectData));
+    m_ConnectDatas.insert(std::make_pair(overlappedData->SessionID, connectData));
     m_TcpSubscriber->OnConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort);
 }
 void TcpIOCP::RemoveConnect(OverlappedData* overlappedData)

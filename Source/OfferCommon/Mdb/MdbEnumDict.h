@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <string>
 
-using namespace std;
 
 enum class OrderStatus : char
 {
@@ -160,15 +159,15 @@ enum class IsLocalOrder : char
 };
 
 
-OrderStatus ConvertToOrderStatus(const string& value);
-Direction ConvertToDirection(const string& value);
-HedgeFlag ConvertToHedgeFlag(const string& value);
-OrderPriceType ConvertToOrderPriceType(const string& value);
-OffsetFlag ConvertToOffsetFlag(const string& value);
-ContingentCondition ConvertToContingentCondition(const string& value);
-TimeCondition ConvertToTimeCondition(const string& value);
-VolumeCondition ConvertToVolumeCondition(const string& value);
-ForceCloseReason ConvertToForceCloseReason(const string& value);
-TradeType ConvertToTradeType(const string& value);
-MarginPriceType ConvertToMarginPriceType(const string& value);
-IsLocalOrder ConvertToIsLocalOrder(const string& value);
+OrderStatus ConvertToOrderStatus(const std::string& value);
+Direction ConvertToDirection(const std::string& value);
+HedgeFlag ConvertToHedgeFlag(const std::string& value);
+OrderPriceType ConvertToOrderPriceType(const std::string& value);
+OffsetFlag ConvertToOffsetFlag(const std::string& value);
+ContingentCondition ConvertToContingentCondition(const std::string& value);
+TimeCondition ConvertToTimeCondition(const std::string& value);
+VolumeCondition ConvertToVolumeCondition(const std::string& value);
+ForceCloseReason ConvertToForceCloseReason(const std::string& value);
+TradeType ConvertToTradeType(const std::string& value);
+MarginPriceType ConvertToMarginPriceType(const std::string& value);
+IsLocalOrder ConvertToIsLocalOrder(const std::string& value);

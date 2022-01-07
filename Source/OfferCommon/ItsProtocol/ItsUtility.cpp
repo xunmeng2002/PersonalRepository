@@ -2,7 +2,7 @@
 #include "command_id.h"
 
 
-void GetItsItems(const char* buff, const char* end, vector<string>& items)
+void GetItsItems(const char* buff, const char* end, std::vector<std::string>& items)
 {
 	const char* p = buff;
 	const char* pEnd = nullptr;
@@ -39,7 +39,7 @@ const char* GetItsItemEnd(const char* buff, const char* end, char op)
 	return nullptr;
 }
 
-bool CheckItsMessage(const vector<string>& items)
+bool CheckItsMessage(const std::vector<std::string>& items)
 {
 	if (items.size() < 2 || items[0] != "R")
 	{

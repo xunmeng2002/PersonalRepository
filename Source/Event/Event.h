@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 
 constexpr int BuffSize = 64 * 1024;
 
@@ -20,7 +18,7 @@ struct TcpEvent : public Event
 	TcpEvent(int buffSize = BuffSize);
 	~TcpEvent();
 	int SessionID;
-	string IP;
+	std::string IP;
 	int Port;
 	char* ReadPos;
 	char* Buff;
@@ -35,8 +33,8 @@ struct TcpEvent : public Event
 struct MyEvent : public Event
 {
 	void* Field;
-	vector<int> NumParams;
-	vector<string> StringParams;
+	std::vector<int> NumParams;
+	std::vector<std::string> StringParams;
 
 	static MyEvent* Allocate();
 	virtual void Free() override;

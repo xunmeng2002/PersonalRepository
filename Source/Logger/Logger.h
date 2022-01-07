@@ -51,8 +51,6 @@ protected:
 private:
 	static Logger m_Instance;
 
-	char m_HostName[128];
-	int m_Pid;
 	char m_ProcessName[128];
 	tm m_CreateLogFileTime;
 	LogData* m_LogData;

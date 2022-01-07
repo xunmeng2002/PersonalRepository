@@ -1,7 +1,6 @@
 #include "TcpSelectClient.h"
 #include "Logger.h"
 
-using namespace std;
 
 TcpSelectClient::TcpSelectClient()
 	:TcpSelectBase("TcpSelectClient")
@@ -22,7 +21,7 @@ void TcpSelectClient::Connect(const char* ip, int port)
 	OnEvent(tcpEvent);
 }
 
-void TcpSelectClient::DoConnect(const string& ip, int port)
+void TcpSelectClient::DoConnect(const std::string& ip, int port)
 {
 	m_RemoteAddress.sin_addr.S_un.S_addr = inet_addr(ip.c_str());
 	m_RemoteAddress.sin_port = htons(port);

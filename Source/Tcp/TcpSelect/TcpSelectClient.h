@@ -12,7 +12,7 @@ public:
 	virtual void Connect(const char* ip, int port) override;
 
 protected:
-	virtual void DoConnect(const string& ip, int port) override;
+	virtual void DoConnect(const std::string& ip, int port) override;
 	void CheckConnect();
 
 private:

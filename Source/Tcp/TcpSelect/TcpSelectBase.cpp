@@ -200,8 +200,8 @@ void TcpSelectBase::AddConnect(ConnectData* connectData)
 		subscriber->OnConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort);
 	}
 
-	m_ConnectDatas.insert(make_pair(connectData->SessionID, connectData));
-	m_SendEvents.insert(make_pair(connectData->SessionID, list<TcpEvent*>()));
+	m_ConnectDatas.insert(std::make_pair(connectData->SessionID, connectData));
+	m_SendEvents.insert(std::make_pair(connectData->SessionID, std::list<TcpEvent*>()));
 }
 void TcpSelectBase::RemoveConnect(ConnectData* connectData)
 {

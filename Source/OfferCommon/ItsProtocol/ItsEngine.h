@@ -53,10 +53,10 @@ protected:
 private:
 	sqlite3* m_Mdb;
 	ItsSubscriber* m_ItsSubscriber;
-	set<int> m_SessionIDs;
+	set::set<int> m_SessionIDs;
 	
-	list<TcpEvent*> m_RecvDatas;
-	vector<string> m_ItsItems;
-	set<ItsInsertOrderKey*> m_InsertOrderKeys;
+	std::list<TcpEvent*> m_RecvDatas;
+	std::vector<std::string> m_ItsItems;
+	set::set<ItsInsertOrderKey*> m_InsertOrderKeys;
 };
 

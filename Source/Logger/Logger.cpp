@@ -8,13 +8,11 @@
 #include "TimeUtility.h"
 
 
-using namespace std;
-
 #define LOG_LINE_LENGTH 64 * 1024
 
 static LogLevel s_logLevel = LogLevel::Info;
 
-static map<LogLevel, string> s_LogLevelName = {
+static std::map<LogLevel, std::string> s_LogLevelName = {
 	{ LogLevel::None, "NONE"},
 	{ LogLevel::Emergency, "EMERGENCY"},
 	{ LogLevel::Critical, "CRITICAL"},
@@ -33,9 +31,6 @@ Logger Logger::m_Instance;
 Logger::Logger()
 	:ThreadBase("Logger")
 {
-	unsigned long buffSize = 128;
-	GetComputerName(m_HostName, &buffSize);
-	m_Pid = _getpid();
 }
 Logger::~Logger()
 {
@@ -100,10 +95,10 @@ bool Logger::CreateLogDir(const char* path)
 }
 void Logger::SwapInnerLogBuffers()
 {
-	unique_lock<mutex> lock(m_LogData->Mutex);
+	std::unique_lock<std::mutex> lock(m_LogData->Mutex);
 	if (m_LogData->LogBuffers.empty())
 	{
-		m_LogData->ConditionVariable.wait_for(lock, chrono::seconds(1));
+		m_LogData->ConditionVariable.wait_for(lock, std::chrono::seconds(1));
 		if (m_LogData->CurrBuffer->Length() > 0)
 		{
 			m_LogData->PushBuffer();
@@ -134,7 +129,7 @@ void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* 
 	len += vsnprintf(t_LogBuffer + len, (sizeof(t_LogBuffer) - len - 1), format, va);
 	len += _snprintf(t_LogBuffer + len, (sizeof(t_LogBuffer) - len - 1), "\t\t---%s:%d[%s]\n", file, line, func);
 
-	lock_guard<mutex> guard(m_LogData->Mutex);
+	std::lock_guard<std::mutex> guard(m_LogData->Mutex);
 	if (m_LogData->CurrBuffer->Available() < len)
 	{
 		m_LogData->PushBuffer();
@@ -162,7 +157,7 @@ void Logger::CreateLogFile()
 	char timeBuff[32];
 	strftime(timeBuff, 32, "%Y%m%d-%H%M%S", &m_CreateLogFileTime);
 	char fileName[256];		
-	sprintf(fileName, "log/%s.%s.%s.%d.log", m_ProcessName, timeBuff, m_HostName, m_Pid);
+	sprintf(fileName, "log/%s.%s.log", m_ProcessName, timeBuff);
 	m_LogData->LogFile = fopen(fileName, "a+");
 	assert(m_LogData->LogFile != nullptr);
 }
