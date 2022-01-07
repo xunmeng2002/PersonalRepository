@@ -11,7 +11,7 @@ public:
 	Its!!@name!!(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -22,7 +22,7 @@ public:
 !!leave!!
 !!leave!!
 
-	static constexpr char* TableName = "t_Its!!@name!!";
+	static constexpr const char* TableName = "t_Its!!@name!!";
 private:
 	char m_Buff[4096];
 };

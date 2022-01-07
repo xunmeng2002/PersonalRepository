@@ -36,10 +36,11 @@ public:
 	void HandleErrRtnOrderCancel(OrderCancel* field);
 
 private:
-	int GetNextOrderLocalID(const string& tradingDay);
-	Order* GetOrderFromOrderSysID(const string& orderSysID);
-	Order* GetOrderFromOrderLocalID(int orderLocalID);
-	OrderCancel* GetOrderCancelFromOrderLocalID(int orderLocalID);
+	std::string GetNextOrderLocalID(const string& tradingDay);
+	Order* GetOrder(const string& orderLocalID, const string& tradingDay, const string& orderSysID);
+	Order* GetOrderFromOrderSysID(const string& tradingDay, const string& orderSysID);
+	Order* GetOrderFromOrderLocalID(const string& orderLocalID);
+	OrderCancel* GetOrderCancelFromOrderLocalID(const string& orderLocalID);
 	bool CheckAndAddTrade(Trade* trade);
 
 private:
@@ -53,7 +54,8 @@ private:
 	ItsPublisher* m_ItsPublisher;
 	MdbSubscriber* m_MdbSubscriber;
 
-	string m_ChannelID;
+	std::string m_ChannelID;
 	char* m_LogBuff;
+	char m_OrderLocalIDBuff[32];
 };
 

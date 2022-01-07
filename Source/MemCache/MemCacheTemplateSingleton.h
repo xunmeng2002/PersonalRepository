@@ -1,7 +1,6 @@
+#pragma once
 #include <list>
 #include <mutex>
-#pragma once
-
 
 template <typename T>
 class MemCacheTemplateSingleton

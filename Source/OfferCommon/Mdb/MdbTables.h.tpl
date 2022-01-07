@@ -29,7 +29,7 @@ public:
 !!leave!!
 !!leave!!
 	
-	static constexpr char* TableName = "t_Mdb!!@name!!";
+	static constexpr const char* TableName = "t_Mdb!!@name!!";
 private:
 	char m_Buff[4096];
 };

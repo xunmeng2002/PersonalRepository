@@ -10,8 +10,8 @@
 
 struct ItsInsertOrderKey
 {
-	string TradingDay;
-	string RequestID;
+	std::string TradingDay;
+	std::string RequestID;
 };
 
 struct sqlite3;
@@ -53,10 +53,10 @@ protected:
 private:
 	sqlite3* m_Mdb;
 	ItsSubscriber* m_ItsSubscriber;
-	set::set<int> m_SessionIDs;
+	std::set<int> m_SessionIDs;
 	
 	std::list<TcpEvent*> m_RecvDatas;
 	std::vector<std::string> m_ItsItems;
-	set::set<ItsInsertOrderKey*> m_InsertOrderKeys;
+	std::set<ItsInsertOrderKey*> m_InsertOrderKeys;
 };
 

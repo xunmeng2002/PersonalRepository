@@ -25,7 +25,7 @@ public:
 		std::string sql = T::CreateSql();
 		WRITE_LOG(LogLevel::Debug, "CreateSql SQL:[%s]", sql.c_str());
 
-		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, "CreateTable", &m_ErrorMsg);
+		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, (void*)"CreateTable", &m_ErrorMsg);
 		if (rc != SQLITE_OK)
 		{
 			WRITE_LOG(LogLevel::Warning, "SQL error: %s", m_ErrorMsg);
@@ -39,7 +39,7 @@ public:
 		std::string sql = std::string("DELETE FROM ") + T::TableName + ";";
 		WRITE_LOG(LogLevel::Debug, "TruncateSql SQL:[%s]", sql.c_str());
 
-		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, "TruncateTable", &m_ErrorMsg);
+		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, (void*)"TruncateTable", &m_ErrorMsg);
 		if (rc != SQLITE_OK)
 		{
 			WRITE_LOG(LogLevel::Warning, "SQL error: %s", m_ErrorMsg);
@@ -53,7 +53,7 @@ public:
 		std::string sql = field->InsertSql();
 		WRITE_LOG(LogLevel::Debug, "InsertRecord SQL:[%s]", sql.c_str());
 
-		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, "InsertRecord", &m_ErrorMsg);
+		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, (void*)"InsertRecord", &m_ErrorMsg);
 		if (rc != SQLITE_OK)
 		{
 			WRITE_LOG(LogLevel::Warning, "SQL error: %s", m_ErrorMsg);

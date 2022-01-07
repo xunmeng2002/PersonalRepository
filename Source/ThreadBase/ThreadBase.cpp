@@ -5,7 +5,7 @@
 
 
 ThreadBase::ThreadBase(const char* name)
-	:m_ShouldRun(false)
+	:m_ShouldRun(false), m_TimeOut(1000)
 {
 	m_ThreadName = name;
 }
@@ -13,6 +13,10 @@ ThreadBase::~ThreadBase()
 {
 }
 
+void ThreadBase::SetTimeOut(int milliSeconds)
+{
+	m_TimeOut = std::chrono::milliseconds(milliSeconds);
+}
 bool ThreadBase::Start()
 {
 	if (m_ShouldRun.load())
@@ -59,7 +63,7 @@ void ThreadBase::ThreadExit()
 void ThreadBase::CheckEvent()
 {
 	std::unique_lock<std::mutex> guard(m_ThreadMutex);
-	m_ThreadConditionVariable.wait_for(guard, std::chrono::seconds(1), [&] {return !m_Events.empty();});
+	m_ThreadConditionVariable.wait_for(guard, m_TimeOut, [&] {return !m_Events.empty();});
 }
 Event* ThreadBase::GetEvent()
 {

@@ -1,6 +1,5 @@
-#include <list>
 #pragma once
-
+#include <list>
 
 template <typename T>
 class MemCacheTemplate

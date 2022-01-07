@@ -9,7 +9,7 @@ public:
 	ItsReqQryPrimaryAccountInfo(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -26,7 +26,7 @@ public:
 	std::string Unknown;
 	std::string ChannelID;
 
-	static constexpr char* TableName = "t_ItsReqQryPrimaryAccountInfo";
+	static constexpr const char* TableName = "t_ItsReqQryPrimaryAccountInfo";
 private:
 	char m_Buff[4096];
 };
@@ -38,7 +38,7 @@ public:
 	ItsRspQryPrimaryAccountInfo(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -54,7 +54,7 @@ public:
 	std::string Password;
 	std::string Port;
 
-	static constexpr char* TableName = "t_ItsRspQryPrimaryAccountInfo";
+	static constexpr const char* TableName = "t_ItsRspQryPrimaryAccountInfo";
 private:
 	char m_Buff[4096];
 };
@@ -66,7 +66,7 @@ public:
 	ItsInsertOrder(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -99,7 +99,7 @@ public:
 	std::string AccountID;
 	std::string TradingDay;
 
-	static constexpr char* TableName = "t_ItsInsertOrder";
+	static constexpr const char* TableName = "t_ItsInsertOrder";
 private:
 	char m_Buff[4096];
 };
@@ -111,7 +111,7 @@ public:
 	ItsInsertOrderCancel(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -136,7 +136,7 @@ public:
 	std::string Direction;
 	std::string TradingDay;
 
-	static constexpr char* TableName = "t_ItsInsertOrderCancel";
+	static constexpr const char* TableName = "t_ItsInsertOrderCancel";
 private:
 	char m_Buff[4096];
 };
@@ -148,7 +148,7 @@ public:
 	ItsRspOrder(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -161,7 +161,7 @@ public:
 	std::string ErrorMsg;
 	std::string TradingDay;
 
-	static constexpr char* TableName = "t_ItsRspOrder";
+	static constexpr const char* TableName = "t_ItsRspOrder";
 private:
 	char m_Buff[4096];
 };
@@ -173,7 +173,7 @@ public:
 	ItsOrder(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -218,7 +218,7 @@ public:
 	std::string IsSwapOrder;
 	std::string Reserve5;
 
-	static constexpr char* TableName = "t_ItsOrder";
+	static constexpr const char* TableName = "t_ItsOrder";
 private:
 	char m_Buff[4096];
 };
@@ -230,7 +230,7 @@ public:
 	ItsTrade(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -262,7 +262,7 @@ public:
 	std::string Reserve7;
 	std::string Reserve8;
 
-	static constexpr char* TableName = "t_ItsTrade";
+	static constexpr const char* TableName = "t_ItsTrade";
 private:
 	char m_Buff[4096];
 };
@@ -274,7 +274,7 @@ public:
 	ItsErrRtnOrderCancel(const std::vector<std::string>& items);
 	int ToString(char* buff, int size);
 	int ToStream(char* buff, int size);
-	static string CreateSql();
+	static std::string CreateSql();
 	std::string InsertSql();
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
@@ -297,7 +297,7 @@ public:
 	std::string ErrorMsg;
 	std::string TradingDay;
 
-	static constexpr char* TableName = "t_ItsErrRtnOrderCancel";
+	static constexpr const char* TableName = "t_ItsErrRtnOrderCancel";
 private:
 	char m_Buff[4096];
 };

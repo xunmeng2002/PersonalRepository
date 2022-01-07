@@ -17,7 +17,7 @@ public:
 	string TradingDay;
 	int MaxOrderLocalID;
 	
-	static constexpr char* TableName = "t_MdbOrderSequence";
+	static constexpr const char* TableName = "t_MdbOrderSequence";
 private:
 	char m_Buff[4096];
 };
@@ -35,7 +35,7 @@ public:
 	string AccountID;
 	string ExchangeID;
 	string InstrumentID;
-	int OrderLocalID;
+	string OrderLocalID;
 	string OrderSysID;
 	Direction Direction;
 	OffsetFlag OffsetFlag;
@@ -49,10 +49,12 @@ public:
 	string RequestID;
 	string FrontID;
 	int SessionID;
-	string InsertTime;
-	string CancelTime;
 	string InsertDate;
-	string TradingDay;
+	string InsertTime;
+	string ExchangeInsertDate;
+	string ExchangeInsertTime;
+	string CancelDate;
+	string CancelTime;
 	ForceCloseReason ForceCloseReason;
 	IsLocalOrder IsLocalOrder;
 	string UserProductInfo;
@@ -61,10 +63,10 @@ public:
 	VolumeCondition VolumeCondition;
 	int MinVolume;
 	ContingentCondition ContingentCondition;
-	string StopPrice;
-	string IsSwapOrder;
+	double StopPrice;
+	int IsSwapOrder;
 	
-	static constexpr char* TableName = "t_MdbOrder";
+	static constexpr const char* TableName = "t_MdbOrder";
 private:
 	char m_Buff[4096];
 };
@@ -82,8 +84,8 @@ public:
 	string AccountID;
 	string ExchangeID;
 	string InstrumentID;
-	int OrderLocalID;
-	int OrigOrderLocalID;
+	string OrderLocalID;
+	string OrigOrderLocalID;
 	string OrderSysID;
 	Direction Direction;
 	string OrderRef;
@@ -91,9 +93,10 @@ public:
 	int SessionID;
 	int ErrorID;
 	string ErrorMsg;
-	string TradingDay;
+	string InsertDate;
+	string CancelDate;
 	
-	static constexpr char* TableName = "t_MdbOrderCancel";
+	static constexpr const char* TableName = "t_MdbOrderCancel";
 private:
 	char m_Buff[4096];
 };
@@ -117,13 +120,12 @@ public:
 	HedgeFlag HedgeFlag;
 	double Price;
 	int Volume;
-	int OrderLocalID;
+	string OrderLocalID;
 	string OrderSysID;
 	string TradeTime;
 	string TradeDate;
-	string TradingDay;
 	
-	static constexpr char* TableName = "t_MdbTrade";
+	static constexpr const char* TableName = "t_MdbTrade";
 private:
 	char m_Buff[4096];
 };

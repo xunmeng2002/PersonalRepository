@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 
-
 !!entry enums!!
 !!travel!!
 enum class !!@name!! : char

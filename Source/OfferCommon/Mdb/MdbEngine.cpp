@@ -181,7 +181,11 @@ void MdbEngine::HandleInsertOrder(int sessionID, ItsInsertOrder* field)
 	order->RequestID = field->RequestID;
 	order->FrontID = "";
 	order->SessionID = sessionID;
+	order->InsertDate = field->TradingDay;
 	order->InsertTime = GetLocalTime();
+	order->ExchangeInsertDate = "";
+	order->ExchangeInsertTime = "";
+	order->CancelDate = "";
 	order->CancelTime = "";
 	order->InsertDate = field->TradingDay;
 	order->TradingDay = field->TradingDay;
@@ -192,8 +196,8 @@ void MdbEngine::HandleInsertOrder(int sessionID, ItsInsertOrder* field)
 	order->VolumeCondition = ConvertToVolumeCondition(field->VolumeCondition);
 	order->MinVolume = atoi(field->MinVolume.c_str());
 	order->ContingentCondition = ContingentCondition::Immediately;
-	order->StopPrice = "0";
-	order->IsSwapOrder = "0";
+	order->StopPrice = 0.0;
+	order->IsSwapOrder = 0;
 
 	Mdb::GetInstance().InsertRecord(order);
 	m_Orders.insert(order);
@@ -205,14 +209,13 @@ void MdbEngine::HandleInsertOrderCancel(int sessionID, ItsInsertOrderCancel* fie
 {
 	field->ToString(m_LogBuff, BuffSize);
 	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
-	if (field->OrderSysID.empty())
+	auto order = GetOrder(field->BrokerOrderID, field->TradingDay, field->OrderSysID);
+	if (!order)
 	{
-		SendResponse(sessionID, field->SequenceNo, "-1", "交易所报单编号不能为空");
-		return;
-	}
-	auto order = GetOrderFromOrderSysID(field->OrderSysID);
-	if (order == nullptr)
-	{
+		static char buff[256];
+		sprintf(buff, "找不到报单，委托日期:[%s], 交易所报单编号:[%s]，经纪公司报单编号:[%s]", field->TradingDay.c_str(), field->OrderSysID.c_str(), field->BrokerOrderID.c_str());
+		SendResponse(sessionID, field->SequenceNo, "-1", buff);
+
 		field->ToString(m_LogBuff, BuffSize);
 		WRITE_LOG(LogLevel::Warning, "Cannot find Order While Cancel Order. %s", m_LogBuff);
 	}
@@ -222,15 +225,16 @@ void MdbEngine::HandleInsertOrderCancel(int sessionID, ItsInsertOrderCancel* fie
 	orderCancel->ExchangeID = field->ExchangeID;
 	orderCancel->InstrumentID = field->InstrumentID;
 	orderCancel->OrderLocalID = GetNextOrderLocalID(field->TradingDay);
-	orderCancel->OrigOrderLocalID = order == nullptr ? 0 :  order->OrderLocalID;
-	orderCancel->OrderSysID = field->OrderSysID;
+	orderCancel->OrigOrderLocalID = order->OrderLocalID;
+	orderCancel->OrderSysID = order->OrderSysID;
 	orderCancel->Direction = ConvertToDirection(field->Direction);
 	orderCancel->OrderRef = field->OrderRef;
 	orderCancel->FrontID = field->FrontID;
 	orderCancel->SessionID = atoi(field->SessionID.c_str());
 	orderCancel->ErrorID = 0;
 	orderCancel->ErrorMsg = "";
-	orderCancel->TradingDay = field->TradingDay;
+	orderCancel->InsertDate = field->TradingDay;
+	orderCancel->CancelDate = GetLocalDate();
 
 	Mdb::GetInstance().InsertRecord(orderCancel);
 	m_OrderCancels.insert(orderCancel);
@@ -257,11 +261,7 @@ void MdbEngine::HandleRtnOrder(Order* field)
 {
 	field->ToString(m_LogBuff, BuffSize);
 	WRITE_LOG(LogLevel::Info, "HandleRtnOrder: %s", m_LogBuff);
-	auto order = GetOrderFromOrderSysID(field->OrderSysID);
-	if (order == nullptr && field->OrderLocalID > 0)
-	{
-		order = GetOrderFromOrderLocalID(field->OrderLocalID);
-	}
+	auto order = GetOrder(field->OrderLocalID, field->InsertDate, field->OrderSysID);
 	if (order != nullptr)
 	{
 		order->OrderSysID = field->OrderSysID;
@@ -271,6 +271,9 @@ void MdbEngine::HandleRtnOrder(Order* field)
 		}
 		order->OrderStatus = field->OrderStatus;
 		order->StatusMsg = field->StatusMsg;
+		order->ExchangeInsertDate = field->ExchangeInsertDate;
+		order->ExchangeInsertTime = field->ExchangeInsertTime;
+		order->CancelDate = field->CancelDate;
 		order->CancelTime = field->CancelTime;
 		order->IsLocalOrder = IsLocalOrder::Local;
 		delete field;
@@ -288,7 +291,7 @@ void MdbEngine::HandleRtnOrder(Order* field)
 
 	ItsOrder itsOrder;
 	itsOrder.ProtocolType = "B";
-	itsOrder.Command = ItoA(CMS_CID_BROADCAST_MA_ORDER);
+	itsOrder.Command = to_string(CMS_CID_BROADCAST_MA_ORDER);
 	itsOrder.ChannelID = m_ChannelID;
 	itsOrder.ExchangeID = order->ExchangeID;
 	itsOrder.InstrumentID = order->InstrumentID;
@@ -305,13 +308,13 @@ void MdbEngine::HandleRtnOrder(Order* field)
 	itsOrder.ForceCloseReason = (char)order->ForceCloseReason;
 	itsOrder.RequestID = order->RequestID;
 	itsOrder.FrontID = order->FrontID;
-	itsOrder.SessionID = ItoA(order->SessionID);
-	itsOrder.BrokerOrderID = ItoA(order->OrderLocalID);
-	itsOrder.VolumeTotalOriginal = ItoA(order->Volume);
-	itsOrder.VolumeTraded = ItoA(order->VolumeTraded);
+	itsOrder.SessionID = to_string(order->SessionID);
+	itsOrder.BrokerOrderID = order->OrderLocalID;
+	itsOrder.VolumeTotalOriginal = to_string(order->Volume);
+	itsOrder.VolumeTraded = to_string(order->VolumeTraded);
 	itsOrder.InsertDate = order->InsertDate;
-	itsOrder.TradingDay = order->TradingDay;
-	itsOrder.LimitPrice = FtoA(order->Price);
+	itsOrder.TradingDay = order->InsertDate;
+	itsOrder.LimitPrice = to_string(order->Price);
 	itsOrder.IsLocalOrder = (char)order->IsLocalOrder;
 	itsOrder.UserProductInfo = order->UserProductInfo;
 	itsOrder.TimeCondition = (char)order->TimeCondition;
@@ -319,8 +322,8 @@ void MdbEngine::HandleRtnOrder(Order* field)
 	itsOrder.VolumeCondition = (char)order->VolumeCondition;
 	itsOrder.MinVolume = order->MinVolume;
 	itsOrder.ContingentCondition = (char)order->ContingentCondition;
-	itsOrder.StopPrice = order->StopPrice;
-	itsOrder.IsSwapOrder = order->IsSwapOrder;
+	itsOrder.StopPrice = to_string(order->StopPrice);
+	itsOrder.IsSwapOrder = to_string(order->IsSwapOrder);
 
 	m_ItsPublisher->OnRtnOrder(&itsOrder);
 }
@@ -336,7 +339,7 @@ void MdbEngine::HandleRtnTrade(Trade* field)
 
 	ItsTrade itsTrade;
 	itsTrade.ProtocolType = "B";
-	itsTrade.Command = ItoA(CMS_CID_BROADCAST_MA_TRADE);
+	itsTrade.Command = to_string(CMS_CID_BROADCAST_MA_TRADE);
 	itsTrade.ChannelID = m_ChannelID;
 	itsTrade.ExchangeID = field->ExchangeID;
 	itsTrade.InstrumentID = field->InstrumentID;
@@ -347,11 +350,11 @@ void MdbEngine::HandleRtnTrade(Trade* field)
 	itsTrade.Direction = (char)field->Direction;
 	itsTrade.OffsetFlag = (char)field->OffsetFlag;
 	itsTrade.HedgeFlag = (char)field->HedgeFlag;
-	itsTrade.BrokerOrderID = ItoA(field->OrderLocalID);
-	itsTrade.Volume = ItoA(field->Volume);
+	itsTrade.BrokerOrderID = field->OrderLocalID;
+	itsTrade.Volume = to_string(field->Volume);
 	itsTrade.TradeDate = field->TradeDate;
-	itsTrade.TradingDay = field->TradingDay;
-	itsTrade.Price = FtoA(field->Price);
+	itsTrade.TradingDay = field->TradeDate;
+	itsTrade.Price = to_string(field->Price);
 	itsTrade.TradeType = (char)TradeType::Common;
 	itsTrade.ExchangeTradeID = field->TradeID;
 
@@ -381,22 +384,22 @@ void MdbEngine::HandleErrRtnOrderCancel(OrderCancel* field)
 
 	ItsErrRtnOrderCancel itsErrRtnOrderCancel;
 	itsErrRtnOrderCancel.ProtocolType = "B";
-	itsErrRtnOrderCancel.Command = ItoA(CMS_CID_BROADCAST_MA_CANCEL_FAILED);
+	itsErrRtnOrderCancel.Command = to_string(CMS_CID_BROADCAST_MA_CANCEL_FAILED);
 	itsErrRtnOrderCancel.ChannelID = m_ChannelID;
 	itsErrRtnOrderCancel.BrokerOrderID = ItoA(orderCancel->OrigOrderLocalID);
 	itsErrRtnOrderCancel.OrderRef = orderCancel->OrderRef;
 	itsErrRtnOrderCancel.FrontID = orderCancel->FrontID;
-	itsErrRtnOrderCancel.SessionID = ItoA(orderCancel->SessionID);
+	itsErrRtnOrderCancel.SessionID = to_string(orderCancel->SessionID);
 	itsErrRtnOrderCancel.ExchangeID = orderCancel->ExchangeID;
 	itsErrRtnOrderCancel.OrderSysID = orderCancel->OrderSysID;
-	itsErrRtnOrderCancel.ErrorID = ItoA(orderCancel->ErrorID);
+	itsErrRtnOrderCancel.ErrorID = to_string(orderCancel->ErrorID);
 	itsErrRtnOrderCancel.ErrorMsg = orderCancel->ErrorMsg;
-	itsErrRtnOrderCancel.TradingDay = GetLocalDate();
+	itsErrRtnOrderCancel.TradingDay = orderCancel->CancelDate;
 	m_ItsPublisher->OnErrRtnOrderCancel(&itsErrRtnOrderCancel);
 }
 
 
-int MdbEngine::GetNextOrderLocalID(const string& tradingDay)
+string MdbEngine::GetNextOrderLocalID(const string& tradingDay)
 {
 	auto it = find_if(m_OrderSequences.begin(), m_OrderSequences.end(), [&](OrderSequence* orderSequence) {
 		return orderSequence->TradingDay == tradingDay;
@@ -416,9 +419,23 @@ int MdbEngine::GetNextOrderLocalID(const string& tradingDay)
 		orderLocalID = ++((*it)->MaxOrderLocalID);
 		Mdb::GetInstance().InsertRecord(*it);
 	}
-	return orderLocalID;
+	sprintf(m_OrderLocalIDBuff, "%s%08d", tradingDay.c_str(), orderLocalID);
+	return string(m_OrderLocalIDBuff);
 }
-Order* MdbEngine::GetOrderFromOrderSysID(const string& orderSysID)
+Order* MdbEngine::GetOrder(const string& orderLocalID, const string& tradingDay, const string& orderSysID)
+{
+	Order* order = nullptr;
+	if (!orderLocalID.empty())
+	{
+		order = GetOrderFromOrderLocalID(orderLocalID);
+	}
+	if (!order && !tradingDay.empty() && !orderSysID.empty())
+	{
+		order = GetOrderFromOrderSysID(tradingDay, orderSysID);
+	}
+	return order;
+}
+Order* MdbEngine::GetOrderFromOrderSysID(const string& tradingDay, const string& orderSysID)
 {
 	auto it = find_if(m_Orders.begin(), m_Orders.end(), [&](Order* order) {
 		return order->OrderSysID == orderSysID;
@@ -429,7 +446,7 @@ Order* MdbEngine::GetOrderFromOrderSysID(const string& orderSysID)
 	}
 	return *it;
 }
-Order* MdbEngine::GetOrderFromOrderLocalID(int orderLocalID)
+Order* MdbEngine::GetOrderFromOrderLocalID(const string& orderLocalID)
 {
 	auto it = find_if(m_Orders.begin(), m_Orders.end(), [&](Order* order) {
 		return order->OrderLocalID == orderLocalID;
@@ -440,7 +457,7 @@ Order* MdbEngine::GetOrderFromOrderLocalID(int orderLocalID)
 	}
 	return *it;
 }
-OrderCancel* MdbEngine::GetOrderCancelFromOrderLocalID(int orderLocalID)
+OrderCancel* MdbEngine::GetOrderCancelFromOrderLocalID(const string& orderLocalID)
 {
 	auto it = find_if(m_OrderCancels.begin(), m_OrderCancels.end(), [&](OrderCancel* orderCancel) {
 		return orderCancel->OrderLocalID == orderLocalID;
@@ -454,7 +471,7 @@ OrderCancel* MdbEngine::GetOrderCancelFromOrderLocalID(int orderLocalID)
 bool MdbEngine::CheckAndAddTrade(Trade* trade)
 {
 	auto it = find_if(m_Trades.begin(), m_Trades.end(), [&](Trade* item) {
-		return item->TradingDay == trade->TradingDay && item->OrderSysID == trade->OrderSysID && item->TradeID == trade->TradeID;
+		return item->TradeDate == trade->TradeDate && item->OrderSysID == trade->OrderSysID && item->TradeID == trade->TradeID;
 		});
 	if (it != m_Trades.end())
 	{
