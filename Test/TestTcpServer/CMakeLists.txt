@@ -1,4 +1,4 @@
-﻿SET(PROJECT_NAME "TcpServerTest")
+﻿SET(PROJECT_NAME "TestTcpServer")
 project(${PROJECT_NAME})
 
 

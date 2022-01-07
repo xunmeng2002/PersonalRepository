@@ -1,4 +1,4 @@
-SET(PROJECT_NAME "TcpClientTest")
+SET(PROJECT_NAME "TestTcpClient")
 project(${PROJECT_NAME})
 
 
