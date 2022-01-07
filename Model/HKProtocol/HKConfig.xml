@@ -1,0 +1,12 @@
+<root>
+	<items>
+		<item name="ChannelID" type="int"></item>
+		<item name="ListenPort" type="int"></item>
+		<item name="BroadCastPort" type="int"></item>
+		<item name="User" type="string"></item>
+		<item name="Password" type="string"></item>
+		<item name="HKAddress" type="string"></item>
+		<item name="HKPort" type="int"></item>
+		<item name="AppID" type="string"></item>
+	</items>
+</root>

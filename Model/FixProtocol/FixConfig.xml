@@ -1,0 +1,29 @@
+<root>
+	<items>
+		<item name="ChannelID" type="string"></item>
+		<item name="ListenPort" type="int"></item>
+		<item name="BroadCastPort" type="int"></item>
+		<item name="CommodityFile" type="string"></item>
+		<item name="CmeGlobexIP" type="string"></item>
+		<item name="CmeGlobexPrimaryPort" type="int"></item>
+		<item name="CmeGlobexBackupPort" type="int"></item>
+		<item name="BeginString" type="string"></item>
+		<item name="LogonSenderCompID" type="string"></item>
+		<item name="SenderCompID" type="string"></item>
+		<item name="SenderSubID" type="string"></item>
+		<item name="TargetCompID" type="string"></item>
+		<item name="TargetSubID" type="string"></item>
+		<item name="SenderLocationID" type="string"></item>
+		<item name="HeartBtInt" type="int"></item>
+		<item name="ResetSeqNumFlag" type="bool"></item>
+		<item name="ApplicationSystemName" type="string"></item>
+		<item name="ApplicationSystemVersion" type="string"></item>
+		<item name="ApplicationSystemVendor" type="string"></item>
+		<item name="AccessID" type="string"></item>
+		<item name="EncryptedPasswordMethod" type="string"></item>
+		<item name="SecretKey" type="string"></item>
+		<item name="Account" type="string"></item>
+		<item name="RecordFixAuditTrail" type="bool"></item>
+		<item name="FixAuditTrailFileName" type="string"></item>
+	</items>
+</root>
