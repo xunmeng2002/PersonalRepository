@@ -2,7 +2,7 @@
 #include <string>
 #include "MdbEnumDict.h"
 
-
+using std::string;
 
 !!entry tables!!
 !!travel!!

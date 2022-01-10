@@ -2,7 +2,6 @@
 #include  "Logger.h"
 #include "TcpSelectClient.h"
 #include "MemCacheTemplateSingleton.h"
-#include "Config.h"
 #include "DataType.h"
 #include "Event.h"
 #include "ItsUtility.h"
@@ -11,13 +10,13 @@
 #include "TimeUtility.h"
 #include "Mdb.h"
 
+using std::to_string;
 
 
-MdbEngine::MdbEngine()
-	:ThreadBase("MdbEngine"), m_ItsPublisher(nullptr), m_MdbSubscriber(nullptr), m_Mdb(nullptr)
+MdbEngine::MdbEngine(const std::string& channelID)
+	:ThreadBase("MdbEngine"), m_ItsPublisher(nullptr), m_MdbSubscriber(nullptr), m_Mdb(nullptr), m_ChannelID(channelID)
 {
 	m_LogBuff = new char[BuffSize];
-	m_ChannelID = Config::GetInstance().ChannelID;
 }
 MdbEngine::~MdbEngine()
 {
@@ -187,8 +186,6 @@ void MdbEngine::HandleInsertOrder(int sessionID, ItsInsertOrder* field)
 	order->ExchangeInsertTime = "";
 	order->CancelDate = "";
 	order->CancelTime = "";
-	order->InsertDate = field->TradingDay;
-	order->TradingDay = field->TradingDay;
 	order->ForceCloseReason = ForceCloseReason::NotForceClose;
 	order->IsLocalOrder = IsLocalOrder::Local;
 	order->TimeCondition = ConvertToTimeCondition(field->TimeCondition);
@@ -386,7 +383,7 @@ void MdbEngine::HandleErrRtnOrderCancel(OrderCancel* field)
 	itsErrRtnOrderCancel.ProtocolType = "B";
 	itsErrRtnOrderCancel.Command = to_string(CMS_CID_BROADCAST_MA_CANCEL_FAILED);
 	itsErrRtnOrderCancel.ChannelID = m_ChannelID;
-	itsErrRtnOrderCancel.BrokerOrderID = ItoA(orderCancel->OrigOrderLocalID);
+	itsErrRtnOrderCancel.BrokerOrderID = orderCancel->OrigOrderLocalID;
 	itsErrRtnOrderCancel.OrderRef = orderCancel->OrderRef;
 	itsErrRtnOrderCancel.FrontID = orderCancel->FrontID;
 	itsErrRtnOrderCancel.SessionID = to_string(orderCancel->SessionID);

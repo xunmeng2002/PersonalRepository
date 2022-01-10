@@ -26,15 +26,15 @@ int Its!!@name!!::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "!!entry items!!!!travel!!%s|!!leave!!"!!travel!!, !!@name!!.c_str()!!leave!!!!leave!!);
 }
-string Its!!@name!!::CreateSql()
+std::string Its!!@name!!::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_Its!!@name!!(!!entry items!!!!travel!!!!@name!! char(!!@len!!), !!leave!!!!leave!!!!entry primarykey!!PRIMARY KEY(!!travel!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!!!@name!!!!leave!!!!leave!!));";
 }
-string Its!!@name!!::InsertSql()
+std::string Its!!@name!!::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_Its!!@name!! VALUES(!!entry items!!!!travel!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!\"%s\"!!leave!!);"!!travel!!, !!@name!!.c_str()!!leave!!!!leave!!);
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int Its!!@name!!::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {

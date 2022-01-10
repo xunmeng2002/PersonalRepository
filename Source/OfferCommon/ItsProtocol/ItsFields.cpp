@@ -30,15 +30,15 @@ int ItsReqQryPrimaryAccountInfo::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), Unknown.c_str(), ChannelID.c_str());
 }
-string ItsReqQryPrimaryAccountInfo::CreateSql()
+std::string ItsReqQryPrimaryAccountInfo::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsReqQryPrimaryAccountInfo(ProtocolType char(32), Command char(32), SequenceNo char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), Reserve5 char(32), Reserve6 char(32), Unknown char(32), ChannelID char(32), PRIMARY KEY(SequenceNo));";
 }
-string ItsReqQryPrimaryAccountInfo::InsertSql()
+std::string ItsReqQryPrimaryAccountInfo::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsReqQryPrimaryAccountInfo VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), Unknown.c_str(), ChannelID.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsReqQryPrimaryAccountInfo::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -86,15 +86,15 @@ int ItsRspQryPrimaryAccountInfo::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), SequenceNo.c_str(), IsLast.c_str(), Reserve1.c_str(), ErrorCode.c_str(), ErrorMessage.c_str(), ChannelID.c_str(), PrimaryAccountID.c_str(), Password.c_str(), Port.c_str());
 }
-string ItsRspQryPrimaryAccountInfo::CreateSql()
+std::string ItsRspQryPrimaryAccountInfo::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsRspQryPrimaryAccountInfo(ProtocolType char(32), SequenceNo char(32), IsLast char(32), Reserve1 char(32), ErrorCode char(32), ErrorMessage char(32), ChannelID char(32), PrimaryAccountID char(32), Password char(32), Port char(32), PRIMARY KEY(SequenceNo));";
 }
-string ItsRspQryPrimaryAccountInfo::InsertSql()
+std::string ItsRspQryPrimaryAccountInfo::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsRspQryPrimaryAccountInfo VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), SequenceNo.c_str(), IsLast.c_str(), Reserve1.c_str(), ErrorCode.c_str(), ErrorMessage.c_str(), ChannelID.c_str(), PrimaryAccountID.c_str(), Password.c_str(), Port.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsRspQryPrimaryAccountInfo::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -158,15 +158,15 @@ int ItsInsertOrder::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), Price.c_str(), Direction.c_str(), Reserve7.c_str(), CombHedgeFlag.c_str(), Volume.c_str(), OrderPriceType.c_str(), RequestID.c_str(), Reserve8.c_str(), TimeCondition.c_str(), GTDDate.c_str(), VolumeCondition.c_str(), MinVolume.c_str(), IsSwapOrder.c_str(), ForceCloseReason.c_str(), AccountID.c_str(), TradingDay.c_str());
 }
-string ItsInsertOrder::CreateSql()
+std::string ItsInsertOrder::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsInsertOrder(ProtocolType char(32), Command char(32), SequenceNo char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), Reserve5 char(32), Reserve6 char(32), ExchangeID char(32), InstrumentID char(32), Price char(32), Direction char(32), Reserve7 char(32), CombHedgeFlag char(32), Volume char(32), OrderPriceType char(32), RequestID char(32), Reserve8 char(32), TimeCondition char(32), GTDDate char(32), VolumeCondition char(32), MinVolume char(32), IsSwapOrder char(32), ForceCloseReason char(32), AccountID char(32), TradingDay char(32), PRIMARY KEY(TradingDay, RequestID));";
 }
-string ItsInsertOrder::InsertSql()
+std::string ItsInsertOrder::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsInsertOrder VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), Price.c_str(), Direction.c_str(), Reserve7.c_str(), CombHedgeFlag.c_str(), Volume.c_str(), OrderPriceType.c_str(), RequestID.c_str(), Reserve8.c_str(), TimeCondition.c_str(), GTDDate.c_str(), VolumeCondition.c_str(), MinVolume.c_str(), IsSwapOrder.c_str(), ForceCloseReason.c_str(), AccountID.c_str(), TradingDay.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsInsertOrder::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -239,15 +239,15 @@ int ItsInsertOrderCancel::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), ChannelOrderID.c_str(), BrokerOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
 }
-string ItsInsertOrderCancel::CreateSql()
+std::string ItsInsertOrderCancel::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsInsertOrderCancel(ProtocolType char(32), Command char(32), SequenceNo char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), Reserve5 char(32), Reserve6 char(32), OrderRef char(32), FrontID char(32), SessionID char(32), ExchangeID char(32), OrderSysID char(32), ChannelOrderID char(32), BrokerOrderID char(32), InstrumentID char(32), Direction char(32), TradingDay char(32), PRIMARY KEY(TradingDay, SequenceNo));";
 }
-string ItsInsertOrderCancel::InsertSql()
+std::string ItsInsertOrderCancel::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsInsertOrderCancel VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), ChannelOrderID.c_str(), BrokerOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsInsertOrderCancel::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -300,15 +300,15 @@ int ItsRspOrder::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), ErrorID.c_str(), ErrorMsg.c_str(), TradingDay.c_str());
 }
-string ItsRspOrder::CreateSql()
+std::string ItsRspOrder::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsRspOrder(ProtocolType char(32), SequenceNo char(32), Reserve1 char(32), Reserve2 char(32), ErrorID char(32), ErrorMsg char(255), TradingDay char(32), PRIMARY KEY(TradingDay, SequenceNo));";
 }
-string ItsRspOrder::InsertSql()
+std::string ItsRspOrder::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsRspOrder VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), ErrorID.c_str(), ErrorMsg.c_str(), TradingDay.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsRspOrder::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -381,15 +381,15 @@ int ItsOrder::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), ChannelID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderRef.c_str(), InsertTime.c_str(), CancelTime.c_str(), OrderSysID.c_str(), StatusMsg.c_str(), Direction.c_str(), CombOffsetFlag.c_str(), CombHedgeFlag.c_str(), OrderPriceType.c_str(), OrderStatus.c_str(), ForceCloseReason.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID.c_str(), BrokerOrderID.c_str(), VolumeTotalOriginal.c_str(), VolumeTraded.c_str(), InsertDate.c_str(), TradingDay.c_str(), LimitPrice.c_str(), IsLocalOrder.c_str(), UserProductInfo.c_str(), TimeCondition.c_str(), GTDDate.c_str(), VolumeCondition.c_str(), MinVolume.c_str(), ContingentCondition.c_str(), StopPrice.c_str(), IsSwapOrder.c_str(), Reserve5.c_str());
 }
-string ItsOrder::CreateSql()
+std::string ItsOrder::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsOrder(ProtocolType char(32), Command char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), ChannelID char(32), ExchangeID char(32), InstrumentID char(32), OrderRef char(32), InsertTime char(32), CancelTime char(32), OrderSysID char(32), StatusMsg char(32), Direction char(32), CombOffsetFlag char(32), CombHedgeFlag char(32), OrderPriceType char(32), OrderStatus char(32), ForceCloseReason char(32), RequestID char(32), FrontID char(32), SessionID char(32), BrokerOrderID char(32), VolumeTotalOriginal char(32), VolumeTraded char(32), InsertDate char(32), TradingDay char(32), LimitPrice char(32), IsLocalOrder char(32), UserProductInfo char(32), TimeCondition char(32), GTDDate char(32), VolumeCondition char(32), MinVolume char(32), ContingentCondition char(32), StopPrice char(32), IsSwapOrder char(32), Reserve5 char(32), PRIMARY KEY(TradingDay, ExchangeID, InstrumentID, Direction, BrokerOrderID));";
 }
-string ItsOrder::InsertSql()
+std::string ItsOrder::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsOrder VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), ChannelID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderRef.c_str(), InsertTime.c_str(), CancelTime.c_str(), OrderSysID.c_str(), StatusMsg.c_str(), Direction.c_str(), CombOffsetFlag.c_str(), CombHedgeFlag.c_str(), OrderPriceType.c_str(), OrderStatus.c_str(), ForceCloseReason.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID.c_str(), BrokerOrderID.c_str(), VolumeTotalOriginal.c_str(), VolumeTraded.c_str(), InsertDate.c_str(), TradingDay.c_str(), LimitPrice.c_str(), IsLocalOrder.c_str(), UserProductInfo.c_str(), TimeCondition.c_str(), GTDDate.c_str(), VolumeCondition.c_str(), MinVolume.c_str(), ContingentCondition.c_str(), StopPrice.c_str(), IsSwapOrder.c_str(), Reserve5.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsOrder::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -481,15 +481,15 @@ int ItsTrade::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), ChannelID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderRef.c_str(), OrderSysID.c_str(), TradeTime.c_str(), TradeID.c_str(), Direction.c_str(), OffsetFlag.c_str(), HedgeFlag.c_str(), BrokerOrderID.c_str(), Volume.c_str(), TradeDate.c_str(), TradingDay.c_str(), Price.c_str(), Reserve5.c_str(), TradeType.c_str(), ExchangeTradeID.c_str(), Reserve7.c_str(), Reserve8.c_str());
 }
-string ItsTrade::CreateSql()
+std::string ItsTrade::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsTrade(ProtocolType char(32), Command char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), ChannelID char(32), ExchangeID char(32), InstrumentID char(32), OrderRef char(32), OrderSysID char(32), TradeTime char(32), TradeID char(32), Direction char(32), OffsetFlag char(32), HedgeFlag char(32), BrokerOrderID char(32), Volume char(32), TradeDate char(32), TradingDay char(32), Price char(32), Reserve5 char(32), TradeType char(32), ExchangeTradeID char(32), Reserve7 char(32), Reserve8 char(32), PRIMARY KEY(TradingDay, ExchangeID, InstrumentID, Direction, TradeID));";
 }
-string ItsTrade::InsertSql()
+std::string ItsTrade::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsTrade VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), ChannelID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderRef.c_str(), OrderSysID.c_str(), TradeTime.c_str(), TradeID.c_str(), Direction.c_str(), OffsetFlag.c_str(), HedgeFlag.c_str(), BrokerOrderID.c_str(), Volume.c_str(), TradeDate.c_str(), TradingDay.c_str(), Price.c_str(), Reserve5.c_str(), TradeType.c_str(), ExchangeTradeID.c_str(), Reserve7.c_str(), Reserve8.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsTrade::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -559,15 +559,15 @@ int ItsErrRtnOrderCancel::ToStream(char* buff, int size)
 {
 	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), ChannelID.c_str(), BrokerOrderID.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), Reserve5.c_str(), ErrorID.c_str(), ErrorMsg.c_str(), TradingDay.c_str());
 }
-string ItsErrRtnOrderCancel::CreateSql()
+std::string ItsErrRtnOrderCancel::CreateSql()
 {
 	return "CREATE TABLE IF NOT EXISTS t_ItsErrRtnOrderCancel(ProtocolType char(32), Command char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), ChannelID char(32), BrokerOrderID char(32), OrderRef char(32), FrontID char(32), SessionID char(32), ExchangeID char(32), OrderSysID char(32), Reserve5 char(32), ErrorID char(32), ErrorMsg char(255), TradingDay char(32), PRIMARY KEY(TradingDay, ExchangeID, BrokerOrderID, OrderSysID, OrderRef));";
 }
-string ItsErrRtnOrderCancel::InsertSql()
+std::string ItsErrRtnOrderCancel::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
 	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsErrRtnOrderCancel VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), ChannelID.c_str(), BrokerOrderID.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), Reserve5.c_str(), ErrorID.c_str(), ErrorMsg.c_str(), TradingDay.c_str());
-	return string(m_Buff);
+	return std::string(m_Buff);
 }
 int ItsErrRtnOrderCancel::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {

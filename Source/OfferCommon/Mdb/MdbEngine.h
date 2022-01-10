@@ -9,7 +9,7 @@ class MdbEngine : public ThreadBase, public ItsSubscriber, public MdbPublisher, 
 {
 	
 public:
-	MdbEngine();
+	MdbEngine(const std::string& channelID = 0);
 	~MdbEngine();
 	void RegisterItsPublisher(ItsPublisher* itsPublisher);
 	void RegisterSubscriber(MdbSubscriber* mdbSubscriber);

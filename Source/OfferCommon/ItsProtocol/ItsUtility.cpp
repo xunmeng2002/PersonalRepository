@@ -15,13 +15,13 @@ void GetItsItems(const char* buff, const char* end, std::vector<std::string>& it
 		}
 		else
 		{
-			items.push_back(string(p, pEnd));
+			items.push_back(std::string(p, pEnd));
 			p = pEnd + 1;
 		}
 	}
 	if (p < end)
 	{
-		items.push_back(string(p, end));
+		items.push_back(std::string(p, end));
 	}
 }
 

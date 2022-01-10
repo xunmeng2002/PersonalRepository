@@ -3,7 +3,7 @@
 
 !!entry enums!!
 !!travel!!
-!!@name!! ConvertTo!!@name!!(const string& value)
+!!@name!! ConvertTo!!@name!!(const std::string& value)
 {
 	return (!!@name!!)value[0];
 }
