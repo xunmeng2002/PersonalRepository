@@ -52,7 +52,7 @@ void TcpIOCPServer::ThreadExit()
 
 bool TcpIOCPServer::Bind()
 {
-    if (bind(m_InitSocket, (sockaddr*)&m_LocalAddress, sizeof(m_LocalAddress)) == SOCKET_ERROR)
+    if (bind(m_InitSocket, m_BindAddressInfo->ai_addr, m_BindAddressInfo->ai_addrlen) == SOCKET_ERROR)
     {
         WRITE_ERROR_LOG(WSAGetLastError(), "Bind Failed.");
         closesocket(m_InitSocket);

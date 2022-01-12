@@ -19,7 +19,7 @@ struct TcpEvent : public Event
 	~TcpEvent();
 	int SessionID;
 	std::string IP;
-	int Port;
+	std::string Port;
 	char* ReadPos;
 	char* Buff;
 	int Length;

@@ -13,7 +13,7 @@ public:
 	TcpIOCP(const char* name);
 	~TcpIOCP();
 
-	void SetLocalAddress(const char* ip = "127.0.0.1", int port = 0);
+	void SetBindAddressInfo(const char* ip = "127.0.0.1", int port = 0);
 	void RegisterSubscriber(TcpSubscriber* tcpSubscriber);
 	virtual bool Init();
 	virtual void Stop() override;
@@ -57,6 +57,8 @@ protected:
 	long long m_TotalRecvLen;
 
 	SOCKET m_InitSocket;
-	SOCKADDR_IN m_LocalAddress;
+	addrinfo* m_BindAddressInfo;
+	std::string m_IP;
+	std::string m_Port;
 };
 

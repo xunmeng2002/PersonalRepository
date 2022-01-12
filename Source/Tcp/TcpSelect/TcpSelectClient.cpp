@@ -5,6 +5,7 @@
 TcpSelectClient::TcpSelectClient()
 	:TcpSelectBase("TcpSelectClient")
 {
+	m_ConnectAddressInfo = nullptr;
 	FD_ZERO(&m_ConnectFds);
 }
 
@@ -21,18 +22,18 @@ void TcpSelectClient::Connect(const char* ip, int port)
 	OnEvent(tcpEvent);
 }
 
-void TcpSelectClient::DoConnect(const std::string& ip, int port)
+void TcpSelectClient::DoConnect(const std::string& ip, const std::string& port)
 {
-	m_RemoteAddress.sin_addr.S_un.S_addr = inet_addr(ip.c_str());
-	m_RemoteAddress.sin_port = htons(port);
+	auto ret = GetAddrinfo(ip.c_str(), port.c_str(), m_ConnectAddressInfo);
+	WRITE_LOG(LogLevel::Info, "DoConnect: GetAddrinfo ret[%d]", ret);
 
 	SOCKET socketID = socket(m_AF, m_Type, 0);
 	SetSockReuse(socketID);
 	SetSockUnblock(socketID);
 	SetSockNodelay(socketID);
 
-	auto ret = connect(socketID, (sockaddr*)&m_RemoteAddress, m_AddressLen);
-	WRITE_LOG(LogLevel::Info, "Connect Server: ret[%d]", ret);
+	ret = connect(socketID, m_ConnectAddressInfo->ai_addr, m_ConnectAddressInfo->ai_addrlen);
+	WRITE_LOG(LogLevel::Info, "Connect Server:IP:[%s] Port[%s] ret[%d]", ip.c_str(), port.c_str(), ret);
 
 	int sessionID = ++m_MaxSessionID;
 	ConnectData* connectData = ConnectData::Allocate(sessionID, socketID, ip, port);

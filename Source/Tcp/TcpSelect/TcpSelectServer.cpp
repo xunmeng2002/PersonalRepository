@@ -7,18 +7,19 @@ TcpSelectServer::TcpSelectServer()
 	:TcpSelectBase("TcpSelectServer")
 {
 	m_ListenSocket = INVALID_SOCKET;
-	memset(&m_ListenAddress, 0, sizeof(m_ListenAddress));
+	m_BindAddressInfo = nullptr;
+	memset(&m_RemoteAddress, 0, sizeof(m_RemoteAddress));
+	m_RemoteAddressLen = sizeof(m_RemoteAddress);
 	m_Backlog = 5;
 }
-void TcpSelectServer::SetBindAddress(const char* ip, int port, int backLog)
+int TcpSelectServer::SetBindAddressInfo(const char* ip, const char* port, int backLog)
 {
-	m_ListenAddress.sin_family = m_AF;
-	m_ListenAddress.sin_addr.S_un.S_addr = inet_addr(ip);
-	m_ListenAddress.sin_port = htons(port);
-	
+	m_IP = ip;
+	m_Port = port;
 	m_Backlog = backLog;
-	
-	WRITE_LOG(LogLevel::Info, "TcpSelectServer SetBindAddress IP[%s], Port[%d]", ip, port);
+	auto ret = GetAddrinfo(ip, port, m_BindAddressInfo);
+	WRITE_LOG(LogLevel::Info, "TcpSelectServer SetBindAddressInfo: IP[%s] Port[%s] GetAddrinfo ret[%d]", ip, port, ret);
+	return ret;
 }
 bool TcpSelectServer::Init()
 {
@@ -42,8 +43,8 @@ bool TcpSelectServer::Init()
 }
 int TcpSelectServer::Bind()
 {
-	auto ret = ::bind(m_ListenSocket, (sockaddr*)&m_ListenAddress, sizeof(m_ListenAddress));
-	WRITE_LOG(LogLevel::Info, "bind: Port[%d], ret[%d].\n", ntohs(m_ListenAddress.sin_port), ret);
+	auto ret = ::bind(m_ListenSocket, m_BindAddressInfo->ai_addr, m_BindAddressInfo->ai_addrlen);
+	WRITE_LOG(LogLevel::Info, "bind: IP:[%s] Port[%s], ret[%d].\n", m_IP.c_str(), m_Port.c_str(), ret);
 	return ret;
 }
 int TcpSelectServer::Listen()
@@ -63,7 +64,7 @@ void TcpSelectServer::DoAccept()
 	{
 		for (int i = 0; i < m_Backlog; i++)
 		{
-			SOCKET socketID = accept(m_ListenSocket, (sockaddr*)&m_RemoteAddress, &m_AddressLen);
+			SOCKET socketID = accept(m_ListenSocket, (sockaddr*)&m_RemoteAddress, &m_RemoteAddressLen);
 			if (socketID == INVALID_SOCKET)
 			{
 				break;
@@ -71,9 +72,9 @@ void TcpSelectServer::DoAccept()
 			SetSockNodelay(socketID);
 
 			auto sessionID = ++m_MaxSessionID;
-			auto ip = inet_ntoa(m_RemoteAddress.sin_addr);
-			auto port = ntohs(m_RemoteAddress.sin_port);
-			WRITE_LOG(LogLevel::Info, "accept: SessionID[%d], SocketID[%lld], RemoteIP[%s], RemotePort[%d]", sessionID, socketID, ip, port);
+			std::string ip, port;
+			auto ret = GetNameinfo((sockaddr*)&m_RemoteAddress, m_RemoteAddressLen, ip, port);
+			WRITE_LOG(LogLevel::Info, "accept: SessionID[%d], SocketID[%lld], RemoteIP[%s], RemotePort[%d]", sessionID, socketID, ip.c_str(), port.c_str());
 
 			auto connectData = ConnectData::Allocate(sessionID, socketID, ip, port);
 			AddConnect(connectData);

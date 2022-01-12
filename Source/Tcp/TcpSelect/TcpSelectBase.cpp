@@ -4,9 +4,8 @@
 
 
 TcpSelectBase::TcpSelectBase(const char* name)
-	:ThreadBase(name), m_AddressLen(sizeof(sockaddr)), m_AF(AF_INET), m_Type(SOCK_STREAM), m_Protocol(IPPROTO_TCP)
+	:ThreadBase(name), m_AF(AF_INET), m_Type(SOCK_STREAM), m_Protocol(IPPROTO_TCP)
 {
-	memset(&m_RemoteAddress, 0, sizeof(m_RemoteAddress));
 	m_MaxSessionID = 0;
 	FD_ZERO(&m_RecvFds);
 	FD_ZERO(&m_SendFds);
@@ -15,8 +14,6 @@ TcpSelectBase::TcpSelectBase(const char* name)
 	m_ConnectTimeOut.tv_usec = 0;
 	m_TimeOut.tv_sec = 1;
 	m_TimeOut.tv_usec = 0;
-
-	m_RemoteAddress.sin_family = m_AF;
 }
 void TcpSelectBase::Subscriber(TcpSubscriber* subscriber)
 {
@@ -33,8 +30,6 @@ void TcpSelectBase::SetTcpInfo(long timeOut, int af, int type, int protocol)
 	m_AF = af;
 	m_Type = type;
 	m_Protocol = protocol;
-
-	m_RemoteAddress.sin_family = af;
 }
 void TcpSelectBase::DisConnect(int sessionID)
 {
@@ -197,7 +192,7 @@ void TcpSelectBase::AddConnect(ConnectData* connectData)
 	WRITE_LOG(LogLevel::Info, "New Connection. SessionID[%d], Socket[%lld], RemoteIP[%s], RemotePort[%d]", connectData->SessionID, connectData->SocketID, connectData->RemoteIP.c_str(), connectData->RemotePort);
 	for (auto subscriber : m_Subscribers)
 	{
-		subscriber->OnConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort);
+		subscriber->OnConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort.c_str());
 	}
 
 	m_ConnectDatas.insert(std::make_pair(connectData->SessionID, connectData));
@@ -208,7 +203,7 @@ void TcpSelectBase::RemoveConnect(ConnectData* connectData)
 	WRITE_LOG(LogLevel::Info, "DisConnection. SessionID[%d], Socket[%lld], RemoteIP[%s], RemotePort[%d]", connectData->SessionID, connectData->SocketID, connectData->RemoteIP.c_str(), connectData->RemotePort);
 	for (auto subscriber : m_Subscribers)
 	{
-		subscriber->OnDisConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort);
+		subscriber->OnDisConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort.c_str());
 	}
 
 	for (auto tcpEvent : m_SendEvents[connectData->SessionID])
@@ -248,7 +243,25 @@ int TcpSelectBase::SetSockNodelay(SOCKET socketID)
 	WRITE_LOG(LogLevel::Info, "SetSockNodelay: ret[%d]", ret);
 	return ret;
 }
-
+int TcpSelectBase::GetAddrinfo(const char* ip, const char* port, addrinfo*& addrInfo)
+{
+	struct addrinfo hints;
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_flags = AI_PASSIVE;
+	hints.ai_family = m_AF;
+	hints.ai_socktype = m_Type;
+	hints.ai_protocol = m_Protocol;
+	return getaddrinfo(ip, port, &hints, &addrInfo);
+}
+int TcpSelectBase::GetNameinfo(const sockaddr* sockAddr, int len, std::string& ip, std::string& port, int flags)
+{
+	char ipBuff[128];
+	char portBuff[32];
+	auto ret = getnameinfo(sockAddr, len, ipBuff, 128, portBuff, 32, NI_NUMERICHOST);
+	ip = ipBuff;
+	port = portBuff;
+	return ret;
+}
 
 TcpEvent* TcpSelectBase::GetSendEvent(int sessionID)
 {

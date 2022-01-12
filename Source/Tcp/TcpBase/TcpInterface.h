@@ -4,8 +4,8 @@
 class TcpSubscriber
 {
 public:
-	virtual void OnConnect(int sessionID, const char* ip, int port) {}
-	virtual void OnDisConnect(int sessionID, const char* ip, int port) {}
+	virtual void OnConnect(int sessionID, const char* ip, const char* port) {}
+	virtual void OnDisConnect(int sessionID, const char* ip, const char* port) {}
 	virtual void OnRecv(TcpEvent* tcpEvent) {}
 };
 

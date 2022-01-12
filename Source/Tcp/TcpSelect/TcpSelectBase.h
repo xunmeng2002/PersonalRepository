@@ -26,7 +26,7 @@ public:
 protected:
 	virtual void Run() override;
 	virtual void HandleEvent();
-	virtual void DoConnect(const std::string& ip, int port) {}
+	virtual void DoConnect(const std::string& ip, const std::string& port) {}
 	virtual void DoDisConnect(int sessionID);
 	virtual void PrepareFds();
 	virtual void CheckConnect() {}
@@ -42,6 +42,8 @@ protected:
 	int SetSockReuse(SOCKET socketID);
 	int SetSockUnblock(SOCKET socketID);
 	int SetSockNodelay(SOCKET socketID);
+	int GetAddrinfo(const char* ip, const char* port, addrinfo*& addrInfo);
+	int GetNameinfo(const sockaddr* sockAddr, int len, std::string& ip, std::string& port, int flags = NI_NUMERICHOST);
 
 	TcpEvent* GetSendEvent(int sessionID);
 	void PushSendEvent(TcpEvent* tcpEvent);
@@ -52,8 +54,6 @@ protected:
 	int m_AF;
 	int m_Type;
 	int m_Protocol;
-	sockaddr_in m_RemoteAddress;
-	int m_AddressLen;
 
 	int m_MaxSessionID;
 

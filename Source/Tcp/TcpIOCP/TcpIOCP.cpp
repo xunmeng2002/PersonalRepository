@@ -14,7 +14,7 @@ thread_local SocketMemCache t_SocketMemCache;
 
 
 TcpIOCP::TcpIOCP(const char* name)
-    :ThreadBase(name), m_TcpSubscriber(nullptr), m_LastSessionID(0), m_TotalSendLen(0L), m_TotalRecvLen(0L), m_InitSocket(INVALID_SOCKET), m_LocalAddress({ 0 })
+    :ThreadBase(name), m_TcpSubscriber(nullptr), m_LastSessionID(0), m_TotalSendLen(0L), m_TotalRecvLen(0L), m_InitSocket(INVALID_SOCKET)
 {
 
 }
@@ -23,13 +23,12 @@ TcpIOCP::~TcpIOCP()
 
 }
 
-void TcpIOCP::SetLocalAddress(const char* ip, int port)
+void TcpIOCP::SetBindAddressInfo(const char* ip, int port)
 {
-    m_LocalAddress.sin_family = AF_INET;
-    m_LocalAddress.sin_addr.S_un.S_addr = inet_addr(ip);
-    m_LocalAddress.sin_port = htons(port);
-
-    WRITE_LOG(LogLevel::Info, "Udp SetBindAddress IP[%s], Port[%d]", ip, port);
+    m_IP = ip;
+    m_Port = port;
+    auto ret = GetAddrinfo(ip, port, m_BindAddressInfo);
+    WRITE_LOG(LogLevel::Info, "TcpIOCP SetBindAddressInfo: IP[%s] Port[%s] GetAddrinfo ret[%d]", ip, port, ret);
 }
 void TcpIOCP::RegisterSubscriber(TcpSubscriber* tcpSubscriber)
 {
@@ -417,7 +416,7 @@ SOCKET TcpIOCP::AllocateSocket()
 SOCKET TcpIOCP::PrepareSocket()
 {
     auto sock = t_SocketMemCache.Allocate();
-    if (bind(sock, (const sockaddr*)&m_LocalAddress, sizeof(SOCKADDR_IN)) != 0)
+    if (bind(sock, m_BindAddressInfo->ai_addr, m_BindAddressInfo->ai_addrlen) != 0)
     {
         WRITE_LOG(LogLevel::Error, "Bind Failed. ErrorID:[%d], Socket:[%lld]", GetLastError(), sock);
         closesocket(sock);

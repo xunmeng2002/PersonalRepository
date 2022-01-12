@@ -7,13 +7,13 @@
 class ConnectData
 {
 public:
-	static ConnectData* Allocate(int sessionID, const SOCKET& socketID, const std::string& remoteIP, int remotePort);
+	static ConnectData* Allocate(int sessionID, const SOCKET& socketID, const std::string& remoteIP, const std::string& remotePort);
 	void Free();
 
-	void Set(int sessionID, const SOCKET& socketID, const std::string& remoteIP, int remotePort);
+	void Set(int sessionID, const SOCKET& socketID, const std::string& remoteIP, const std::string& remotePort);
 
 	int SessionID;
 	SOCKET SocketID;
 	std::string RemoteIP;
-	int RemotePort;
+	std::string RemotePort;
 };
