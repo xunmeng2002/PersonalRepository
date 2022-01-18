@@ -4,33 +4,15 @@
 
 
 TcpSelectBase::TcpSelectBase(const char* name)
-	:ThreadBase(name), m_AF(AF_INET), m_Type(SOCK_STREAM), m_Protocol(IPPROTO_TCP)
+	:TcpBase(name)
 {
-	m_MaxSessionID = 0;
 	FD_ZERO(&m_RecvFds);
 	FD_ZERO(&m_SendFds);
 
-	m_ConnectTimeOut.tv_sec = 5;
-	m_ConnectTimeOut.tv_usec = 0;
-	m_TimeOut.tv_sec = 1;
-	m_TimeOut.tv_usec = 0;
+	m_SocketTimeOut.tv_sec = 5;
+	m_SocketTimeOut.tv_usec = 0;
 }
-void TcpSelectBase::Subscriber(TcpSubscriber* subscriber)
-{
-	m_Subscribers.insert(subscriber);
-}
-void TcpSelectBase::UnSubscriber(TcpSubscriber* subscriber)
-{
-	m_Subscribers.erase(subscriber);
-}
-void TcpSelectBase::SetTcpInfo(long timeOut, int af, int type, int protocol)
-{
-	m_TimeOut.tv_sec = timeOut / 1000000;
-	m_TimeOut.tv_usec = timeOut % 1000000;
-	m_AF = af;
-	m_Type = type;
-	m_Protocol = protocol;
-}
+
 void TcpSelectBase::DisConnect(int sessionID)
 {
 	WRITE_LOG(LogLevel::Info, "DisConnect SessionID:[%d]", sessionID);
@@ -59,7 +41,7 @@ void TcpSelectBase::Run()
 	HandleEvent();
 	CheckConnect();
 	PrepareFds();
-	::select(0, &m_RecvFds, &m_SendFds, nullptr, &m_TimeOut);
+	::select(0, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
 	DoAccept();
 	DoRecv();
 	DoSend();
@@ -100,13 +82,7 @@ void TcpSelectBase::HandleEvent()
 }
 void TcpSelectBase::DoDisConnect(int sessionID)
 {
-	auto connectData = GetConnect(sessionID);
-	if (connectData == nullptr)
-	{
-		WRITE_LOG(LogLevel::Warning, "DoDisConnect While ConnectData is nullptr, SessionID:[%d]", sessionID);
-		return;
-	}
-	RemoveConnect(connectData);
+	RemoveConnect(sessionID);
 }
 void TcpSelectBase::PrepareFds()
 {
@@ -176,11 +152,13 @@ void TcpSelectBase::DoRecv()
 				WRITE_LOG(LogLevel::Debug, "OnRecv: SessionID[%d], len[%d], [%s]", sessionID, len, tcpEvent->Buff);
 				tcpEvent->EventID = EventRecv;
 				tcpEvent->SessionID = sessionID;
+				tcpEvent->IP = it.second->RemoteIP;
+				tcpEvent->Port = it.second->RemotePort;
 				tcpEvent->Length = len;
 
-				for (auto subscriber : m_Subscribers)
+				if (m_Subscriber)
 				{
-					subscriber->OnRecv(tcpEvent);
+					m_Subscriber->OnRecv(tcpEvent);
 				}
 			}
 		}
@@ -189,79 +167,19 @@ void TcpSelectBase::DoRecv()
 
 void TcpSelectBase::AddConnect(ConnectData* connectData)
 {
-	WRITE_LOG(LogLevel::Info, "New Connection. SessionID[%d], Socket[%lld], RemoteIP[%s], RemotePort[%d]", connectData->SessionID, connectData->SocketID, connectData->RemoteIP.c_str(), connectData->RemotePort);
-	for (auto subscriber : m_Subscribers)
-	{
-		subscriber->OnConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort.c_str());
-	}
-
-	m_ConnectDatas.insert(std::make_pair(connectData->SessionID, connectData));
+	TcpBase::AddConnect(connectData);
 	m_SendEvents.insert(std::make_pair(connectData->SessionID, std::list<TcpEvent*>()));
 }
-void TcpSelectBase::RemoveConnect(ConnectData* connectData)
+void TcpSelectBase::RemoveConnect(int sessionID)
 {
-	WRITE_LOG(LogLevel::Info, "DisConnection. SessionID[%d], Socket[%lld], RemoteIP[%s], RemotePort[%d]", connectData->SessionID, connectData->SocketID, connectData->RemoteIP.c_str(), connectData->RemotePort);
-	for (auto subscriber : m_Subscribers)
-	{
-		subscriber->OnDisConnect(connectData->SessionID, connectData->RemoteIP.c_str(), connectData->RemotePort.c_str());
-	}
-
-	for (auto tcpEvent : m_SendEvents[connectData->SessionID])
+	for (auto tcpEvent : m_SendEvents[sessionID])
 	{
 		tcpEvent->Free();
 	}
-	m_SendEvents.erase(connectData->SessionID);
-	m_ConnectDatas.erase(connectData->SessionID);
-	connectData->Free();
+	m_SendEvents.erase(sessionID);
+	TcpBase::RemoveConnect(sessionID);
 }
-ConnectData* TcpSelectBase::GetConnect(int sessionID)
-{
-	if (m_ConnectDatas.find(sessionID) != m_ConnectDatas.end())
-	{
-		return m_ConnectDatas[sessionID];
-	}
-	return nullptr;
-}
-int TcpSelectBase::SetSockReuse(SOCKET socketID)
-{
-	int on = 1;
-	int ret = setsockopt(socketID, SOL_SOCKET, SO_REUSEADDR, (char*)&on, sizeof(on));
-	WRITE_LOG(LogLevel::Info, "SetSockReuse: ret[%d]", ret);
-	return ret;
-}
-int TcpSelectBase::SetSockUnblock(SOCKET socketID)
-{
-	unsigned long unblock = 1;
-	auto ret = ::ioctlsocket(socketID, FIONBIO, &unblock);
-	WRITE_LOG(LogLevel::Info, "SetSockUnblock: ret[%d]", ret);
-	return ret;
-}
-int TcpSelectBase::SetSockNodelay(SOCKET socketID)
-{
-	int nodelay = 1;
-	auto ret = ::setsockopt(socketID, IPPROTO_TCP, TCP_NODELAY, (char*)&nodelay, sizeof(int));
-	WRITE_LOG(LogLevel::Info, "SetSockNodelay: ret[%d]", ret);
-	return ret;
-}
-int TcpSelectBase::GetAddrinfo(const char* ip, const char* port, addrinfo*& addrInfo)
-{
-	struct addrinfo hints;
-	memset(&hints, 0, sizeof(hints));
-	hints.ai_flags = AI_PASSIVE;
-	hints.ai_family = m_AF;
-	hints.ai_socktype = m_Type;
-	hints.ai_protocol = m_Protocol;
-	return getaddrinfo(ip, port, &hints, &addrInfo);
-}
-int TcpSelectBase::GetNameinfo(const sockaddr* sockAddr, int len, std::string& ip, std::string& port, int flags)
-{
-	char ipBuff[128];
-	char portBuff[32];
-	auto ret = getnameinfo(sockAddr, len, ipBuff, 128, portBuff, 32, NI_NUMERICHOST);
-	ip = ipBuff;
-	port = portBuff;
-	return ret;
-}
+
 
 TcpEvent* TcpSelectBase::GetSendEvent(int sessionID)
 {

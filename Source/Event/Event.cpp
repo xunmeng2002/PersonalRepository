@@ -14,7 +14,7 @@ void Event::Free()
 
 
 TcpEvent::TcpEvent(int buffSize)
-	:SessionID(0), IP(""), Port(0)
+	:SessionID(0), IP(""), Port("")
 {
 	Buff = new char[buffSize];
 	ReadPos = Buff;

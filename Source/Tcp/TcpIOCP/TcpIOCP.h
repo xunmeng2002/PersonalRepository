@@ -1,64 +1,48 @@
 #include <map>
 #include <mutex>
-#include "SocketInit.h"
 #include "OverlappedData.h"
-#include "ThreadBase.h"
-#include "TcpInterface.h"
 #include "ConnectData.h"
+#include "TcpBase.h"
 
 
-class TcpIOCP : public ThreadBase, public TcpPublisher
+class TcpIOCP : public TcpBase
 {
 public:
 	TcpIOCP(const char* name);
 	~TcpIOCP();
 
-	void SetBindAddressInfo(const char* ip = "127.0.0.1", int port = 0);
-	void RegisterSubscriber(TcpSubscriber* tcpSubscriber);
-	virtual bool Init();
+	virtual void SetSocketTimeOut(int milliSeconds) override;
+	virtual bool Init(int family);
 	virtual void Stop() override;
 
 	virtual void DisConnect(int sessionID) override;
 	virtual void Send(int sessionID, const char* data, int len) override;
 	virtual void Send(TcpEvent* tcpEvent) override;
+	void OnEventPostAccept();
 
 protected:
 	virtual void Run() override;
-	virtual void ThreadExit() override;
 	virtual void HandleEvent() override;
 	virtual void HandleCompletePortEvent();
 
-	bool PostConnect(const char* ip, int port);
-	bool PostDisConnect(int sessionID);
-	bool PostAccept();
-	bool PostSend(TcpEvent* tcpEvent);
-	bool PostRecv(int sessionID, SOCKET sock);
-
-	void ConnectComplete(OverlappedData* overlappedData, int len);
-	void DisConnectComplete(OverlappedData* overlappedData, int len);
-	void AcceptComplete(OverlappedData* overlappedData, int len);
-	void SendComplete(OverlappedData* overlappedData, int len);
-	void RecvComplete(OverlappedData* overlappedData, int len);
 	
-	void AddConnect(OverlappedData* overlappedData);
-	void RemoveConnect(OverlappedData* overlappedData);
-	ConnectData* GetConnect(int sessionID);
-
-	SOCKET AllocateSocket();
-	SOCKET PrepareSocket();
-	void FreeSocket(SOCKET socket);
+	virtual bool PostConnect(const char* ip, const char* port) { return false; }
+	virtual bool PostDisConnect(int sessionID);
+	virtual bool PostAccept() { return false; }
+	virtual bool PostSend(TcpEvent* tcpEvent);
+	virtual bool PostRecv(OverlappedData* overlappedData);
+	
+	virtual void ConnectComplete(OverlappedData* overlappedData, int len);
+	virtual void DisConnectComplete(OverlappedData* overlappedData, int len);
+	virtual void AcceptComplete(OverlappedData* overlappedData, int len) {}
+	virtual void SendComplete(OverlappedData* overlappedData, int len);
+	virtual void RecvComplete(OverlappedData* overlappedData, int len);
+	
+	SOCKET PrepareSocket(int family);
+	bool Bind(SOCKET socket, int family);
+	bool AssociateDevice(SOCKET socket);
 
 protected:
-	TcpSubscriber* m_TcpSubscriber;
-	int m_LastSessionID;
-	std::map<int, ConnectData*> m_ConnectDatas;
-
-	long long m_TotalSendLen;
-	long long m_TotalRecvLen;
-
-	SOCKET m_InitSocket;
-	addrinfo* m_BindAddressInfo;
-	std::string m_IP;
-	std::string m_Port;
+	unsigned long m_IOWaitTime;
 };
 

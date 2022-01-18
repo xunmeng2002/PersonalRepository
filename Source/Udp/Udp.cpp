@@ -27,14 +27,12 @@ void Udp::SetBindAddressInfo(const char* ip, const char* port)
 	m_IP = ip;
 	m_Port = port;
 	auto ret = GetAddrinfo(ip, port, m_BindAddressInfo);
-	WRITE_LOG(LogLevel::Info, "Udp SetBindAddressInfo: GetAddrinfo ret[%d]", ret);
 }
 void Udp::SetRemoteAddressInfo(const char* ip, const char* port)
 {
 	m_IP = ip;
 	m_Port = port;
 	auto ret = GetAddrinfo(ip, port, m_RemoteAddressInfo);
-	WRITE_LOG(LogLevel::Info, "Udp SetRemoteAddressInfo GetAddrinfo ret[%d]", ret);
 }
 bool Udp::Init(bool setBroadCast)
 {
@@ -142,7 +140,9 @@ int Udp::GetAddrinfo(const char* ip, const char* port, addrinfo*& addrInfo)
 	hints.ai_family = m_AF;
 	hints.ai_socktype = m_Type;
 	hints.ai_protocol = m_Protocol;
-	return getaddrinfo(ip, port, &hints, &addrInfo);
+	auto ret = getaddrinfo(ip, port, &hints, &addrInfo);
+	WRITE_LOG(LogLevel::Info, "GetAddrinfo: IP[%s] Port[%s] GetAddrinfo ret[%d]", ip, port, ret);
+	return ret;
 }
 int Udp::GetNameinfo(const sockaddr* sockAddr, int len, std::string& ip, std::string& port, int flags)
 {

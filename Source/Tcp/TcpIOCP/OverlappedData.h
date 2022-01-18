@@ -8,30 +8,17 @@
 
 struct OverlappedData : public OVERLAPPED
 {
-    OverlappedData()
-    {
-        Clear();
-    }
-    void Clear()
-    {
-        EventID = -1;
-        SessionID = 0;
-        ConnectSocket = INVALID_SOCKET;
-        Internal = InternalHigh = 0;
-        Offset = OffsetHigh = 0;
-        hEvent = NULL;
-        WsaBuffer.len = 0;
-        WsaBuffer.buf = Buffer;
-        memset(Buffer, 0, sizeof(Buffer));
-        RemoteAddress = { 0 };
-    }
+    OverlappedData();
     static OverlappedData* Allocate();
     void Free();
+    void Clear();
 
     int EventID;
     int SessionID;
     SOCKET ConnectSocket;
     WSABUF WsaBuffer;
     char Buffer[MESSAGE_SIZE];
-    SOCKADDR_IN RemoteAddress;
+    addrinfo* RemoteAddressInfo;
+    std::string RemoteIP;
+    std::string RemotePort;
 };

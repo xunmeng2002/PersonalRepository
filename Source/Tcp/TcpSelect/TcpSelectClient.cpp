@@ -9,11 +9,7 @@ TcpSelectClient::TcpSelectClient()
 	FD_ZERO(&m_ConnectFds);
 }
 
-bool TcpSelectClient::Init()
-{
-	return true;
-}
-void TcpSelectClient::Connect(const char* ip, int port)
+void TcpSelectClient::Connect(const char* ip, const char* port)
 {
 	TcpEvent* tcpEvent = TcpEvent::Allocate();
 	tcpEvent->EventID = EventConnect;
@@ -25,12 +21,12 @@ void TcpSelectClient::Connect(const char* ip, int port)
 void TcpSelectClient::DoConnect(const std::string& ip, const std::string& port)
 {
 	auto ret = GetAddrinfo(ip.c_str(), port.c_str(), m_ConnectAddressInfo);
-	WRITE_LOG(LogLevel::Info, "DoConnect: GetAddrinfo ret[%d]", ret);
 
-	SOCKET socketID = socket(m_AF, m_Type, 0);
-	SetSockReuse(socketID);
-	SetSockUnblock(socketID);
-	SetSockNodelay(socketID);
+	SOCKET socketID = socket(m_ConnectAddressInfo->ai_family, m_ConnectAddressInfo->ai_socktype, m_ConnectAddressInfo->ai_protocol);
+	if (!InitSocket(socketID))
+	{
+		return;
+	}
 
 	ret = connect(socketID, m_ConnectAddressInfo->ai_addr, m_ConnectAddressInfo->ai_addrlen);
 	WRITE_LOG(LogLevel::Info, "Connect Server:IP:[%s] Port[%s] ret[%d]", ip.c_str(), port.c_str(), ret);
@@ -48,7 +44,7 @@ void TcpSelectClient::CheckConnect()
 	{
 		FD_SET(connectData->SocketID, &m_ConnectFds);
 	}
-	auto ret = select(0, NULL, &m_ConnectFds, NULL, &m_ConnectTimeOut);
+	auto ret = select(0, NULL, &m_ConnectFds, NULL, &m_SocketTimeOut);
 	WRITE_LOG(LogLevel::Info, "Connect Select: ret[%d]\n", ret);
 	while (!m_ConnectingSocket.empty())
 	{
@@ -56,11 +52,11 @@ void TcpSelectClient::CheckConnect()
 		m_ConnectingSocket.pop_front();
 		if (ret <= 0)
 		{
-			RemoveConnect(connectData);
+			NotifyDisConnect(connectData);
 		}
 		else if (!FD_ISSET(connectData->SocketID, &m_ConnectFds))
 		{
-			RemoveConnect(connectData);
+			NotifyDisConnect(connectData);
 		}
 		else
 		{

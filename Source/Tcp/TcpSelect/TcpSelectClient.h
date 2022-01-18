@@ -8,8 +8,7 @@ class TcpSelectClient : public TcpSelectBase
 public:
 	TcpSelectClient();
 
-	virtual bool Init() override;
-	virtual void Connect(const char* ip, int port) override;
+	virtual void Connect(const char* ip, const char* port) override;
 
 protected:
 	virtual void DoConnect(const std::string& ip, const std::string& port) override;

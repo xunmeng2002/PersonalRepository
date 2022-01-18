@@ -14,7 +14,7 @@ add_package(Logger ${CMAKE_SOURCE_DIR}/Source/Logger)
 add_package(SocketInit ${CMAKE_SOURCE_DIR}/Source/SocketInit)
 add_package(TcpBase ${CMAKE_SOURCE_DIR}/Source/Tcp/TcpBase)
 add_package(TcpSelect ${CMAKE_SOURCE_DIR}/Source/Tcp/TcpSelect)
-if (WINDOWS)
+if (CMAKE_SYSTEM_NAME MATCHES "Windows")
 add_package(TcpIOCP ${CMAKE_SOURCE_DIR}/Source/Tcp/TcpIOCP)
 endif()
 

@@ -12,7 +12,7 @@ public:
 class TcpPublisher
 {
 public:
-	virtual void Connect(const char* ip, int port) {}
+	virtual void Connect(const char* ip, const char* port) {}
 	virtual void DisConnect(int sessionID) {}
 	virtual void Send(int sessionID, const char* data, int len) {}
 	virtual void Send(TcpEvent* tcpEvent) {}

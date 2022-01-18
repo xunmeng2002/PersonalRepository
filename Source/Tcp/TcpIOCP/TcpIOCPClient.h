@@ -5,17 +5,12 @@
 
 class TcpIOCPClient :public TcpIOCP
 {
-private:
+public:
 	TcpIOCPClient();
 	~TcpIOCPClient();
-	TcpIOCPClient(const TcpIOCPClient&) = delete;
-	TcpIOCPClient& operator=(const TcpIOCPClient&) = delete;
-public:
-	static TcpIOCPClient& GetInstance();
 
-	virtual void Connect(const char* ip, int port) override;
+	virtual void Connect(const char* ip, const char* port) override;
 
-
-private:
-	static TcpIOCPClient m_Instance;
+protected:
+	virtual bool PostConnect(const char* ip, const char* port) override;
 };
