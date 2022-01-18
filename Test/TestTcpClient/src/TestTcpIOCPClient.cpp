@@ -4,7 +4,7 @@
 #include "Logger.h"
 
 
-void TestTcpIOCPClient(const char* ip, const char* port)
+void TestTcpIOCPClient()
 {
     TcpIOCPClient tcpIOCPClient;
     tcpIOCPClient.SetTimeOut(1000);
@@ -26,14 +26,16 @@ void TestTcpIOCPClient(const char* ip, const char* port)
     auto IP5 = "::0";
     auto IP6 = "::1";
     auto IP7 = "fe80::59d8:5d6d:25cc:42cf%14";
-    //tcpIOCPClient.Connect(ip, port);
-    //tcpIOCPClient.Connect(IP1, port);
-    tcpIOCPClient.Connect(IP2, port);
-    //tcpIOCPClient.Connect(IP3, port);
-    //tcpIOCPClient.Connect(IP4, port);
-    //tcpIOCPClient.Connect(IP5, port);
-    tcpIOCPClient.Connect(IP6, port);
-    tcpIOCPClient.Connect(IP7, port);
+    
+    auto Port = "10000";
+
+    tcpIOCPClient.Connect(IP1, Port);
+    tcpIOCPClient.Connect(IP2, Port);
+    tcpIOCPClient.Connect(IP3, Port);
+    tcpIOCPClient.Connect(IP4, Port);
+    tcpIOCPClient.Connect(IP5, Port);
+    tcpIOCPClient.Connect(IP6, Port);
+    tcpIOCPClient.Connect(IP7, Port);
 
 
     tcpIOCPClient.Join();

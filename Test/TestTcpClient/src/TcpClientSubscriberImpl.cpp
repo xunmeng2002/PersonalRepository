@@ -17,10 +17,6 @@ void TcpClientSubscriberImpl::OnDisConnect(int sessionID, const char* ip, const 
 {
     WRITE_LOG(LogLevel::Info, "TcpClientSubscriberImpl::OnDisConnect SessionID:[%d], IP:[%s], Port:[%s]", sessionID, ip, port);
     m_MessageCounts.erase(sessionID);
-    if (m_MessageCounts.empty())
-    {
-        ((TcpSelectClient*)m_TcpPublisher)->Stop();
-    }
 }
 void TcpClientSubscriberImpl::OnRecv(TcpEvent* tcpEvent)
 {

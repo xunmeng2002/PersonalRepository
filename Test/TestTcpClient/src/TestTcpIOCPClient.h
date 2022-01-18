@@ -2,4 +2,4 @@
 
 
 
-void TestTcpIOCPClient(const char* ip, const char* port);
+void TestTcpIOCPClient();

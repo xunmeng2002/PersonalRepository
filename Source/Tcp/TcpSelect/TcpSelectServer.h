@@ -7,7 +7,7 @@ class TcpSelectServer : public TcpSelectBase
 public:
 	TcpSelectServer();
 
-	virtual bool Init(int family = AF_INET6) override;
+	virtual bool Init(int family) override;
 
 protected:
 	int Bind(int family);

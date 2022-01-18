@@ -4,4 +4,4 @@
 
 
 
-void TestTcpIOCPServer(const char* ip, const char* port);
+void TestTcpIOCPServer();
