@@ -5,6 +5,16 @@
 
 void TestTcpSelectClient()
 {
+    auto IP1 = "0.0.0.0";
+    auto IP2 = "127.0.0.1";
+    auto IP3 = "192.168.2.29";
+    auto IP4 = "::";
+    auto IP5 = "::0";
+    auto IP6 = "::1";
+    auto IP7 = "fe80::59d8:5d6d:25cc:42cf%14";
+
+    auto Port = "10000";
+
     TcpSelectClient tcpSelectClient;
     tcpSelectClient.SetTimeOut(1000);
     tcpSelectClient.SetSocketTimeOut(5000);
@@ -16,16 +26,6 @@ void TestTcpSelectClient()
         return;
     }
     tcpSelectClient.Start();
-
-    auto IP1 = "0.0.0.0";
-    auto IP2 = "127.0.0.1";
-    auto IP3 = "192.168.2.29";
-    auto IP4 = "::";
-    auto IP5 = "::0";
-    auto IP6 = "::1";
-    auto IP7 = "fe80::59d8:5d6d:25cc:42cf%14";
-
-    auto Port = "10000";
 
     tcpSelectClient.Connect(IP1, Port);
     tcpSelectClient.Connect(IP2, Port);

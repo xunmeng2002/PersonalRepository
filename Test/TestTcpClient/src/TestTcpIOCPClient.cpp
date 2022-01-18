@@ -6,6 +6,16 @@
 
 void TestTcpIOCPClient()
 {
+    auto IP1 = "0.0.0.0";
+    auto IP2 = "127.0.0.1";
+    auto IP3 = "192.168.2.29";
+    auto IP4 = "::";
+    auto IP5 = "::0";
+    auto IP6 = "::1";
+    auto IP7 = "fe80::59d8:5d6d:25cc:42cf%14";
+
+    auto Port = "10000";
+
     TcpIOCPClient tcpIOCPClient;
     tcpIOCPClient.SetTimeOut(1000);
     tcpIOCPClient.SetSocketTimeOut(5000);
@@ -18,16 +28,6 @@ void TestTcpIOCPClient()
         return;
     }
     tcpIOCPClient.Start();
-
-    auto IP1 = "0.0.0.0";
-    auto IP2 = "127.0.0.1";
-    auto IP3 = "192.168.2.29";
-    auto IP4 = "::";
-    auto IP5 = "::0";
-    auto IP6 = "::1";
-    auto IP7 = "fe80::59d8:5d6d:25cc:42cf%14";
-    
-    auto Port = "10000";
 
     tcpIOCPClient.Connect(IP1, Port);
     tcpIOCPClient.Connect(IP2, Port);
