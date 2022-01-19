@@ -1,12 +1,15 @@
 ﻿#include <iostream>
 #include <set>
 #include <string.h>
+#include "TestTcpSelectServer.h"
+#include "TestTcpIOCPServer.h"
+#include "TestUdpServer.h"
 #include "Logger.h"
-#include "TestTcpSelectClient.h"
-#include "TestTcpIOCPClient.h"
+
 
 
 using namespace std;
+
 
 
 int main(int argc, const char* argv[])
@@ -14,12 +17,11 @@ int main(int argc, const char* argv[])
     Logger::GetInstance().Init(argv[0]);
     Logger::GetInstance().Start();
 
-    //TestTcpSelectClient();
-    TestTcpIOCPClient();
+    //TestTcpSelectServer();
+    //TestTcpIOCPServer();
+    TestUdpServer();
 
-
-    Logger::GetInstance().Stop();
     Logger::GetInstance().Join();
-
+    Logger::GetInstance().Join();
 	return 0;
 }

@@ -1,2 +1,2 @@
-add_subdirectory(TestTcpClient)
-add_subdirectory(TestTcpServer)
+add_subdirectory(TestClient)
+add_subdirectory(TestServer)
