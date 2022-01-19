@@ -1,5 +1,5 @@
 #include "TestUdpServer.h"
-#include "Udp.h"
+#include "UdpServer.h"
 #include "Logger.h"
 
 
@@ -16,15 +16,15 @@ void TestUdpServer()
     auto ServerPort = "10000";
     auto ClientPort = "10001";
 
-    Udp::GetInstance().SetBindAddressInfo(IP1, ServerPort);
-    Udp::GetInstance().SetRemoteAddressInfo(IP1, ClientPort);
-    Udp::GetInstance().Init(true);
+    UdpServer udpServer;
+    udpServer.SetBindAddressInfo(ServerPort, IP4);
+    udpServer.Init(false);
 
     while (true)
     {
         TcpEvent* tcpEvent = TcpEvent::Allocate();
-        Udp::GetInstance().RecvFrom(tcpEvent);
-        WRITE_LOG(LogLevel::Info, "RecvFrom:<%s|%s> Message:%s", IP1, ClientPort, tcpEvent->ReadPos);
+        //udpServer.RecvFrom(tcpEvent);
+        udpServer.ZipRecvFrom(tcpEvent);
         tcpEvent->Free();
     }
 }

@@ -28,8 +28,8 @@ public:
 	virtual void OnErrRtnOrderCancel(ItsErrRtnOrderCancel* field) override;
 	virtual void OnRspOrder(int sessionID, ItsRspOrder* field) override;
 
-	virtual void OnConnect(int sessionID, const char* ip, int port) override;
-	virtual void OnDisConnect(int sessionID, const char* ip, int port) override;
+	virtual void OnConnect(int sessionID, const char* ip, const char* port) override;
+	virtual void OnDisConnect(int sessionID, const char* ip, const char* port) override;
 	virtual void OnRecv(TcpEvent* tcpEvent) override;
 
 	virtual void HandleOtherTask() override;

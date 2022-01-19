@@ -1,5 +1,5 @@
 #include "TestUdpClient.h"
-#include "Udp.h"
+#include "UdpClient.h"
 
 
 void TestUdpClient()
@@ -15,15 +15,17 @@ void TestUdpClient()
     auto ServerPort = "10000";
     auto ClientPort = "10001";
 
-	Udp::GetInstance().SetBindAddressInfo(IP1, ClientPort);
-	Udp::GetInstance().SetRemoteAddressInfo(IP6, ServerPort);
-    Udp::GetInstance().Init(true, AF_INET);
+    UdpClient udpClient;
+    udpClient.Init(false);
 
-    for (auto i = 0; i < 5; i++)
+    for (auto i = 0; i < 3; i++)
     {
         TcpEvent* tcpEvent = TcpEvent::Allocate();
+        tcpEvent->IP = IP3;
+        tcpEvent->Port = ServerPort;
         tcpEvent->Length = sprintf(tcpEvent->Buff, "Udp Message[%d]", i);
-        Udp::GetInstance().SendTo(tcpEvent);
+        //udpClient.SendTo(tcpEvent);
+        udpClient.ZipSendTo(tcpEvent);
         tcpEvent->Free();
         Sleep(1000);
     }

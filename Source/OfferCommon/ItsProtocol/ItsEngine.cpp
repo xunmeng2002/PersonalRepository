@@ -57,11 +57,11 @@ void ItsEngine::OnRspOrder(int sessionID, ItsRspOrder* field)
 	OnEvent(tcpEvent);
 }
 
-void ItsEngine::OnConnect(int sessionID, const char* ip, int port)
+void ItsEngine::OnConnect(int sessionID, const char* ip, const char* port)
 {
 	m_SessionIDs.insert(sessionID);
 }
-void ItsEngine::OnDisConnect(int sessionID, const char* ip, int port)
+void ItsEngine::OnDisConnect(int sessionID, const char* ip, const char* port)
 {
 	m_SessionIDs.erase(sessionID);
 }
