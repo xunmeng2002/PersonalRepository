@@ -9,25 +9,25 @@
 
 
 TcpIOCPServer::TcpIOCPServer()
-    :TcpIOCP("TcpIOCPServer"), m_ListenSocket(INVALID_SOCKET)
+    :TcpIOCP("TcpIOCPServer")
 {
 
 }
 TcpIOCPServer::~TcpIOCPServer()
 {
 }
-bool TcpIOCPServer::Init(int family)
+bool TcpIOCPServer::Init()
 {
-    if (!TcpIOCP::Init(family))
+    if (!TcpIOCP::Init())
     {
         return false;
     }
-    m_ListenSocket = PrepareSocket(family);
+    m_ListenSocket = PrepareSocket(m_BindAddressInfo->ai_family);
     if (m_ListenSocket == INVALID_SOCKET)
     {
         return false;
     }
-    if (!Bind(m_ListenSocket, family))
+    if (!Bind())
     {
         return false;
     }
@@ -53,7 +53,7 @@ void TcpIOCPServer::ThreadInit()
 
 bool TcpIOCPServer::PostAccept()
 {
-    auto socket = WSASocket(m_Family, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
+    auto socket = WSASocket(m_BindAddressInfo->ai_family, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
     if (socket == INVALID_SOCKET)
     {
         WRITE_LOG(LogLevel::Error, "CreateSocket Failed. ErrorID:[%d]", GetLastError());
@@ -71,7 +71,7 @@ bool TcpIOCPServer::PostAccept()
 
     WRITE_LOG(LogLevel::Info, "PostAccept SessionID:[%d] SOCKET:[%lld].", overlappedData->SessionID, overlappedData->ConnectSocket);
     DWORD transBytes = 0;
-    if (!SocketApi::GetInstance().AcceptEx(m_Family, m_ListenSocket, overlappedData->ConnectSocket, overlappedData->WsaBuffer.buf,
+    if (!SocketApi::GetInstance().AcceptEx(m_BindAddressInfo->ai_family, m_ListenSocket, overlappedData->ConnectSocket, overlappedData->WsaBuffer.buf,
         0, sizeof(sockaddr_storage), sizeof(sockaddr_storage), &transBytes, (LPOVERLAPPED)overlappedData) && WSAGetLastError() != ERROR_IO_PENDING)
     {
         WRITE_LOG(LogLevel::Error, "Call AcceptEx Failed. Socket:[%lld]", overlappedData->ConnectSocket);
@@ -90,7 +90,7 @@ void TcpIOCPServer::AcceptComplete(OverlappedData* overlappedData, int len)
     sockaddr* localAddr = nullptr;
     sockaddr* remoteAddr = nullptr;
     int remoteLen = sizeof(sockaddr_storage), localLen = sizeof(sockaddr_storage);
-    SocketApi::GetInstance().GetAcceptExSockAddrs(m_Family, overlappedData->WsaBuffer.buf,
+    SocketApi::GetInstance().GetAcceptExSockAddrs(m_BindAddressInfo->ai_family, overlappedData->WsaBuffer.buf,
         0, sizeof(sockaddr_storage), sizeof(sockaddr_storage), &localAddr, &localLen, &remoteAddr, &remoteLen);
     std::string localIP, localPort, remoteIP, remotePort;
     GetNameinfo(localAddr, localLen, localIP, localPort);
@@ -107,16 +107,5 @@ void TcpIOCPServer::AcceptComplete(OverlappedData* overlappedData, int len)
     }
     ConnectComplete(overlappedData, len);
     PostAccept();
-}
-
-bool TcpIOCPServer::Listen(int backLog)
-{
-    if (listen(m_ListenSocket, backLog) == SOCKET_ERROR)
-    {
-        WRITE_LOG(LogLevel::Error, "Listen Failed. ErrorID:[%d]", GetLastError());
-        closesocket(m_ListenSocket);
-        return false;
-    }
-    return true;
 }
 

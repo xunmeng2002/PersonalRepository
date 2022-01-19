@@ -3,7 +3,7 @@
 
 
 TcpBase::TcpBase(const char* name)
-	:ThreadBase(name), m_Family(AF_INET6), m_BindAddressInfoV4(nullptr), m_BindAddressInfoV6(nullptr), m_Subscriber(nullptr), m_MaxSessionID(0)
+	:ThreadBase(name), m_Subscriber(nullptr), m_MaxSessionID(0)
 {
 	m_SocketTimeOut.tv_sec = 1;
 	m_SocketTimeOut.tv_usec = 0;
@@ -16,23 +16,10 @@ void TcpBase::UnSubscriber(TcpSubscriber* subscriber)
 {
 	m_Subscriber = nullptr;
 }
-void TcpBase::SetBindAddressInfo(const char* port, const char* ipV4, const char* ipV6)
-{
-	m_IPV4 = ipV4;
-	m_IPV6 = ipV6;
-	m_Port = port;
-	GetAddrinfo(ipV4, port, m_BindAddressInfoV4);
-	GetAddrinfo(ipV6, port, m_BindAddressInfoV6);
-}
 void TcpBase::SetSocketTimeOut(int milliSeconds)
 {
 	m_SocketTimeOut.tv_sec = milliSeconds / 1000;
 	m_SocketTimeOut.tv_usec = (milliSeconds % 1000) * 1000;
-}
-bool TcpBase::Init(int family)
-{
-	m_Family = family;
-	return true;
 }
 void TcpBase::ThreadExit()
 {
@@ -43,6 +30,29 @@ void TcpBase::ThreadExit()
 	}
 	m_ConnectDatas.clear();
 }
+
+void TcpBase::DisConnect(int sessionID)
+{
+	TcpEvent* tcpEvent = TcpEvent::Allocate();
+	tcpEvent->EventID = EventDisConnect;
+	tcpEvent->SessionID = sessionID;
+	OnEvent(tcpEvent);
+}
+void TcpBase::Send(int sessionID, const char* data, int len)
+{
+	TcpEvent* tcpEvent = TcpEvent::Allocate();
+	tcpEvent->EventID = EventSend;
+	tcpEvent->SessionID = sessionID;
+	memcpy(tcpEvent->Buff, data, len);
+	tcpEvent->Length = len;
+	tcpEvent->Buff[len] = '\0';
+	OnEvent(tcpEvent);
+}
+void TcpBase::Send(TcpEvent* tcpEvent)
+{
+	OnEvent(tcpEvent);
+}
+
 
 int TcpBase::GetAddrinfo(const char* ip, const char* port, addrinfo*& addrInfo)
 {
@@ -107,34 +117,51 @@ void TcpBase::NotifyDisConnect(ConnectData* connectData)
 
 bool TcpBase::InitSocket(SOCKET socketID)
 {
-	if (SetSockReuse(socketID) == SOCKET_ERROR || SetSockUnblock(socketID) == SOCKET_ERROR || SetSockNodelay(socketID) == SOCKET_ERROR || SetSockIPV6Only(socketID) == SOCKET_ERROR)
+	if (!SetSockUnblock(socketID) || !SetSockReuse(socketID)|| !SetSockNodelay(socketID) || !SetSockIPV6Only(socketID))
 	{
 		WRITE_LOG(LogLevel::Warning, "InitSocket Failed. ErrorID:[%d]", GetLastError());
 		return false;
 	}
 	return true;
 }
-int TcpBase::SetSockReuse(SOCKET socketID, int resue)
+
+bool TcpBase::SetSockUnblock(SOCKET socketID, unsigned long unblock)
 {
-	int ret = setsockopt(socketID, SOL_SOCKET, SO_REUSEADDR, (char*)&resue, sizeof(int));
-	WRITE_LOG(LogLevel::Info, "SetSockReuse: ret[%d]", ret);
-	return ret;
+	if (::ioctlsocket(socketID, FIONBIO, &unblock) == SOCKET_ERROR)
+	{
+		WRITE_LOG(LogLevel::Error, "ioctlsocket FIONBIO[%d] Failed. ErrorID:[%d]", unblock, GetLastError());
+		return false;
+	}
+	WRITE_LOG(LogLevel::Info, "ioctlsocket FIONBIO[%d] Success.", unblock);
+	return true;
 }
-int TcpBase::SetSockUnblock(SOCKET socketID, unsigned long unblock)
+bool TcpBase::SetSockReuse(SOCKET socketID, int resue)
 {
-	auto ret = ::ioctlsocket(socketID, FIONBIO, &unblock);
-	WRITE_LOG(LogLevel::Info, "SetSockUnblock: ret[%d]", ret);
-	return ret;
+	if (::setsockopt(socketID, SOL_SOCKET, SO_REUSEADDR, (char*)&resue, sizeof(int)) == SOCKET_ERROR)
+	{
+		WRITE_LOG(LogLevel::Error, "setsockopt SO_REUSEADDR[%d] Failed. ErrorID:[%d]", resue, GetLastError());
+		return false;
+	}
+	WRITE_LOG(LogLevel::Error, "setsockopt SO_REUSEADDR[%d] Success.", resue);
+	return true;
 }
-int TcpBase::SetSockNodelay(SOCKET socketID, int nodelay)
+bool TcpBase::SetSockNodelay(SOCKET socketID, int nodelay)
 {
-	auto ret = ::setsockopt(socketID, IPPROTO_TCP, TCP_NODELAY, (char*)&nodelay, sizeof(int));
-	WRITE_LOG(LogLevel::Info, "SetSockNodelay: ret[%d]", ret);
-	return ret;
+	if (::setsockopt(socketID, IPPROTO_TCP, TCP_NODELAY, (char*)&nodelay, sizeof(int)) == SOCKET_ERROR)
+	{
+		WRITE_LOG(LogLevel::Error, "setsockopt TCP_NODELAY[%d] Failed. ErrorID:[%d]", nodelay, GetLastError());
+		return false;
+	}
+	WRITE_LOG(LogLevel::Error, "setsockopt TCP_NODELAY[%d] Success.", nodelay);
+	return true;
 }
-int TcpBase::SetSockIPV6Only(SOCKET socketID, int ipv6Only)
+bool TcpBase::SetSockIPV6Only(SOCKET socketID, int ipv6Only)
 {
-	auto ret = ::setsockopt(socketID, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&ipv6Only, sizeof(int));
-	WRITE_LOG(LogLevel::Info, "SetSockIPV6Only: ret[%d]", ret);
-	return ret;
+	if (::setsockopt(socketID, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&ipv6Only, sizeof(int)) == SOCKET_ERROR)
+	{
+		WRITE_LOG(LogLevel::Error, "setsockopt IPV6_V6ONLY[%d] Failed. ErrorID:[%d]", ipv6Only, GetLastError());
+		return false;
+	}
+	WRITE_LOG(LogLevel::Error, "setsockopt IPV6_V6ONLY[%d] Success.", ipv6Only);
+	return true;
 }

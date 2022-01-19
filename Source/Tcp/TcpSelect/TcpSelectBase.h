@@ -12,11 +12,6 @@ class TcpSelectBase : public TcpBase
 public:
 	TcpSelectBase(const char* name);
 
-	virtual void Connect(const char* ip, const char* port) {}
-	virtual void DisConnect(int sessionID) override;
-	virtual void Send(int sessionID, const char* data, int length) override;
-	virtual void Send(TcpEvent* tcpEvent) override;
-
 protected:
 	virtual void Run() override;
 	virtual void HandleEvent();
@@ -36,11 +31,11 @@ protected:
 
 	TcpEvent* GetSendEvent(int sessionID);
 	void PushSendEvent(TcpEvent* tcpEvent);
+	SOCKET PrepareSocket(int family);
 
 protected:
 	fd_set m_RecvFds;
 	fd_set m_SendFds;
 	
-
 	std::map<int, std::list<TcpEvent*>> m_SendEvents;
 };

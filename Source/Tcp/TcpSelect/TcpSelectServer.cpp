@@ -10,54 +10,21 @@ TcpSelectServer::TcpSelectServer()
 	memset(&m_RemoteAddress, 0, sizeof(m_RemoteAddress));
 	m_RemoteAddressLen = sizeof(m_RemoteAddress);
 }
-bool TcpSelectServer::Init(int family)
+bool TcpSelectServer::Init()
 {
-	if (family == AF_INET)
-	{
-		m_ListenSocket = ::socket(m_BindAddressInfoV4->ai_family, m_BindAddressInfoV4->ai_socktype, m_BindAddressInfoV4->ai_protocol);
-	}
-	else
-	{
-		m_ListenSocket = ::socket(m_BindAddressInfoV6->ai_family, m_BindAddressInfoV6->ai_socktype, m_BindAddressInfoV6->ai_protocol);
-	}
-	
-	WRITE_LOG(LogLevel::Info, "create socket: m_ListenSocket[%lld].\n", m_ListenSocket);
+	m_ListenSocket = PrepareSocket(m_BindAddressInfo->ai_family);
 	if (m_ListenSocket == INVALID_SOCKET)
 	{
 		return false;
 	}
-	if (!InitSocket(m_ListenSocket))
+	if (!Bind())
 	{
 		return false;
 	}
-	if (Bind(family) == SOCKET_ERROR || Listen() == SOCKET_ERROR)
-	{
-		closesocket(m_ListenSocket);
-		return false;
-	}
-	return true;
+	return Listen();
 }
-int TcpSelectServer::Bind(int family)
-{
-	auto ret = 0;
-	if (family == AF_INET)
-	{
-		ret = ::bind(m_ListenSocket, m_BindAddressInfoV4->ai_addr, m_BindAddressInfoV4->ai_addrlen);
-		WRITE_LOG(LogLevel::Info, "bind: IP:[%s] Port[%s], ret[%d].\n", m_IPV4.c_str(), m_Port.c_str(), ret);
-	}
-	else
-	{
-		ret = ::bind(m_ListenSocket, m_BindAddressInfoV6->ai_addr, m_BindAddressInfoV6->ai_addrlen);
-		WRITE_LOG(LogLevel::Info, "bind: IP:[%s] Port[%s], ret[%d].\n", m_IPV6.c_str(), m_Port.c_str(), ret);
-	}
-	return ret;
-}
-int TcpSelectServer::Listen()
-{
-	auto ret = ::listen(m_ListenSocket, 5);
-	WRITE_LOG(LogLevel::Info, "listen: ret[%d].\n", ret)
-	return ret;
-}
+
+
 void TcpSelectServer::PrepareFds()
 {
 	TcpSelectBase::PrepareFds();
@@ -65,6 +32,8 @@ void TcpSelectServer::PrepareFds()
 }
 void TcpSelectServer::DoAccept()
 {
+	PrepareFds();
+	::select(0, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
 	if (FD_ISSET(m_ListenSocket, &m_RecvFds))
 	{
 		for (int i = 0; i < 5; i++)

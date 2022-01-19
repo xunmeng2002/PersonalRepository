@@ -6,7 +6,8 @@
 TcpIOCPClient::TcpIOCPClient()
     :TcpIOCP("TcpIOCPClient")
 {
-
+    TcpBase::GetAddrinfo("0.0.0.0", "", m_BindAddressInfoV4);
+    TcpBase::GetAddrinfo("::", "", m_BindAddressInfoV6);
 }
 TcpIOCPClient::~TcpIOCPClient()
 {
@@ -63,6 +64,24 @@ bool TcpIOCPClient::PostConnect(const char* ip, const char* port)
         nullptr, 0, &transBytes, overlappedData) && WSAGetLastError() != ERROR_IO_PENDING)
     {
         WRITE_ERROR_LOG(WSAGetLastError(), "Call ConnectEx Failed.");
+        return false;
+    }
+    return true;
+}
+bool TcpIOCPClient::Bind(SOCKET socketID, int family)
+{
+    auto ret = 0;
+    if (family == AF_INET)
+    {
+        ret = ::bind(socketID, m_BindAddressInfoV4->ai_addr, m_BindAddressInfoV4->ai_addrlen);
+    }
+    else
+    {
+        ret = ::bind(socketID, m_BindAddressInfoV6->ai_addr, m_BindAddressInfoV6->ai_addrlen);
+    }
+    if (ret == SOCKET_ERROR)
+    {
+        WRITE_LOG(LogLevel::Error, "Bind Failed. ErrorID:[%d]", GetLastError());
         return false;
     }
     return true;

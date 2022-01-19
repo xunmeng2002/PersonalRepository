@@ -1,24 +1,20 @@
 #pragma once
 
 #include "TcpIOCP.h"
+#include "TcpServerBase.h"
 
 
-class TcpIOCPServer : public TcpIOCP
+class TcpIOCPServer : public TcpIOCP, public TcpServerBase
 {
 public:
 	TcpIOCPServer();
 	~TcpIOCPServer();
-	virtual bool Init(int family) override;
+	bool Init();
 
 protected:
 	virtual void ThreadInit();
 
 	virtual bool PostAccept();
 	virtual void AcceptComplete(OverlappedData* overlappedData, int len);
-
-	bool Listen(int backLog = 5);
-
-private:
-	SOCKET m_ListenSocket;
 };
 

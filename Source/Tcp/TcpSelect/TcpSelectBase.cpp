@@ -13,28 +13,6 @@ TcpSelectBase::TcpSelectBase(const char* name)
 	m_SocketTimeOut.tv_usec = 0;
 }
 
-void TcpSelectBase::DisConnect(int sessionID)
-{
-	WRITE_LOG(LogLevel::Info, "DisConnect SessionID:[%d]", sessionID);
-	TcpEvent* tcpEvent = TcpEvent::Allocate();
-	tcpEvent->EventID = EventDisConnect;
-	tcpEvent->SessionID = sessionID;
-	OnEvent(tcpEvent);
-}
-void TcpSelectBase::Send(int sessionID, const char* data, int length)
-{
-	TcpEvent* tcpEvent = TcpEvent::Allocate();
-	tcpEvent->EventID = EventSend;
-	tcpEvent->SessionID = sessionID;
-	memcpy(tcpEvent->Buff, data, length);
-	tcpEvent->Length = length;
-
-	OnEvent(tcpEvent);
-}
-void TcpSelectBase::Send(TcpEvent* tcpEvent)
-{
-	OnEvent(tcpEvent);
-}
 
 void TcpSelectBase::Run()
 {
@@ -198,4 +176,13 @@ TcpEvent* TcpSelectBase::GetSendEvent(int sessionID)
 void TcpSelectBase::PushSendEvent(TcpEvent* tcpEvent)
 {
 	m_SendEvents[tcpEvent->SessionID].push_back(tcpEvent);
+}
+SOCKET TcpSelectBase::PrepareSocket(int family)
+{
+	auto socketID = socket(family, SOCK_STREAM, IPPROTO_TCP);
+	if (!InitSocket(socketID))
+	{
+		return INVALID_SOCKET;
+	}
+	return socketID;
 }

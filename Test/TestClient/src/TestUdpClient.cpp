@@ -4,13 +4,10 @@
 
 void TestUdpClient()
 {
-    auto IP1 = "0.0.0.0";
-    auto IP2 = "127.0.0.1";
-    auto IP3 = "192.168.2.29";
-    auto IP4 = "::";
-    auto IP5 = "::0";
-    auto IP6 = "::1";
-    auto IP7 = "fe80::59d8:5d6d:25cc:42cf%14";
+    auto IP1 = "127.0.0.1";
+    auto IP2 = "192.168.2.29";
+    auto IP3 = "::1";
+    auto IP4 = "fe80::59d8:5d6d:25cc:42cf%14";
 
     auto ServerPort = "10000";
     auto ClientPort = "10001";
@@ -21,7 +18,7 @@ void TestUdpClient()
     for (auto i = 0; i < 3; i++)
     {
         TcpEvent* tcpEvent = TcpEvent::Allocate();
-        tcpEvent->IP = IP3;
+        tcpEvent->IP = IP1;
         tcpEvent->Port = ServerPort;
         tcpEvent->Length = sprintf(tcpEvent->Buff, "Udp Message[%d]", i);
         //udpClient.SendTo(tcpEvent);

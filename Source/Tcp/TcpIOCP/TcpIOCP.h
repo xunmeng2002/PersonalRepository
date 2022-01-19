@@ -12,12 +12,9 @@ public:
 	~TcpIOCP();
 
 	virtual void SetSocketTimeOut(int milliSeconds) override;
-	virtual bool Init(int family);
+	virtual bool Init();
 	virtual void Stop() override;
 
-	virtual void DisConnect(int sessionID) override;
-	virtual void Send(int sessionID, const char* data, int len) override;
-	virtual void Send(TcpEvent* tcpEvent) override;
 	void OnEventPostAccept();
 
 protected:
@@ -39,7 +36,6 @@ protected:
 	virtual void RecvComplete(OverlappedData* overlappedData, int len);
 	
 	SOCKET PrepareSocket(int family);
-	bool Bind(SOCKET socket, int family);
 	bool AssociateDevice(SOCKET socket);
 
 protected:

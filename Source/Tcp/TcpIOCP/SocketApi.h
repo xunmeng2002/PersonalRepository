@@ -14,6 +14,7 @@ private:
 
 public:
 	static SocketApi& GetInstance();
+	bool Init();
 	bool InitV4(SOCKET sockV4);
 	bool InitV6(SOCKET sockV6);
 

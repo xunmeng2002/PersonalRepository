@@ -25,16 +25,9 @@ void TcpIOCP::SetSocketTimeOut(int milliSeconds)
     TcpBase::SetSocketTimeOut(milliSeconds);
     m_IOWaitTime = milliSeconds;
 }
-bool TcpIOCP::Init(int family)
+bool TcpIOCP::Init()
 {
-    m_Family = family;
-    auto sockV4 = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
-    if (!SocketApi::GetInstance().InitV4(sockV4))
-    {
-        return false;
-    }
-    auto sockV6 = WSASocket(AF_INET6, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
-    if (!SocketApi::GetInstance().InitV6(sockV6))
+    if (!SocketApi::GetInstance().Init())
     {
         return false;
     }
@@ -51,27 +44,7 @@ void TcpIOCP::Stop()
     m_ShouldRun.store(false);
 }
 
-void TcpIOCP::DisConnect(int sessionID)
-{
-    TcpEvent* tcpEvent = TcpEvent::Allocate();
-    tcpEvent->EventID = EventDisConnect;
-    tcpEvent->SessionID = sessionID;
-    OnEvent(tcpEvent);
-}
-void TcpIOCP::Send(int sessionID, const char* data, int len)
-{
-    TcpEvent* tcpEvent = TcpEvent::Allocate();
-    tcpEvent->EventID = EventSend;
-    tcpEvent->SessionID = sessionID;
-    memcpy(tcpEvent->Buff, data, len);
-    tcpEvent->Length = len;
-    tcpEvent->Buff[len] = '\0';
-    OnEvent(tcpEvent);
-}
-void TcpIOCP::Send(TcpEvent* tcpEvent)
-{
-    OnEvent(tcpEvent);
-}
+
 void TcpIOCP::OnEventPostAccept()
 {
     TcpEvent* tcpEvent = TcpEvent::Allocate();
@@ -316,24 +289,6 @@ SOCKET TcpIOCP::PrepareSocket(int family)
         return INVALID_SOCKET;
     }
     return socket;
-}
-bool TcpIOCP::Bind(SOCKET socket, int family)
-{
-    auto ret = 0;
-    if (family == AF_INET)
-    {
-        ret = bind(socket, m_BindAddressInfoV4->ai_addr, m_BindAddressInfoV4->ai_addrlen);
-    }
-    else
-    {
-        ret = bind(socket, m_BindAddressInfoV6->ai_addr, m_BindAddressInfoV6->ai_addrlen);
-    }
-    if (ret == SOCKET_ERROR)
-    {
-        WRITE_LOG(LogLevel::Error, "Bind Failed. ErrorID:[%d]", GetLastError());
-        return false;
-    }
-    return true;
 }
 bool TcpIOCP::AssociateDevice(SOCKET socket)
 {

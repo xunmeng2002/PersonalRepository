@@ -25,6 +25,20 @@ SocketApi& SocketApi::GetInstance()
 	return m_Instance;
 }
 
+bool SocketApi::Init()
+{
+	auto sockV4 = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
+	if (sockV4 == INVALID_SOCKET)
+	{
+		return false;
+	}
+	auto sockV6 = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
+	if (sockV6 == INVALID_SOCKET)
+	{
+		return false;
+	}
+	return InitV4(sockV4) && InitV6(sockV6);
+}
 bool SocketApi::InitV4(SOCKET sockV4)
 {
 	GUID guidAcceptEx = WSAID_ACCEPTEX;
