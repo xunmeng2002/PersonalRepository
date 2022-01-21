@@ -12,7 +12,7 @@ TcpServerBase::~TcpServerBase()
 	freeaddrinfo(m_BindAddressInfo);
 	closesocket(m_ListenSocket);
 }
-void TcpServerBase::SetBindAddressInfo(const char* port, const char* ip)
+void TcpServerBase::SetBindAddressInfo(const char* ip, const char* port)
 {
 	m_BindIP = ip;
 	m_BindPort = port;

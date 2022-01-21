@@ -8,11 +8,10 @@ void TestUdpServer()
     auto IP1 = "0.0.0.0";
     auto IP2 = "::";
 
-    auto ServerPort = "10000";
-    auto ClientPort = "10001";
+    auto Port = "10000";
 
     UdpServer udpServer;
-    udpServer.SetBindAddressInfo(ServerPort, IP2);
+    udpServer.SetBindAddressInfo(IP2, Port);
     udpServer.Init(false);
 
     while (true)

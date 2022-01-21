@@ -3,7 +3,7 @@
 #include "zlib.h"
 
 
-void UdpServer::SetBindAddressInfo(const char* port, const char* ip)
+void UdpServer::SetBindAddressInfo(const char* ip, const char* port)
 {
 	m_BindIP = ip;
 	m_BindPort = port;

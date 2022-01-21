@@ -7,7 +7,7 @@ class TcpServerBase
 public:
 	TcpServerBase();
 	~TcpServerBase();
-	void SetBindAddressInfo(const char* port, const char* ip);
+	void SetBindAddressInfo(const char* ip, const char* port);
 
 protected:
 	virtual bool Bind();

@@ -15,7 +15,7 @@ void TestTcpIOCPServer()
     TcpIOCPServer tcpIOCPServer;
     tcpIOCPServer.SetTimeOut(1000);
     tcpIOCPServer.SetSocketTimeOut(5000);
-    tcpIOCPServer.SetBindAddressInfo(Port, IP2);
+    tcpIOCPServer.SetBindAddressInfo(IP2, Port);
     TcpServerSubscriberImpl tcpServerSubscriberImpl(&tcpIOCPServer);
     tcpIOCPServer.Subscriber(&tcpServerSubscriberImpl);
 

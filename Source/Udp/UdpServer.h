@@ -6,7 +6,7 @@
 class UdpServer : public UdpBase
 {
 public:
-	void SetBindAddressInfo(const char* port, const char* ip);
+	void SetBindAddressInfo(const char* ip, const char* port);
 	virtual bool Init(bool setBroadCast);
 	bool ZipRecvFrom(TcpEvent* tcpEvent);
 	int RecvFrom(TcpEvent* tcpEvent);

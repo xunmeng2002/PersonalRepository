@@ -15,7 +15,7 @@ void TestTcpSelectServer()
     TcpSelectServer tcpSelectServer;
     tcpSelectServer.SetTimeOut(1000);
     tcpSelectServer.SetSocketTimeOut(2000);
-    tcpSelectServer.SetBindAddressInfo(Port, IP2);
+    tcpSelectServer.SetBindAddressInfo(IP2, Port);
     TcpServerSubscriberImpl tcpServerSubscriberImpl(&tcpSelectServer);
     tcpSelectServer.Subscriber(&tcpServerSubscriberImpl);
 
