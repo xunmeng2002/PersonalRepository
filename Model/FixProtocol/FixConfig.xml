@@ -1,12 +1,12 @@
 <root>
 	<items>
 		<item name="ChannelID" type="string"></item>
-		<item name="ListenPort" type="int"></item>
-		<item name="BroadCastPort" type="int"></item>
+		<item name="ListenPort" type="string"></item>
+		<item name="BroadCastPort" type="string"></item>
 		<item name="CommodityFile" type="string"></item>
 		<item name="CmeGlobexIP" type="string"></item>
-		<item name="CmeGlobexPrimaryPort" type="int"></item>
-		<item name="CmeGlobexBackupPort" type="int"></item>
+		<item name="CmeGlobexPrimaryPort" type="string"></item>
+		<item name="CmeGlobexBackupPort" type="string"></item>
 		<item name="BeginString" type="string"></item>
 		<item name="LogonSenderCompID" type="string"></item>
 		<item name="SenderCompID" type="string"></item>

@@ -1,8 +1,8 @@
 <root>
 	<items>
 		<item name="ChannelID" type="string"></item>
-		<item name="ListenPort" type="int"></item>
-		<item name="BroadCastPort" type="int"></item>
+		<item name="ListenPort" type="string"></item>
+		<item name="BroadCastPort" type="string"></item>
 		<item name="CommodityFile" type="string"></item>
 		<item name="Account" type="string"></item>
 		<item name="Password" type="string"></item>
