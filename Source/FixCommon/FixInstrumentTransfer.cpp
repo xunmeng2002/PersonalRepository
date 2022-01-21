@@ -3,8 +3,6 @@
 #include "Logger.h"
 #include "TimeUtility.h"
 
-using namespace std;
-
 
 FixInstrumentTransfer FixInstrumentTransfer::m_Instance;
 
@@ -16,11 +14,11 @@ FixInstrumentTransfer::FixInstrument* FixInstrumentTransfer::GetFixInstrumentFro
 	if (it == m_FixInstruments.end())
 	{
 		WRITE_LOG(LogLevel::Warning, "Cannot find FixInstrument from Broker ExchangeID[%s], InstrumentID[%s]", exchangeID.c_str(), instrumentID.c_str());
-		string productID = string(instrumentID.begin(), instrumentID.end() - 4);
-		string year = "20" + string(instrumentID.end() - 4, instrumentID.end() - 2);
-		string month = string(instrumentID.end() - 2, instrumentID.end());
-		string monthLetter = CmeMonthMap::GetInstance().GetMonthLetter(month);
-		string fixInstrumentID = productID + monthLetter + string(1, year.back());
+		std::string productID = std::string(instrumentID.begin(), instrumentID.end() - 4);
+		std::string year = "20" + std::string(instrumentID.end() - 4, instrumentID.end() - 2);
+		std::string month = std::string(instrumentID.end() - 2, instrumentID.end());
+		std::string monthLetter = CmeMonthMap::GetInstance().GetMonthLetter(month);
+		std::string fixInstrumentID = productID + monthLetter + std::string(1, year.back());
 		auto fixInstrument = new FixInstrument();
 		fixInstrument->ExchangeID = exchangeID;
 		fixInstrument->InstrumentID = instrumentID;
@@ -43,32 +41,32 @@ FixInstrumentTransfer::FixInstrument* FixInstrumentTransfer::GetFixInstrumentFro
 	if (it == m_FixInstruments.end())
 	{
 		WRITE_LOG(LogLevel::Warning, "Cannot find FixInstrument from Broker FixExchangeID[%s], FixInstrumentID[%s]", fixExchangeID.c_str(), fixInstrumentID.c_str());
-		string year = "";
-		string monthLetter = "";
-		string productID = "";
+		std::string year = "";
+		std::string monthLetter = "";
+		std::string productID = "";
 		for (auto rit = fixInstrumentID.rbegin(); rit != fixInstrumentID.rend(); rit++)
 		{
 			if (*rit > '9' || *rit < '0')
 			{
 				auto it = rit.base();
-				year = string(it, fixInstrumentID.end());
+				year = std::string(it, fixInstrumentID.end());
 				auto it2 = it - 1;
-				monthLetter = string(it2, it);
-				productID = string(fixInstrumentID.begin(), it2);
+				monthLetter = std::string(it2, it);
+				productID = std::string(fixInstrumentID.begin(), it2);
 				break;
 			}
 		}
 		if (year.length() < 2)
 		{
-			string date = GetLocalDate();
-			year = string(date.begin() + 2, date.begin() + 3) + year;
+			std::string date = GetLocalDate();
+			year = std::string(date.begin() + 2, date.begin() + 3) + year;
 		}
 		else if (year.length() > 2)
 		{
-			year = string(year.end() - 2, year.end());
+			year = std::string(year.end() - 2, year.end());
 		}
-		string monthNum = CmeMonthMap::GetInstance().GetMonthNum(monthLetter);
-		string instrumentID = productID + year + monthNum;
+		std::string monthNum = CmeMonthMap::GetInstance().GetMonthNum(monthLetter);
+		std::string instrumentID = productID + year + monthNum;
 
 		auto fixInstrument = new FixInstrument();
 		fixInstrument->ExchangeID = fixExchangeID;
@@ -91,12 +89,12 @@ FixInstrumentTransfer::FixInstrument* FixInstrumentTransfer::GetFixInstrumentFro
 		});
 	if (it == m_FixInstruments.end())
 	{
-		string year = string(maturityMonthYear.begin(), maturityMonthYear.end() - 2);
-		string month = string(maturityMonthYear.end() - 2, maturityMonthYear.end());
-		string monthLetter = CmeMonthMap::GetInstance().GetMonthLetter(month);
+		std::string year = std::string(maturityMonthYear.begin(), maturityMonthYear.end() - 2);
+		std::string month = std::string(maturityMonthYear.end() - 2, maturityMonthYear.end());
+		std::string monthLetter = CmeMonthMap::GetInstance().GetMonthLetter(month);
 
-		string instrumentID = productID + string(year.end() - 2, year.end()) + month;
-		string fixInstrumentID = productID + monthLetter + string(1, year.back());
+		std::string instrumentID = productID + std::string(year.end() - 2, year.end()) + month;
+		std::string fixInstrumentID = productID + monthLetter + std::string(1, year.back());
 		auto fixInstrument = new FixInstrument();
 		fixInstrument->ExchangeID = fixExchangeID;
 		fixInstrument->InstrumentID = instrumentID;

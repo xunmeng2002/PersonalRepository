@@ -1,7 +1,6 @@
 ﻿#include "CsvParser.h"
 #include <string>
 
-using namespace std;
 
 CSVParser::CSVParser()
 {

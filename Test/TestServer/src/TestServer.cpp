@@ -8,10 +8,6 @@
 
 
 
-using namespace std;
-
-
-
 int main(int argc, const char* argv[])
 {
     Logger::GetInstance().Init(argv[0]);

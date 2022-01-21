@@ -3,8 +3,6 @@
 #include "CsvRecord.h"
 #include <fstream>
 
-using namespace std;
-
 Commodity Commodity::m_Instance;
 
 
@@ -22,7 +20,7 @@ Commodity::~Commodity()
 }
 bool Commodity::Load(const char* csvFileName)
 {
-	fstream file(csvFileName, fstream::in);
+	std::fstream file(csvFileName, std::fstream::in);
 	if (!file)
 	{
 		WRITE_LOG(LogLevel::Error, "Can't Open CsvFile:[%s]", csvFileName);

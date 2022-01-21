@@ -1,6 +1,5 @@
 #include "CmeMonthMap.h"
 
-using namespace std;
 
 CmeMonthMap CmeMonthMap::m_Instance;
 CmeMonthMap::CmeMonthMap()
@@ -24,13 +23,13 @@ CmeMonthMap CmeMonthMap::GetInstance()
 {
 	return m_Instance;
 }
-string CmeMonthMap::GetMonthLetter(string month)
+std::string CmeMonthMap::GetMonthLetter(std::string month)
 {
 	return m_CmeMonthMap[month];
 }
-string CmeMonthMap::GetMonthNum(string letter)
+std::string CmeMonthMap::GetMonthNum(std::string letter)
 {
-	auto it = find_if(m_CmeMonthMap.begin(), m_CmeMonthMap.end(), [&](const std::pair<string, string>& it) {
+	auto it = find_if(m_CmeMonthMap.begin(), m_CmeMonthMap.end(), [&](const std::pair<std::string, std::string>& it) {
 		return it.second == letter;
 		});
 	if (it == m_CmeMonthMap.end())
