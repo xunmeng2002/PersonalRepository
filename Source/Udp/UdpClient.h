@@ -5,6 +5,7 @@
 class UdpClient : public UdpBase
 {
 public:
+	bool SetRemoteAddress(const char* ip, const char* port);
 	virtual bool Init(bool setBroadCast);
 	bool ZipSendTo(TcpEvent* tcpEvent);
 	int SendTo(TcpEvent* tcpEvent);

@@ -2,6 +2,17 @@
 #include "Logger.h"
 #include "zlib.h"
 
+
+bool UdpClient::SetRemoteAddress(const char* ip, const char* port)
+{
+	m_RemoteIP = ip;
+	m_RemotePort = port;
+	if (!GetAddrinfo(ip, port, m_RemoteAddressInfo))
+	{
+		return false;
+	}
+	return true;
+}
 bool UdpClient::Init(bool setBroadCast)
 {
 	m_SocketV4 = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -39,7 +50,7 @@ bool UdpClient::ZipSendTo(TcpEvent* tcpEvent)
 }
 int UdpClient::SendTo(TcpEvent* tcpEvent)
 {
-	if (!GetAddrinfo(tcpEvent->IP.c_str(), tcpEvent->Port.c_str(), m_RemoteAddressInfo))
+	if (!tcpEvent->IP.empty() && !GetAddrinfo(tcpEvent->IP.c_str(), tcpEvent->Port.c_str(), m_RemoteAddressInfo))
 	{
 		return 0;
 	}
