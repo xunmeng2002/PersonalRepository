@@ -4,12 +4,11 @@
 #include "ItsFields.h"
 #include "command_id.h"
 #include "TimeUtility.h"
-#include "Udp.h"
 #include "Event.h"
 
 
-ItsEngine::ItsEngine()
-	:m_ItsSubscriber(nullptr), m_Mdb(nullptr)
+ItsEngine::ItsEngine(UdpClient* udpClient)
+	:m_ItsSubscriber(nullptr), m_UdpClient(udpClient), m_Mdb(nullptr)
 {
 }
 ItsEngine::~ItsEngine()
@@ -20,6 +19,11 @@ void ItsEngine::RegisterSubscriber(ItsSubscriber* itsSubscriber)
 {
 	m_ItsSubscriber = itsSubscriber;
 	TcpSelectBase::Subscriber(this);
+}
+void ItsEngine::SetUdpRemoteAddress(const char* ip, const char* port)
+{
+	m_UdpRemoteIP = ip;
+	m_UdpRemotePort = port;
 }
 bool ItsEngine::Init(const char* dbName)
 {

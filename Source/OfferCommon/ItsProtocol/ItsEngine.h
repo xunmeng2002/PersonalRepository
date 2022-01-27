@@ -6,7 +6,7 @@
 #include "TcpSelectServer.h"
 #include "ItsInterface.h"
 #include "ItsMdb.h"
-#include "Udp.h"
+#include "UdpClient.h"
 
 struct ItsInsertOrderKey
 {
@@ -18,9 +18,10 @@ struct sqlite3;
 class ItsEngine : public TcpSelectServer, public TcpSubscriber, public ItsPublisher, public ItsMdbCallback
 {
 public:
-	ItsEngine();
+	ItsEngine(UdpClient* udpClient);
 	~ItsEngine();
 	void RegisterSubscriber(ItsSubscriber* itsSubscriber);
+	void SetUdpRemoteAddress(const char* ip, const char* port);
 	bool Init(const char* dbName = "");
 
 	virtual void OnRtnOrder(ItsOrder* field) override;
@@ -44,8 +45,10 @@ protected:
 	{
 		ItsMdb::GetInstance().InsertRecord(field);
 		TcpEvent* tcpEvent = TcpEvent::Allocate();
+		tcpEvent->IP = m_UdpRemoteIP;
+		tcpEvent->Port = m_UdpRemotePort;
 		tcpEvent->Length = field->ToStream(tcpEvent->Buff, BuffSize);
-		Udp::GetInstance().ZipSendTo(tcpEvent);
+		m_UdpClient->ZipSendTo(tcpEvent);
 		tcpEvent->Free();
 	}
 
@@ -53,6 +56,9 @@ protected:
 private:
 	sqlite3* m_Mdb;
 	ItsSubscriber* m_ItsSubscriber;
+	UdpClient* m_UdpClient;
+	std::string m_UdpRemoteIP;
+	std::string m_UdpRemotePort;
 	std::set<int> m_SessionIDs;
 	
 	std::list<TcpEvent*> m_RecvDatas;
