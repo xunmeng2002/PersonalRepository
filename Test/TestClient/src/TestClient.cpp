@@ -13,8 +13,8 @@ int main(int argc, const char* argv[])
     Logger::GetInstance().Init(argv[0]);
     Logger::GetInstance().Start();
 
-    TestTcpSelectClient();
-    //TestTcpIOCPClient();
+    //TestTcpSelectClient();
+    TestTcpIOCPClient();
     //TestUdpClient();
 
 
