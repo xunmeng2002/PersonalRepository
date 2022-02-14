@@ -1,0 +1,19 @@
+<root>
+	<items>
+		<item name="ChannelID" type="string"></item>
+		<item name="ListenPort" type="string"></item>
+		<item name="BroadCastPort" type="string"></item>
+		<item name="CommodityFile" type="string"></item>
+		<item name="LoginSenderCompID" type="string"></item>
+		<item name="SenderLocationID" type="string"></item>
+		<item name="SenderSubID" type="string"></item>
+		<item name="TargetSubID" type="string"></item>
+		<item name="ApplicationSystemName" type="string"></item>
+		<item name="ApplicationSystemVersion" type="string"></item>
+		<item name="ApplicationSystemVendor" type="string"></item>
+		<item name="AccessID" type="string"></item>
+		<item name="EncryptedPasswordMethod" type="string"></item>
+		<item name="SecretKey" type="string"></item>
+		<item name="Account" type="string"></item>
+	</items>
+</root>
