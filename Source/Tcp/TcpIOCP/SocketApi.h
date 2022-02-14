@@ -21,11 +21,11 @@ public:
 	bool AcceptEx(int family,
 		_In_ SOCKET sListenSocket,
 		_In_ SOCKET sAcceptSocket,
-		_Out_writes_bytes_(dwReceiveDataLength + dwLocalAddressLength + dwRemoteAddressLength) PVOID lpOutputBuffer,
+		PVOID lpOutputBuffer,
 		_In_ DWORD dwReceiveDataLength,
 		_In_ DWORD dwLocalAddressLength,
 		_In_ DWORD dwRemoteAddressLength,
-		_Out_ LPDWORD lpdwBytesReceived,
+		LPDWORD lpdwBytesReceived,
 		_Inout_ LPOVERLAPPED lpOverlapped);
 
 	void GetAcceptExSockAddrs(int family,
@@ -33,10 +33,10 @@ public:
 		_In_ DWORD dwReceiveDataLength,
 		_In_ DWORD dwLocalAddressLength,
 		_In_ DWORD dwRemoteAddressLength,
-		_Outptr_result_bytebuffer_(*LocalSockaddrLength) struct sockaddr** LocalSockaddr,
-		_Out_ LPINT LocalSockaddrLength,
-		_Outptr_result_bytebuffer_(*RemoteSockaddrLength) struct sockaddr** RemoteSockaddr,
-		_Out_ LPINT RemoteSockaddrLength);
+		struct sockaddr** LocalSockaddr,
+		LPINT LocalSockaddrLength,
+		struct sockaddr** RemoteSockaddr,
+		LPINT RemoteSockaddrLength);
 
 	bool ConnectEx(int family,
 		_In_ SOCKET s,

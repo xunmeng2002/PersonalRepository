@@ -84,7 +84,7 @@ int UdpServer::RecvFrom(TcpEvent* tcpEvent)
 
 bool UdpServer::Bind()
 {
-	if (::bind(m_Socket, m_BindAddressInfo->ai_addr, m_BindAddressInfo->ai_addrlen) == SOCKET_ERROR)
+	if (::bind(m_Socket, m_BindAddressInfo->ai_addr, int(m_BindAddressInfo->ai_addrlen)) == SOCKET_ERROR)
 	{
 		WRITE_LOG(LogLevel::Error, "Bind Failed. ErrorID:[%d]", GetLastError());
 		return false;

@@ -22,5 +22,5 @@ public:
 
 private:
 	static IOCompletePort m_Instance;
-	HANDLE m_Handle;
+	HANDLE m_IOCompletionPortHandle;
 };

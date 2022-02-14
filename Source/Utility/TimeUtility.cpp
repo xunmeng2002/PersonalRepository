@@ -52,7 +52,7 @@ std::string GetUtcDateTimeWithMilliSecond()
 	int milliSecond = now.time_since_epoch().count() % 1000;
 	auto localTm = gmtime(&t);
 	char buff[32];
-	int len = strftime(buff, 32, "%Y%m%d-%H:%M:%S", localTm);
+	auto len = strftime(buff, 32, "%Y%m%d-%H:%M:%S", localTm);
 	sprintf(buff + len, ".%03u", milliSecond);
 	return std::string(buff);
 }
@@ -87,7 +87,7 @@ std::string GetLocalDateTimeWithMilliSecond()
 	int milliSecond = now.time_since_epoch().count() % 1000;
 	auto localTm = localtime(&t);
 	char buff[32];
-	int len = strftime(buff, 32, "%Y%m%d-%H:%M:%S", localTm);
+	auto len = strftime(buff, 32, "%Y%m%d-%H:%M:%S", localTm);
 	sprintf(buff + len, ".%03u", milliSecond);
 	return std::string(buff);
 }
@@ -96,14 +96,14 @@ std::string GetLocalDateFromUnixTimeStamp(long long timeStamp)
 {
 	time_t time = timeStamp / 1000000000LL;
 	static char buff[16];
-	int len = strftime(buff, 16, "%Y%m%d", localtime(&time));
+	auto len = strftime(buff, 16, "%Y%m%d", localtime(&time));
 	return std::string(buff);
 }
 std::string GetLocalTimeFromUnixTimeStamp(long long timeStamp)
 {
 	time_t time = timeStamp / 1000000000LL;
 	static char buff[16];
-	int len = strftime(buff, 16, "%H:%M:%S", localtime(&time));
+	auto len = strftime(buff, 16, "%H:%M:%S", localtime(&time));
 	return std::string(buff);
 }
 

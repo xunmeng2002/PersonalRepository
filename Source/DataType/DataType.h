@@ -20,5 +20,5 @@ enum class LogonStatus
 struct IPAddress
 {
 	std::string IP;
-	int Port;
+	std::string Port;
 };

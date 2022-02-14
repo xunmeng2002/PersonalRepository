@@ -60,10 +60,10 @@ bool TcpIOCPClient::PostConnect(const char* ip, const char* port)
     memset(overlappedData->Buffer, 0, sizeof(overlappedData->Buffer));
     
     DWORD transBytes = 0;
-    if (!SocketApi::GetInstance().ConnectEx(overlappedData->RemoteAddressInfo->ai_family, overlappedData->ConnectSocket, overlappedData->RemoteAddressInfo->ai_addr, overlappedData->RemoteAddressInfo->ai_addrlen,
-        nullptr, 0, &transBytes, overlappedData) && WSAGetLastError() != ERROR_IO_PENDING)
+    if (!SocketApi::GetInstance().ConnectEx(overlappedData->RemoteAddressInfo->ai_family, overlappedData->ConnectSocket, overlappedData->RemoteAddressInfo->ai_addr, int(overlappedData->RemoteAddressInfo->ai_addrlen),
+        nullptr, 0, &transBytes, overlappedData) && GetLastError() != ERROR_IO_PENDING)
     {
-        WRITE_ERROR_LOG(WSAGetLastError(), "Call ConnectEx Failed.");
+        WRITE_ERROR_LOG(GetLastError(), "Call ConnectEx Failed.");
         return false;
     }
     return true;
@@ -73,11 +73,11 @@ bool TcpIOCPClient::Bind(SOCKET socketID, int family)
     auto ret = 0;
     if (family == AF_INET)
     {
-        ret = ::bind(socketID, m_BindAddressInfoV4->ai_addr, m_BindAddressInfoV4->ai_addrlen);
+        ret = ::bind(socketID, m_BindAddressInfoV4->ai_addr, int(m_BindAddressInfoV4->ai_addrlen));
     }
     else
     {
-        ret = ::bind(socketID, m_BindAddressInfoV6->ai_addr, m_BindAddressInfoV6->ai_addrlen);
+        ret = ::bind(socketID, m_BindAddressInfoV6->ai_addr, int(m_BindAddressInfoV6->ai_addrlen));
     }
     if (ret == SOCKET_ERROR)
     {

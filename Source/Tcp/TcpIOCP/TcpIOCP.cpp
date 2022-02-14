@@ -95,8 +95,8 @@ void TcpIOCP::HandleEvent()
 void TcpIOCP::HandleCompletePortEvent()
 {
     DWORD len;
-    SOCKET socket;
-    OverlappedData* overlappedData;
+    SOCKET socket = INVALID_SOCKET;
+    OverlappedData* overlappedData = nullptr;
 
     auto bOK = IOCompletePort::GetInstance().GetStatus(&len, (PULONG_PTR)&socket, (LPOVERLAPPED*)&overlappedData, m_IOWaitTime);
     WRITE_LOG(LogLevel::Info, "CompletionKey:[%d], Len:[%d], Ret:[%d].", socket, len, bOK);
@@ -173,9 +173,10 @@ bool TcpIOCP::PostDisConnect(int sessionID)
     GetAddrinfo(connectData->RemoteIP.c_str(), connectData->RemotePort.c_str(), overlappedData->RemoteAddressInfo);
     overlappedData->RemoteIP = connectData->RemoteIP;
     overlappedData->RemotePort = connectData->RemotePort;
-    if (!SocketApi::GetInstance().DisconnectEx(overlappedData->RemoteAddressInfo->ai_family, overlappedData->ConnectSocket, overlappedData, TF_REUSE_SOCKET, 0) && WSAGetLastError() != ERROR_IO_PENDING)
+    if (!SocketApi::GetInstance().DisconnectEx(overlappedData->RemoteAddressInfo->ai_family, overlappedData->ConnectSocket, overlappedData, TF_REUSE_SOCKET, 0) && GetLastError() != ERROR_IO_PENDING)
     {
-        WRITE_ERROR_LOG(WSAGetLastError(), "Call DisconnectEx Failed.");
+        WRITE_ERROR_LOG(GetLastError(), "Call DisconnectEx Failed.");
+        overlappedData->Free();
         return false;
     }
 
@@ -204,9 +205,9 @@ bool TcpIOCP::PostSend(TcpEvent* tcpEvent)
         overlappedData->WsaBuffer.buf = overlappedData->Buffer;
         memcpy(overlappedData->Buffer, tcpEvent->ReadPos, currSendLen);
 
-        if (WSASend(overlappedData->ConnectSocket, &overlappedData->WsaBuffer, 1, &transBytes, flag, (LPOVERLAPPED)overlappedData, NULL) == SOCKET_ERROR && WSAGetLastError() != ERROR_IO_PENDING)
+        if (WSASend(overlappedData->ConnectSocket, &overlappedData->WsaBuffer, 1, &transBytes, flag, (LPOVERLAPPED)overlappedData, NULL) == SOCKET_ERROR && GetLastError() != ERROR_IO_PENDING)
         {
-            WRITE_ERROR_LOG(WSAGetLastError(), "PostSend: WSASend failed.");
+            WRITE_ERROR_LOG(GetLastError(), "PostSend: WSASend failed.");
             overlappedData->Free();
             PostDisConnect(tcpEvent->SessionID);
             return false;
@@ -226,9 +227,9 @@ bool TcpIOCP::PostRecv(OverlappedData* overlappedData)
     memset(overlappedData->Buffer, 0, sizeof(overlappedData->Buffer));
 
     DWORD transBytes = 0, flag = 0;
-    if (WSARecv(overlappedData->ConnectSocket, &overlappedData->WsaBuffer, 1, &transBytes, &flag, (LPOVERLAPPED)overlappedData, NULL) == SOCKET_ERROR && WSAGetLastError() != ERROR_IO_PENDING)
+    if (WSARecv(overlappedData->ConnectSocket, &overlappedData->WsaBuffer, 1, &transBytes, &flag, (LPOVERLAPPED)overlappedData, NULL) == SOCKET_ERROR && GetLastError() != ERROR_IO_PENDING)
     {
-        WRITE_ERROR_LOG(WSAGetLastError(), "PostRecv: WSARecv failed.");
+        WRITE_ERROR_LOG(GetLastError(), "PostRecv: WSARecv failed.");
         PostDisConnect(overlappedData->SessionID);
         overlappedData->Free();
         return false;
@@ -253,10 +254,14 @@ void TcpIOCP::DisConnectComplete(OverlappedData* overlappedData, int len)
 void TcpIOCP::SendComplete(OverlappedData* overlappedData, int len)
 {
     WRITE_LOG(LogLevel::Info, "SendComplete  SessionID:[%d] SOCKET:[%lld], WsaLen=[%d], Len=[%d].", overlappedData->SessionID, overlappedData->ConnectSocket, overlappedData->WsaBuffer.len, len);
-    if (len < overlappedData->WsaBuffer.len)
+    if (len < int(overlappedData->WsaBuffer.len))
     {
         WRITE_LOG(LogLevel::Warning, "Sendlen:[%d] Less than TargetLen:[%d].", len, overlappedData->WsaBuffer.len);
         PostDisConnect(overlappedData->SessionID);
+    }
+    else
+    {
+        overlappedData->Free();
     }
 }
 void TcpIOCP::RecvComplete(OverlappedData* overlappedData, int len)

@@ -51,25 +51,25 @@ bool SocketApi::InitV4(SOCKET sockV4)
 	if (SOCKET_ERROR == WSAIoctl(sockV4, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidAcceptEx, sizeof(guidAcceptEx),
 		&AcceptExV4, sizeof(AcceptExV4), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get AcceptExV4 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get AcceptExV4 Func Failed.");
 		return false;
 	}
 	if (SOCKET_ERROR == WSAIoctl(sockV4, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidGetAcceptExSockAddrs, sizeof(guidGetAcceptExSockAddrs),
 		&GetAcceptExSockAddrsV4, sizeof(GetAcceptExSockAddrsV4), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get GetAcceptExSockAddrsV4 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get GetAcceptExSockAddrsV4 Func Failed.");
 		return false;
 	}
 	if (SOCKET_ERROR == WSAIoctl(sockV4, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidConnectEx, sizeof(guidConnectEx),
 		&ConnectExV4, sizeof(ConnectExV4), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get ConnectExV4 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get ConnectExV4 Func Failed.");
 		return false;
 	}
 	if (SOCKET_ERROR == WSAIoctl(sockV4, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidDisconnectEx, sizeof(guidDisconnectEx),
 		&DisconnectExV4, sizeof(DisconnectExV4), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get DisconnectExV4 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get DisconnectExV4 Func Failed.");
 		return false;
 	}
 	return true;
@@ -86,25 +86,25 @@ bool SocketApi::InitV6(SOCKET sockV6)
 	if (SOCKET_ERROR == WSAIoctl(sockV6, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidAcceptEx, sizeof(guidAcceptEx),
 		&AcceptExV6, sizeof(AcceptExV6), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get AcceptExV6 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get AcceptExV6 Func Failed.");
 		return false;
 	}
 	if (SOCKET_ERROR == WSAIoctl(sockV6, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidGetAcceptExSockAddrs, sizeof(guidGetAcceptExSockAddrs),
 		&GetAcceptExSockAddrsV6, sizeof(GetAcceptExSockAddrsV6), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get GetAcceptExSockAddrsV6 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get GetAcceptExSockAddrsV6 Func Failed.");
 		return false;
 	}
 	if (SOCKET_ERROR == WSAIoctl(sockV6, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidConnectEx, sizeof(guidConnectEx),
 		&ConnectExV6, sizeof(ConnectExV6), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get ConnectExV6 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get ConnectExV6 Func Failed.");
 		return false;
 	}
 	if (SOCKET_ERROR == WSAIoctl(sockV6, SIO_GET_EXTENSION_FUNCTION_POINTER, &guidDisconnectEx, sizeof(guidDisconnectEx),
 		&DisconnectExV6, sizeof(DisconnectExV6), &dwBytes, NULL, NULL))
 	{
-		WRITE_ERROR_LOG(WSAGetLastError(), "Get DisconnectExV6 Func Failed.");
+		WRITE_ERROR_LOG(GetLastError(), "Get DisconnectExV6 Func Failed.");
 		return false;
 	}
 	return true;
@@ -113,11 +113,11 @@ bool SocketApi::InitV6(SOCKET sockV6)
 bool SocketApi::AcceptEx(int family,
 	_In_ SOCKET sListenSocket,
 	_In_ SOCKET sAcceptSocket,
-	_Out_writes_bytes_(dwReceiveDataLength + dwLocalAddressLength + dwRemoteAddressLength) PVOID lpOutputBuffer,
+	PVOID lpOutputBuffer,
 	_In_ DWORD dwReceiveDataLength,
 	_In_ DWORD dwLocalAddressLength,
 	_In_ DWORD dwRemoteAddressLength,
-	_Out_ LPDWORD lpdwBytesReceived,
+	LPDWORD lpdwBytesReceived,
 	_Inout_ LPOVERLAPPED lpOverlapped)
 {
 	if (family == AF_INET)
@@ -136,10 +136,10 @@ void SocketApi::GetAcceptExSockAddrs(int family,
 	_In_ DWORD dwReceiveDataLength,
 	_In_ DWORD dwLocalAddressLength,
 	_In_ DWORD dwRemoteAddressLength,
-	_Outptr_result_bytebuffer_(*LocalSockaddrLength) struct sockaddr** LocalSockaddr,
-	_Out_ LPINT LocalSockaddrLength,
-	_Outptr_result_bytebuffer_(*RemoteSockaddrLength) struct sockaddr** RemoteSockaddr,
-	_Out_ LPINT RemoteSockaddrLength)
+	struct sockaddr** LocalSockaddr,
+	LPINT LocalSockaddrLength,
+	struct sockaddr** RemoteSockaddr,
+	LPINT RemoteSockaddrLength)
 {
 	if (family == AF_INET)
 	{

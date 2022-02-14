@@ -72,10 +72,10 @@ bool TcpIOCPServer::PostAccept()
     WRITE_LOG(LogLevel::Info, "PostAccept SessionID:[%d] SOCKET:[%lld].", overlappedData->SessionID, overlappedData->ConnectSocket);
     DWORD transBytes = 0;
     if (!SocketApi::GetInstance().AcceptEx(m_BindAddressInfo->ai_family, m_ListenSocket, overlappedData->ConnectSocket, overlappedData->WsaBuffer.buf,
-        0, sizeof(sockaddr_storage), sizeof(sockaddr_storage), &transBytes, (LPOVERLAPPED)overlappedData) && WSAGetLastError() != ERROR_IO_PENDING)
+        0, sizeof(sockaddr_storage), sizeof(sockaddr_storage), &transBytes, (LPOVERLAPPED)overlappedData) && GetLastError() != ERROR_IO_PENDING)
     {
         WRITE_LOG(LogLevel::Error, "Call AcceptEx Failed. Socket:[%lld]", overlappedData->ConnectSocket);
-        WRITE_ERROR_LOG(WSAGetLastError(), "Call AcceptEx Failed.");
+        WRITE_ERROR_LOG(GetLastError(), "Call AcceptEx Failed.");
 
         closesocket(overlappedData->ConnectSocket);
         overlappedData->Free();

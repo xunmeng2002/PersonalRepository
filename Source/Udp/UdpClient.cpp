@@ -57,11 +57,11 @@ int UdpClient::SendTo(TcpEvent* tcpEvent)
 	int sendLen = 0;
 	if (m_RemoteAddressInfo->ai_family == AF_INET)
 	{
-		sendLen = ::sendto(m_SocketV4, tcpEvent->ReadPos, tcpEvent->Length, 0, m_RemoteAddressInfo->ai_addr, m_RemoteAddressInfo->ai_addrlen);
+		sendLen = ::sendto(m_SocketV4, tcpEvent->ReadPos, tcpEvent->Length, 0, m_RemoteAddressInfo->ai_addr, int(m_RemoteAddressInfo->ai_addrlen));
 	}
 	else
 	{
-		sendLen = ::sendto(m_SocketV6, tcpEvent->ReadPos, tcpEvent->Length, 0, m_RemoteAddressInfo->ai_addr, m_RemoteAddressInfo->ai_addrlen);
+		sendLen = ::sendto(m_SocketV6, tcpEvent->ReadPos, tcpEvent->Length, 0, m_RemoteAddressInfo->ai_addr, int(m_RemoteAddressInfo->ai_addrlen));
 	}
 	if (sendLen <= 0)
 	{

@@ -28,7 +28,7 @@ void TcpSelectClient::DoConnect(const std::string& ip, const std::string& port)
 		return;
 	}
 
-	ret = connect(socketID, m_ConnectAddressInfo->ai_addr, m_ConnectAddressInfo->ai_addrlen);
+	ret = connect(socketID, m_ConnectAddressInfo->ai_addr, int(m_ConnectAddressInfo->ai_addrlen));
 	WRITE_LOG(LogLevel::Info, "Connect Server:IP:[%s] Port[%s] ret[%d]", ip.c_str(), port.c_str(), ret);
 
 	int sessionID = ++m_MaxSessionID;

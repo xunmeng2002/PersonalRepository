@@ -41,7 +41,7 @@ protected:
 	virtual void HandleEvent() override {}
 
 
-	bool CreateLogDir(const char* path);
+	bool CreateLogDir(const wchar_t* path);
 	void SwapInnerLogBuffers();
 	void FlushBuffers();
 	void WriteToLog(LogLevel level, const char* file, int line, const char* func, const char* format, va_list va);

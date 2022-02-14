@@ -29,7 +29,7 @@ thread_local char* t_LogBuffer = new char[LOG_LINE_LENGTH];
 Logger Logger::m_Instance;
 
 Logger::Logger()
-	:ThreadBase("Logger")
+	:ThreadBase("Logger"), m_ProcessName(""), m_CreateLogFileTime(), m_LogData(nullptr)
 {
 }
 Logger::~Logger()
@@ -45,7 +45,7 @@ bool Logger::Init(const char* fullProcessName)
 {
 	ParseProcessName(fullProcessName, m_ProcessName, 128);
 	m_LogData = new LogData();
-	return CreateLogDir("log");
+	return CreateLogDir(L"log");
 }
 void Logger::WriteLog(LogLevel level, const char* file, int line, const char* func, const char* formatStr, ...)
 {
@@ -89,7 +89,7 @@ void Logger::ThreadExit()
 	m_LogData = nullptr;
 }
 
-bool Logger::CreateLogDir(const char* path)
+bool Logger::CreateLogDir(const wchar_t* path)
 {
 	return CreateDirectory(path, NULL) || ERROR_ALREADY_EXISTS == GetLastError();
 }
