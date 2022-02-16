@@ -136,7 +136,7 @@ if __name__ == "__main__":
     #tpl文件中的python代码嵌入标记
     expr = "!!.*?!!"
     #临时python文件
-    pump_file = open("pump_temp.py", "w+")
+    pump_file = open("pumptemp.py", "w+")
 
     #entry列表
     entry_list = []
@@ -324,9 +324,9 @@ if __name__ == "__main__":
         raise MyException("Tag Not Match:%s" % str(entry_list))
     
     #执行临时文件
-    if os.system("python pump_temp.py"):	
+    if os.system("python pumptemp.py"):	
         os.remove(out_file_name)
         exit(-1)
 
     #执行完毕后删除临时文件
-    os.remove("pump_temp.py")
+    os.remove("pumptemp.py")

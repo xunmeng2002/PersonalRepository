@@ -4,17 +4,21 @@
 
 struct CommodityRecord
 {
-	int CmeExchangeNo;
+	CommodityRecord()
+		:CmeExchangeNo(0), PoboExchangeNo(0), GroupID(0), MagnificationFactor(0), DecimalPlace(0), DominantContractNo(0)
+	{
+	}
+	int CmeExchangeNo = 0;
 	std::string ExchangeID;
 	std::string ProductID;
-	int PoboExchangeNo;
+	int PoboExchangeNo = 0;
 	std::string PoboExchangeID;
 	std::string PoboProductID;
 	std::string ProductName;
-	int GroupID;
-	int MagnificationFactor;
-	int DecimalPlace;
-	int DominantContractNo;
+	int GroupID = 0;
+	int MagnificationFactor = 0;
+	int DecimalPlace = 0;
+	int DominantContractNo = 0;
 
 	bool operator<(const CommodityRecord& o)
 	{
