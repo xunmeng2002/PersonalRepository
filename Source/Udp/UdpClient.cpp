@@ -3,6 +3,10 @@
 #include "zlib.h"
 
 
+UdpClient::UdpClient()
+	:m_SocketV4(INVALID_SOCKET), m_SocketV6(INVALID_SOCKET), m_RemoteAddressInfo(nullptr)
+{
+}
 bool UdpClient::SetRemoteAddress(const char* ip, const char* port)
 {
 	m_RemoteIP = ip;
