@@ -128,8 +128,6 @@ double GetDoubleItemWithTag(const T1& message, int tag, double defaultValue = 0)
 class QuickFixCommon : public FIX::Application, public FIX::MessageCracker
 {
 public:
-
-
     virtual void onCreate(const FIX::SessionID&) override {}
     virtual void onLogon(const FIX::SessionID& sessionID) override;
     virtual void onLogout(const FIX::SessionID& sessionID) override;
