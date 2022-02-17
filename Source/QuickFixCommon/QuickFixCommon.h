@@ -1,3 +1,5 @@
+#pragma once
+
 #include "quickfix/Application.h"
 #include "quickfix/MessageCracker.h"
 #include "quickfix/Values.h"
@@ -53,7 +55,7 @@
 template<typename T1, typename T2>
 T2 GetItem(const T1& message)
 {
-    T2 item;
+    T2 item = T2();
     message.getIfSet(item);
     return item;
 }
@@ -126,6 +128,8 @@ double GetDoubleItemWithTag(const T1& message, int tag, double defaultValue = 0)
 class QuickFixCommon : public FIX::Application, public FIX::MessageCracker
 {
 public:
+
+
     virtual void onCreate(const FIX::SessionID&) override {}
     virtual void onLogon(const FIX::SessionID& sessionID) override;
     virtual void onLogout(const FIX::SessionID& sessionID) override;
@@ -156,5 +160,5 @@ public:
     virtual void onMessage(const FIX50::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
 
 protected:
-    bool m_LogonStatus;
+    bool m_LogonStatus = false;
 };

@@ -1,6 +1,5 @@
-#pragma once
 #ifdef _MSC_VER
-#pragma warning( disable : 4503 4355 4786 5040 4267)
+#pragma warning( disable : 4503 4355 4786 5040 4267 26451 26495 26812)
 #endif
 
 #include "QuickFixCommon.h"
