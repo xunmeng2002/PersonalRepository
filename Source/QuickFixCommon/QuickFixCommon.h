@@ -128,6 +128,7 @@ double GetDoubleItemWithTag(const T1& message, int tag, double defaultValue = 0)
 class QuickFixCommon : public FIX::Application, public FIX::MessageCracker
 {
 public:
+    QuickFixCommon(const std::string& beginString);
     virtual void onCreate(const FIX::SessionID&) override {}
     virtual void onLogon(const FIX::SessionID& sessionID) override;
     virtual void onLogout(const FIX::SessionID& sessionID) override;
@@ -158,5 +159,6 @@ public:
     virtual void onMessage(const FIX50::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
 
 protected:
+    std::string m_BeginString;
     bool m_LogonStatus = false;
 };

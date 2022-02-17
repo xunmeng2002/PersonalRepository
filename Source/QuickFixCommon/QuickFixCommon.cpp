@@ -5,7 +5,11 @@
 #include "QuickFixCommon.h"
 #include "Logger.h"
 
+QuickFixCommon::QuickFixCommon(const std::string& beginString)
+	:m_BeginString(beginString), m_LogonStatus(false)
+{
 
+}
 void QuickFixCommon::onLogon(const FIX::SessionID& sessionID)
 {
 	WRITE_LOG(LogLevel::Info, "Logon - %s", sessionID.toString().c_str());
