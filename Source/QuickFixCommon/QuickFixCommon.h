@@ -1,8 +1,3 @@
-#pragma once
-#ifdef _MSC_VER
-#pragma warning( disable : 4503 4355 4786 5040 4267)
-#endif
-
 #include "quickfix/Application.h"
 #include "quickfix/MessageCracker.h"
 #include "quickfix/Values.h"
@@ -126,3 +121,40 @@ double GetDoubleItemWithTag(const T1& message, int tag, double defaultValue = 0)
     message.getFieldIfSet(tag, item);
     return item.getValue();
 }
+
+
+class QuickFixCommon : public FIX::Application, public FIX::MessageCracker
+{
+public:
+    virtual void onCreate(const FIX::SessionID&) override {}
+    virtual void onLogon(const FIX::SessionID& sessionID) override;
+    virtual void onLogout(const FIX::SessionID& sessionID) override;
+    virtual void toAdmin(FIX::Message& message, const FIX::SessionID& sessionID) override;
+    virtual void toApp(FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::DoNotSend)override;
+    virtual void fromAdmin(const FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon) override;
+    virtual void fromApp(const FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType) override;
+
+    virtual void onMessage(const FIX40::News& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX41::News& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX42::News& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX43::News& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX44::News& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX50::News& message, const FIX::SessionID& sessionID) override;
+
+    virtual void onMessage(const FIX40::ExecutionReport& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX41::ExecutionReport& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX42::ExecutionReport& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX43::ExecutionReport& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX44::ExecutionReport& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX50::ExecutionReport& message, const FIX::SessionID& sessionID) override;
+
+    virtual void onMessage(const FIX40::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX41::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX42::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX43::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX44::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
+    virtual void onMessage(const FIX50::OrderCancelReject& message, const FIX::SessionID& sessionID) override;
+
+protected:
+    bool m_LogonStatus;
+};
