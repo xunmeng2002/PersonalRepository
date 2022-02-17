@@ -3,6 +3,7 @@
 		<item name="ChannelID" type="string"></item>
 		<item name="ListenPort" type="string"></item>
 		<item name="BroadCastPort" type="string"></item>
+		<item name="CommodityFile" type="string"></item>
 		<item name="User" type="string"></item>
 		<item name="Password" type="string"></item>
 		<item name="HKAddress" type="string"></item>
