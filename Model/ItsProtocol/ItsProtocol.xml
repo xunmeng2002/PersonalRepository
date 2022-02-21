@@ -89,8 +89,8 @@
 				<item name="SessionID" value="0" desc="会话编号"/>
 				<item name="ExchangeID" value="HKEX" desc="交易所"/>
 				<item name="OrderSysID" value="" desc="交易所报单编号"/>
-				<item name="ChannelOrderID" value="" desc=""/>
-				<item name="BrokerOrderID" value="1" desc="柜台报单编号"/>
+				<item name="BrokerOrderID" value="" desc="柜台报单编号"/>
+				<item name="ProcessorOrderID" value="1" desc="处理机报单编号"/>
 				<item name="InstrumentID" value="1" desc="合约代码"/>
 				<item name="Direction" value="1" desc="买卖方向"/>
 				<item name="TradingDay" value="20211021" desc="交易日"/>

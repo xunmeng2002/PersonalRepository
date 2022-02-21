@@ -15,7 +15,7 @@
 				<item name="ExchangeID" type="string"/>
 				<item name="InstrumentID" type="string"/>
 				<item name="OrderLocalID" type="string"/>
-				<item name="OrderSysID" type="string"/>
+				<item name="OrderSysID" len ="64" type="string"/>
 				<item name="Direction" type="enum"/>
 				<item name="OffsetFlag" type="enum"/>
 				<item name="HedgeFlag" type="enum"/>
@@ -56,7 +56,7 @@
 				<item name="InstrumentID" type="string"/>
 				<item name="OrderLocalID" type="string"/>
 				<item name="OrigOrderLocalID" type="string"/>
-				<item name="OrderSysID" type="string"/>
+				<item name="OrderSysID" len ="64" type="string"/>
 				<item name="Direction" type="enum"/>
 				<item name="OrderRef" type="string"/>
 				<item name="FrontID" type="string"/>
@@ -82,7 +82,7 @@
 				<item name="Price" type="double"/>
 				<item name="Volume" type="int"/>
 				<item name="OrderLocalID" type="string"/>
-				<item name="OrderSysID" type="string"/>
+				<item name="OrderSysID" len ="64" type="string"/>
 				<item name="TradeTime" type="string"/>
 				<item name="TradeDate" type="string"/>
 			</items>

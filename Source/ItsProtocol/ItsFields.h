@@ -130,8 +130,8 @@ public:
 	std::string SessionID;
 	std::string ExchangeID;
 	std::string OrderSysID;
-	std::string ChannelOrderID;
 	std::string BrokerOrderID;
+	std::string ProcessorOrderID;
 	std::string InstrumentID;
 	std::string Direction;
 	std::string TradingDay;

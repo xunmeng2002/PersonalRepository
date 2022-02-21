@@ -225,28 +225,28 @@ ItsInsertOrderCancel::ItsInsertOrderCancel(const std::vector<std::string>& items
 	SessionID = items[11];
 	ExchangeID = items[12];
 	OrderSysID = items[13];
-	ChannelOrderID = items[14];
-	BrokerOrderID = items[15];
+	BrokerOrderID = items[14];
+	ProcessorOrderID = items[15];
 	InstrumentID = items[16];
 	Direction = items[17];
 	TradingDay = items[18];
 }
 int ItsInsertOrderCancel::ToString(char* buff, int size)
 {
-	return snprintf(buff, size, "ItsInsertOrderCancel: ProtocolType[%s] Command[%s] SequenceNo[%s] Reserve1[%s] Reserve2[%s] Reserve3[%s] Reserve4[%s] Reserve5[%s] Reserve6[%s] OrderRef[%s] FrontID[%s] SessionID[%s] ExchangeID[%s] OrderSysID[%s] ChannelOrderID[%s] BrokerOrderID[%s] InstrumentID[%s] Direction[%s] TradingDay[%s] ", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), ChannelOrderID.c_str(), BrokerOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
+	return snprintf(buff, size, "ItsInsertOrderCancel: ProtocolType[%s] Command[%s] SequenceNo[%s] Reserve1[%s] Reserve2[%s] Reserve3[%s] Reserve4[%s] Reserve5[%s] Reserve6[%s] OrderRef[%s] FrontID[%s] SessionID[%s] ExchangeID[%s] OrderSysID[%s] BrokerOrderID[%s] ProcessorOrderID[%s] InstrumentID[%s] Direction[%s] TradingDay[%s] ", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), BrokerOrderID.c_str(), ProcessorOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
 }
 int ItsInsertOrderCancel::ToStream(char* buff, int size)
 {
-	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), ChannelOrderID.c_str(), BrokerOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
+	return snprintf(buff, size, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), BrokerOrderID.c_str(), ProcessorOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
 }
 std::string ItsInsertOrderCancel::CreateSql()
 {
-	return "CREATE TABLE IF NOT EXISTS t_ItsInsertOrderCancel(ProtocolType char(32), Command char(32), SequenceNo char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), Reserve5 char(32), Reserve6 char(32), OrderRef char(32), FrontID char(32), SessionID char(32), ExchangeID char(32), OrderSysID char(32), ChannelOrderID char(32), BrokerOrderID char(32), InstrumentID char(32), Direction char(32), TradingDay char(32), PRIMARY KEY(TradingDay, SequenceNo));";
+	return "CREATE TABLE IF NOT EXISTS t_ItsInsertOrderCancel(ProtocolType char(32), Command char(32), SequenceNo char(32), Reserve1 char(32), Reserve2 char(32), Reserve3 char(32), Reserve4 char(32), Reserve5 char(32), Reserve6 char(32), OrderRef char(32), FrontID char(32), SessionID char(32), ExchangeID char(32), OrderSysID char(32), BrokerOrderID char(32), ProcessorOrderID char(32), InstrumentID char(32), Direction char(32), TradingDay char(32), PRIMARY KEY(TradingDay, SequenceNo));";
 }
 std::string ItsInsertOrderCancel::InsertSql()
 {
 	::memset(m_Buff, 0, sizeof(m_Buff));
-	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsInsertOrderCancel VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), ChannelOrderID.c_str(), BrokerOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
+	snprintf(m_Buff, 4096, "REPLACE INTO t_ItsInsertOrderCancel VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", ProtocolType.c_str(), Command.c_str(), SequenceNo.c_str(), Reserve1.c_str(), Reserve2.c_str(), Reserve3.c_str(), Reserve4.c_str(), Reserve5.c_str(), Reserve6.c_str(), OrderRef.c_str(), FrontID.c_str(), SessionID.c_str(), ExchangeID.c_str(), OrderSysID.c_str(), BrokerOrderID.c_str(), ProcessorOrderID.c_str(), InstrumentID.c_str(), Direction.c_str(), TradingDay.c_str());
 	return std::string(m_Buff);
 }
 int ItsInsertOrderCancel::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
@@ -266,8 +266,8 @@ int ItsInsertOrderCancel::OnSelectCallback(void* callback, int colCount, char** 
 	field->SessionID = colValues[11];
 	field->ExchangeID = colValues[12];
 	field->OrderSysID = colValues[13];
-	field->ChannelOrderID = colValues[14];
-	field->BrokerOrderID = colValues[15];
+	field->BrokerOrderID = colValues[14];
+	field->ProcessorOrderID = colValues[15];
 	field->InstrumentID = colValues[16];
 	field->Direction = colValues[17];
 	field->TradingDay = colValues[18];

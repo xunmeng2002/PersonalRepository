@@ -27,7 +27,8 @@ void QuickFixCommon::toAdmin(FIX::Message& message, const FIX::SessionID& sessio
 }
 void QuickFixCommon::toApp(FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::DoNotSend)
 {
-	WRITE_LOG(LogLevel::Info, "toApp FIX:Message:%s", message.toXML().c_str());
+	//WRITE_LOG(LogLevel::Info, "toApp FIX:Message:%s", message.toXML().c_str());
+	WRITE_LOG(LogLevel::Info, "toApp FIX:Message:%s", message.toString().c_str());
 }
 void QuickFixCommon::fromAdmin(const FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon)
 {
@@ -36,7 +37,8 @@ void QuickFixCommon::fromAdmin(const FIX::Message& message, const FIX::SessionID
 void QuickFixCommon::fromApp(const FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType)
 {
 	crack(message, sessionID);
-	WRITE_LOG(LogLevel::Info, "fromApp FIX:Message:%s", message.toXML().c_str());
+	//WRITE_LOG(LogLevel::Info, "fromApp FIX:Message:%s", message.toXML().c_str());
+	WRITE_LOG(LogLevel::Info, "fromApp FIX:Message:%s", message.toString().c_str());
 }
 
 void QuickFixCommon::onMessage(const FIX40::News& message, const FIX::SessionID& sessionID)

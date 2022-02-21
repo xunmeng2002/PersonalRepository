@@ -1,4 +1,5 @@
 ﻿#pragma once
+#pragma warning(disable : 26945)
 #include <string>
 #include "MdbEnumDict.h"
 

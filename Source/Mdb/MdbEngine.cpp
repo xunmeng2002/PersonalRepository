@@ -14,7 +14,7 @@ using std::to_string;
 
 
 MdbEngine::MdbEngine(const std::string& channelID)
-	:ThreadBase("MdbEngine"), m_ItsPublisher(nullptr), m_MdbSubscriber(nullptr), m_Mdb(nullptr), m_ChannelID(channelID)
+	:ThreadBase("MdbEngine"), m_ItsPublisher(nullptr), m_MdbSubscriber(nullptr), m_Mdb(nullptr), m_ChannelID(channelID), m_OrderLocalIDBuff{0}
 {
 	m_LogBuff = new char[BuffSize];
 }
@@ -216,27 +216,30 @@ void MdbEngine::HandleInsertOrderCancel(int sessionID, ItsInsertOrderCancel* fie
 		field->ToString(m_LogBuff, BuffSize);
 		WRITE_LOG(LogLevel::Warning, "Cannot find Order While Cancel Order. %s", m_LogBuff);
 	}
+	else
+	{
+		auto orderCancel = new OrderCancel();
+		orderCancel->AccountID = "";
+		orderCancel->ExchangeID = field->ExchangeID;
+		orderCancel->InstrumentID = field->InstrumentID;
+		orderCancel->OrderLocalID = GetNextOrderLocalID(field->TradingDay);
+		orderCancel->OrigOrderLocalID = order->OrderLocalID;
+		orderCancel->OrderSysID = order->OrderSysID;
+		orderCancel->Direction = ConvertToDirection(field->Direction);
+		orderCancel->OrderRef = field->OrderRef;
+		orderCancel->FrontID = field->FrontID;
+		orderCancel->SessionID = atoi(field->SessionID.c_str());
+		orderCancel->ErrorID = 0;
+		orderCancel->ErrorMsg = "";
+		orderCancel->InsertDate = field->TradingDay;
+		orderCancel->CancelDate = GetLocalDate();
 
-	auto orderCancel = new OrderCancel();
-	orderCancel->AccountID = "";
-	orderCancel->ExchangeID = field->ExchangeID;
-	orderCancel->InstrumentID = field->InstrumentID;
-	orderCancel->OrderLocalID = GetNextOrderLocalID(field->TradingDay);
-	orderCancel->OrigOrderLocalID = order->OrderLocalID;
-	orderCancel->OrderSysID = order->OrderSysID;
-	orderCancel->Direction = ConvertToDirection(field->Direction);
-	orderCancel->OrderRef = field->OrderRef;
-	orderCancel->FrontID = field->FrontID;
-	orderCancel->SessionID = atoi(field->SessionID.c_str());
-	orderCancel->ErrorID = 0;
-	orderCancel->ErrorMsg = "";
-	orderCancel->InsertDate = field->TradingDay;
-	orderCancel->CancelDate = GetLocalDate();
+		Mdb::GetInstance().InsertRecord(orderCancel);
+		m_OrderCancels.insert(orderCancel);
+		m_MdbSubscriber->ReqInsertOrderCancel(orderCancel);
+		SendResponse(sessionID, field->SequenceNo);
+	}
 
-	Mdb::GetInstance().InsertRecord(orderCancel);
-	m_OrderCancels.insert(orderCancel);
-	m_MdbSubscriber->ReqInsertOrderCancel(orderCancel);
-	SendResponse(sessionID, field->SequenceNo);
 	delete field;
 }
 void MdbEngine::SendResponse(int sessionID, const string& sequenceNo, const string& errorID, const string& errorMsg)

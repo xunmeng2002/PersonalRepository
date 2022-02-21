@@ -48,7 +48,7 @@ int Order::ToString(char* buff, int size) const
 }
 string Order::CreateSql()
 {
-	return "CREATE TABLE IF NOT EXISTS t_MdbOrder(AccountID char(32), ExchangeID char(32), InstrumentID char(32), OrderLocalID char(32), OrderSysID char(32), Direction char(32), OffsetFlag char(32), HedgeFlag char(32), OrderPriceType char(32), Price char(32), Volume char(32), VolumeTraded char(32), OrderStatus char(32), StatusMsg char(32), RequestID char(32), FrontID char(32), SessionID char(32), InsertDate char(32), InsertTime char(32), ExchangeInsertDate char(32), ExchangeInsertTime char(32), CancelDate char(32), CancelTime char(32), ForceCloseReason char(32), IsLocalOrder char(32), UserProductInfo char(32), TimeCondition char(32), GTDDate char(32), VolumeCondition char(32), MinVolume char(32), ContingentCondition char(32), StopPrice char(32), IsSwapOrder char(32), PRIMARY KEY(OrderLocalID));";
+	return "CREATE TABLE IF NOT EXISTS t_MdbOrder(AccountID char(32), ExchangeID char(32), InstrumentID char(32), OrderLocalID char(32), OrderSysID char(64), Direction char(32), OffsetFlag char(32), HedgeFlag char(32), OrderPriceType char(32), Price char(32), Volume char(32), VolumeTraded char(32), OrderStatus char(32), StatusMsg char(32), RequestID char(32), FrontID char(32), SessionID char(32), InsertDate char(32), InsertTime char(32), ExchangeInsertDate char(32), ExchangeInsertTime char(32), CancelDate char(32), CancelTime char(32), ForceCloseReason char(32), IsLocalOrder char(32), UserProductInfo char(32), TimeCondition char(32), GTDDate char(32), VolumeCondition char(32), MinVolume char(32), ContingentCondition char(32), StopPrice char(32), IsSwapOrder char(32), PRIMARY KEY(OrderLocalID));";
 }
 string Order::InsertSql()
 {
@@ -109,7 +109,7 @@ int OrderCancel::ToString(char* buff, int size) const
 }
 string OrderCancel::CreateSql()
 {
-	return "CREATE TABLE IF NOT EXISTS t_MdbOrderCancel(AccountID char(32), ExchangeID char(32), InstrumentID char(32), OrderLocalID char(32), OrigOrderLocalID char(32), OrderSysID char(32), Direction char(32), OrderRef char(32), FrontID char(32), SessionID char(32), ErrorID char(32), ErrorMsg char(255), InsertDate char(32), CancelDate char(32), PRIMARY KEY(OrderLocalID));";
+	return "CREATE TABLE IF NOT EXISTS t_MdbOrderCancel(AccountID char(32), ExchangeID char(32), InstrumentID char(32), OrderLocalID char(32), OrigOrderLocalID char(32), OrderSysID char(64), Direction char(32), OrderRef char(32), FrontID char(32), SessionID char(32), ErrorID char(32), ErrorMsg char(255), InsertDate char(32), CancelDate char(32), PRIMARY KEY(OrderLocalID));";
 }
 string OrderCancel::InsertSql()
 {
@@ -151,7 +151,7 @@ int Trade::ToString(char* buff, int size) const
 }
 string Trade::CreateSql()
 {
-	return "CREATE TABLE IF NOT EXISTS t_MdbTrade(AccountID char(32), ExchangeID char(32), InstrumentID char(32), TradeID char(32), Direction char(32), OffsetFlag char(32), HedgeFlag char(32), Price char(32), Volume char(32), OrderLocalID char(32), OrderSysID char(32), TradeTime char(32), TradeDate char(32), PRIMARY KEY(TradeDate, OrderSysID, TradeID));";
+	return "CREATE TABLE IF NOT EXISTS t_MdbTrade(AccountID char(32), ExchangeID char(32), InstrumentID char(32), TradeID char(32), Direction char(32), OffsetFlag char(32), HedgeFlag char(32), Price char(32), Volume char(32), OrderLocalID char(32), OrderSysID char(64), TradeTime char(32), TradeDate char(32), PRIMARY KEY(TradeDate, OrderSysID, TradeID));";
 }
 string Trade::InsertSql()
 {
