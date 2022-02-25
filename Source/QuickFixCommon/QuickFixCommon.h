@@ -125,6 +125,8 @@ double GetDoubleItemWithTag(const T1& message, int tag, double defaultValue = 0)
 }
 
 
+class Order;
+class OrderCancel;
 class QuickFixCommon : public FIX::Application, public FIX::MessageCracker
 {
 public:
@@ -136,6 +138,19 @@ public:
     virtual void toApp(FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::DoNotSend)override;
     virtual void fromAdmin(const FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon) override;
     virtual void fromApp(const FIX::Message& message, const FIX::SessionID& sessionID) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType) override;
+
+    virtual void HandleInsertOrder40(Order* order) {}
+    virtual void HandleInsertOrder41(Order* order) {}
+    virtual void HandleInsertOrder42(Order* order) {}
+    virtual void HandleInsertOrder43(Order* order) {}
+    virtual void HandleInsertOrder44(Order* order) {}
+    virtual void HandleInsertOrder50(Order* order) {}
+    virtual void HandleInsertOrderCancel40(OrderCancel* orderCancel) {}
+    virtual void HandleInsertOrderCancel41(OrderCancel* orderCancel) {}
+    virtual void HandleInsertOrderCancel42(OrderCancel* orderCancel) {}
+    virtual void HandleInsertOrderCancel43(OrderCancel* orderCancel) {}
+    virtual void HandleInsertOrderCancel44(OrderCancel* orderCancel) {}
+    virtual void HandleInsertOrderCancel50(OrderCancel* orderCancel) {}
 
     virtual void onMessage(const FIX40::News& message, const FIX::SessionID& sessionID) override;
     virtual void onMessage(const FIX41::News& message, const FIX::SessionID& sessionID) override;

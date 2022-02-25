@@ -1,5 +1,5 @@
 ﻿#pragma once
-#pragma warning(disable : 26945)
+#pragma warning(disable : 26495)
 #include <string>
 #include "MdbEnumDict.h"
 
