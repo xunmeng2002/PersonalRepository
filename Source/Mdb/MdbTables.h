@@ -33,6 +33,7 @@ public:
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
+	string TradingDay;
 	string AccountID;
 	string ExchangeID;
 	string InstrumentID;
@@ -82,6 +83,7 @@ public:
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
+	string TradingDay;
 	string AccountID;
 	string ExchangeID;
 	string InstrumentID;
@@ -112,6 +114,7 @@ public:
 	static int OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames);
 
 public:
+	string TradingDay;
 	string AccountID;
 	string ExchangeID;
 	string InstrumentID;

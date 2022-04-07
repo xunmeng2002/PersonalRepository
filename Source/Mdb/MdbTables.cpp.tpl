@@ -9,7 +9,7 @@
 !!formatSymbols["string"] = "s"!!
 !!formatSymbols["int"] = "d"!!
 !!formatSymbols["double"] = "f"!!
-!!formatSymbols["enum"] = "c"!!
+!!formatSymbols["enum"] = "d"!!
 
 !!entry tables!!
 !!travel!!

@@ -58,5 +58,7 @@ constexpr int EventOnRspOrderCancel = 103;		//撤单回报
 constexpr int EventOnErrRtnOrderCancel = 104;		//撤单错误推送
 constexpr int EventOnRtnOrder = 105;		//报单推送
 constexpr int EventOnRtnTrade = 106;		//成交推送
+constexpr int EventQryOrder = 107;		//委托查询
+constexpr int EventQryTrade = 108;		//成交查询
 
 

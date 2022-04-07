@@ -4,6 +4,7 @@
 #include "sqlite3.h"
 #include "Logger.h"
 #include "Mdbtables.h"
+#include "TimeUtility.h"
 
 class Mdb
 {
@@ -64,8 +65,8 @@ public:
 	template<typename T>
 	int SelectTable()
 	{
-		std::string sql = std::string("SELECT * FROM ") + T::TableName + ";";
-		WRITE_LOG(LogLevel::Debug, "SelectTable SQL:[%s]", sql.c_str());
+		std::string sql = std::string("SELECT * FROM ") + T::TableName + " WHERE TradingDay = '" + GetLocalDate() + "';";
+		WRITE_LOG(LogLevel::Info, "SelectTable SQL:[%s]", sql.c_str());
 
 		int rc = sqlite3_exec(m_DB, sql.c_str(), T::OnSelectCallback, m_Callback, &m_ErrorMsg);
 		if (rc != SQLITE_OK)

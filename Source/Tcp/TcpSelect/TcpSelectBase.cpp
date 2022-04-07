@@ -99,7 +99,7 @@ void TcpSelectBase::DoSend()
 				}
 				else
 				{
-					WRITE_LOG(LogLevel::Debug, "OnSend: SessionID[%d], Len[%d], [%s]", connectData->SessionID, tcpEvent->Length, tcpEvent->ReadPos);
+					WRITE_LOG(LogLevel::Info, "OnSend: SessionID[%d], Len[%d], [%s]", connectData->SessionID, tcpEvent->Length, tcpEvent->ReadPos);
 					m_SendEvents[it.first].pop_front();
 					tcpEvent->Free();
 				}

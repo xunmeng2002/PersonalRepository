@@ -164,6 +164,7 @@ void MdbEngine::HandleInsertOrder(int sessionID, ItsInsertOrder* field)
 	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
 
 	Order* order = new Order();
+	order->TradingDay = GetLocalDate();
 	order->AccountID = field->AccountID;
 	order->ExchangeID = field->ExchangeID;
 	order->InstrumentID = field->InstrumentID;
@@ -219,6 +220,7 @@ void MdbEngine::HandleInsertOrderCancel(int sessionID, ItsInsertOrderCancel* fie
 	else
 	{
 		auto orderCancel = new OrderCancel();
+		orderCancel->TradingDay = GetLocalDate();
 		orderCancel->AccountID = "";
 		orderCancel->ExchangeID = field->ExchangeID;
 		orderCancel->InstrumentID = field->InstrumentID;
@@ -265,11 +267,15 @@ void MdbEngine::HandleRtnOrder(Order* field)
 	if (order != nullptr)
 	{
 		order->OrderSysID = field->OrderSysID;
+		order->OrderStatus = field->OrderStatus;
 		if (field->VolumeTraded > order->VolumeTraded)
 		{
 			order->VolumeTraded = field->VolumeTraded;
+			if (order->VolumeTraded == order->Volume)
+			{
+				order->OrderStatus = OrderStatus::AllTraded;
+			}
 		}
-		order->OrderStatus = field->OrderStatus;
 		order->StatusMsg = field->StatusMsg;
 		order->ExchangeInsertDate = field->ExchangeInsertDate;
 		order->ExchangeInsertTime = field->ExchangeInsertTime;
@@ -419,7 +425,7 @@ string MdbEngine::GetNextOrderLocalID(const string& tradingDay)
 		orderLocalID = ++((*it)->MaxOrderLocalID);
 		Mdb::GetInstance().InsertRecord(*it);
 	}
-	sprintf(m_OrderLocalIDBuff, "%s%08d", tradingDay.c_str(), orderLocalID);
+	sprintf(m_OrderLocalIDBuff, "%s%06d", tradingDay.c_str(), orderLocalID);
 	return string(m_OrderLocalIDBuff);
 }
 Order* MdbEngine::GetOrder(const string& orderLocalID, const string& tradingDay, const string& orderSysID)

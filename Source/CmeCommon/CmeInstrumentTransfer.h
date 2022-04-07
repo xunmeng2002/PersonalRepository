@@ -21,7 +21,7 @@ public:
 
 		std::string ToString()
 		{
-			return "ExchangeID:" + ExchangeID + " InstrumentID:" + InstrumentID + " FixExchangeID:" + FixExchangeID + " FixInstrumentID:" + FixInstrumentID + " ProductID:" + ProductID + " MaturityMonthYear:" + MaturityMonthYear;
+			return "ExchangeID:[" + ExchangeID + "] InstrumentID:[" + InstrumentID + "] FixExchangeID:[" + FixExchangeID + "] FixInstrumentID:[" + FixInstrumentID + "] ProductID:[" + ProductID + "] MaturityMonthYear:[" + MaturityMonthYear + "]";
 		}
 	};
 
