@@ -1,5 +1,6 @@
 ﻿#include "Event.h"
 #include "MemCacheTemplateSingleton.h"
+#include <string.h>
 
 
 Event* Event::Allocate()

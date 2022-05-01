@@ -20,7 +20,7 @@ SocketInit::SocketInit()
 	}
 #endif
 #ifdef LINUX
-	std::cout << "ON LINUX" << endl;
+	std::cout << "ON LINUX" << std::endl;
 #endif
 }
 

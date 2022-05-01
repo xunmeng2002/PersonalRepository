@@ -9,6 +9,10 @@
 #endif // LINUX
 
 
+#ifdef LINUX
+typedef unsigned long long SOCKET;
+#endif // LINUX
+
 class SocketInit
 {
 public:

@@ -33,7 +33,6 @@ protected:
 	
 
 protected:
-	unsigned long m_ThreadID;
 	std::thread m_Thread;
 	std::string m_ThreadName;
 	std::atomic<bool> m_ShouldRun;

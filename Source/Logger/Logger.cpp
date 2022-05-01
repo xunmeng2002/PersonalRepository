@@ -1,12 +1,11 @@
 #include "Logger.h"
 #include "Utility.h"
-#include <Windows.h>
 #include <assert.h>
-#include <process.h>
 #include <iostream>
 #include "LogData.h"
 #include "TimeUtility.h"
-
+#include <stdarg.h>
+#include <filesystem>
 
 #define LOG_LINE_LENGTH 64 * 1024
 
@@ -45,7 +44,8 @@ bool Logger::Init(const char* fullProcessName)
 {
 	ParseProcessName(fullProcessName, m_ProcessName, 128);
 	m_LogData = new LogData();
-	return CreateLogDir(L"log");
+	CreateLogDir("log");
+	return true;
 }
 void Logger::WriteLog(LogLevel level, const char* file, int line, const char* func, const char* formatStr, ...)
 {
@@ -89,9 +89,9 @@ void Logger::ThreadExit()
 	m_LogData = nullptr;
 }
 
-bool Logger::CreateLogDir(const wchar_t* path)
+bool Logger::CreateLogDir(const std::string& path)
 {
-	return CreateDirectory(path, NULL) || ERROR_ALREADY_EXISTS == GetLastError();
+	return std::filesystem::create_directories(path);
 }
 void Logger::SwapInnerLogBuffers()
 {
@@ -124,10 +124,10 @@ void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* 
 	for (auto p = file; *p != '\0'; p++)
 		if (*p == '\\' || *p == '/')
 			file = p + 1;
-	int len = sprintf(t_LogBuffer, "%s %d %s ", GetLocalDateTimeWithMilliSecond().c_str(), GetCurrentThreadId(), s_LogLevelName[level].c_str());
+	int len = sprintf(t_LogBuffer, "%s %d %s ", GetLocalDateTimeWithMilliSecond().c_str(), std::this_thread::get_id(), s_LogLevelName[level].c_str());
 
 	len += vsnprintf(t_LogBuffer + len, (sizeof(t_LogBuffer) - len - 1), format, va);
-	len += _snprintf(t_LogBuffer + len, (sizeof(t_LogBuffer) - len - 1), "\t\t---%s:%d[%s]\n", file, line, func);
+	len += snprintf(t_LogBuffer + len, (sizeof(t_LogBuffer) - len - 1), "\t\t---%s:%d[%s]\n", file, line, func);
 
 	std::lock_guard<std::mutex> guard(m_LogData->Mutex);
 	if (m_LogData->CurrBuffer->Available() < len)
@@ -142,7 +142,7 @@ void Logger::WriteToConsole(LogLevel level, const char* formatStr, va_list va)
 	if (level < s_logLevel)
 		return;
 	char logString[10240];
-	int len = _snprintf(logString, sizeof(logString), "ThreadID[%05d] ", GetCurrentThreadId());
+	int len = snprintf(logString, sizeof(logString), "ThreadID[%05d] ", std::this_thread::get_id());
 	len += vsnprintf(logString + len, sizeof(logString) - len - 3, formatStr, va);
 
 	printf("%s\n", logString);

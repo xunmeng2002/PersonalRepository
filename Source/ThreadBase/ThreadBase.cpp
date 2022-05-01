@@ -1,7 +1,6 @@
 #include <functional>
 #include "ThreadBase.h"
 #include "Logger.h"
-#include <Windows.h>
 
 
 ThreadBase::ThreadBase(const char* name)
@@ -38,7 +37,6 @@ void ThreadBase::Join()
 
 void ThreadBase::ThreadFunc()
 {
-	m_ThreadID = GetCurrentThreadId();
 	ThreadInit();
 	while (m_ShouldRun.load())
 	{
@@ -48,7 +46,7 @@ void ThreadBase::ThreadFunc()
 }
 void ThreadBase::ThreadInit()
 {
-	WRITE_LOG(LogLevel::Info, "Thread[%d]:%s Start", m_ThreadID, m_ThreadName.c_str());
+	WRITE_LOG(LogLevel::Info, "Thread[%d]:%s Start", m_Thread.get_id(), m_ThreadName.c_str());
 }
 void ThreadBase::Run()
 {
@@ -57,7 +55,7 @@ void ThreadBase::Run()
 }
 void ThreadBase::ThreadExit()
 {
-	WRITE_LOG(LogLevel::Info, "Thread[%d]:%s Exit", m_ThreadID, m_ThreadName.c_str());
+	WRITE_LOG(LogLevel::Info, "Thread[%d]:%s Exit", m_Thread.get_id(), m_ThreadName.c_str());
 }
 
 void ThreadBase::CheckEvent()
