@@ -15,12 +15,14 @@ void TestTcpSelectClient()
     auto Port = "10000";
 
     TcpSelectClient tcpSelectClient;
-    tcpSelectClient.SetTimeOut(1000);
     tcpSelectClient.SetSocketTimeOut(5000);
+    
     TcpClientSubscriberImpl tcpClientSubscriberImpl(&tcpSelectClient);
-    tcpSelectClient.Subscriber(&tcpClientSubscriberImpl);
-
-    tcpSelectClient.Start();
+    if (!tcpClientSubscriberImpl.Init())
+    {
+        return;
+    }
+    tcpClientSubscriberImpl.Start();
 
     //tcpSelectClient.Connect(IP, Port);
     tcpSelectClient.Connect(IP1, Port);
@@ -28,5 +30,5 @@ void TestTcpSelectClient()
     //tcpSelectClient.Connect(IP3, Port);
     //tcpSelectClient.Connect(IP4, Port);
 
-    tcpSelectClient.Join();
+    tcpClientSubscriberImpl.Join();
 }

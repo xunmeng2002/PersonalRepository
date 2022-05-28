@@ -1,14 +1,19 @@
 #pragma once
-#include "TcpInterface.h"
+#include "ThreadBase.h"
+#include "TcpBase.h"
 
-class TcpServerSubscriberImpl : public TcpSubscriber
+
+class TcpServerSubscriberImpl : public ThreadBase, public TcpSubscriber
 {
 public:
-	TcpServerSubscriberImpl(TcpPublisher* tcpPublisher);
+	TcpServerSubscriberImpl(TcpBase* tcp);
+	bool Init();
+	virtual void HandleEvent() override;
+
 	virtual void OnConnect(int sessionID, const char* ip, const char* port);
 	virtual void OnDisConnect(int sessionID, const char* ip, const char* port);
 	virtual void OnRecv(TcpEvent* tcpEvent);
 
 private:
-	TcpPublisher* m_TcpPublisher;
+	TcpBase* m_Tcp;
 };

@@ -3,11 +3,20 @@
 #include "Logger.h"
 
 
-TcpClientSubscriberImpl::TcpClientSubscriberImpl(TcpPublisher* tcpPublisher)
-    :m_TcpPublisher(tcpPublisher)
+TcpClientSubscriberImpl::TcpClientSubscriberImpl(TcpBase* tcp)
+    :ThreadBase("TcpClientSubscriberImpl"), m_Tcp(tcp)
 {
-
+    m_Tcp->Subscriber(this);
 }
+bool TcpClientSubscriberImpl::Init()
+{
+    return m_Tcp->Init();
+}
+void TcpClientSubscriberImpl::HandleEvent()
+{
+    m_Tcp->HandleTcpEvent();
+}
+
 void TcpClientSubscriberImpl::OnConnect(int sessionID, const char* ip, const char* port)
 {
     WRITE_LOG(LogLevel::Info, "TcpClientSubscriberImpl::OnConnect SessionID:[%d], IP:[%s], Port:[%s]", sessionID, ip, port);
@@ -27,7 +36,7 @@ void TcpClientSubscriberImpl::OnRecv(TcpEvent* tcpEvent)
     }
     else
     {
-        m_TcpPublisher->DisConnect(tcpEvent->SessionID);
+        m_Tcp->DisConnect(tcpEvent->SessionID);
         tcpEvent->Free();
     }
 }
@@ -41,6 +50,6 @@ void TcpClientSubscriberImpl::Send(int sessionID, const char* ip, const char* po
     tcpEvent->Port = port;
     int n = sprintf(tcpEvent->Buff, "Message [%d] From Client SessionID;[%d].", m_MessageCounts[sessionID], sessionID);
     tcpEvent->Length = n;
-    m_TcpPublisher->Send(tcpEvent);
+    m_Tcp->Send(tcpEvent);
 }
 

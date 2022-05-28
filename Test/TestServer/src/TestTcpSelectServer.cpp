@@ -13,17 +13,15 @@ void TestTcpSelectServer()
     auto Port = "10000";
 
     TcpSelectServer tcpSelectServer;
-    tcpSelectServer.SetTimeOut(1000);
     tcpSelectServer.SetSocketTimeOut(2000);
     tcpSelectServer.SetBindAddressInfo(IP1, Port);
+    
     TcpServerSubscriberImpl tcpServerSubscriberImpl(&tcpSelectServer);
-    tcpSelectServer.Subscriber(&tcpServerSubscriberImpl);
-
-    if (!tcpSelectServer.Init())
+    if (!tcpServerSubscriberImpl.Init())
     {
         return;
     }
-    tcpSelectServer.Start();
+    tcpServerSubscriberImpl.Start();
 
-    tcpSelectServer.Join();
+    tcpServerSubscriberImpl.Join();
 }

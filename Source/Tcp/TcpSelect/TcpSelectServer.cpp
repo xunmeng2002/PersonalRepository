@@ -1,14 +1,20 @@
 #include "TcpSelectServer.h"
 #include "Logger.h"
 #include "Event.h"
+#include "TcpUtility.h"
 
 
 TcpSelectServer::TcpSelectServer()
-	:TcpSelectBase("TcpSelectServer")
 {
 	m_ListenSocket = INVALID_SOCKET;
 	memset(&m_RemoteAddress, 0, sizeof(m_RemoteAddress));
 	m_RemoteAddressLen = sizeof(m_RemoteAddress);
+}
+void TcpSelectServer::SetBindAddressInfo(const char* ip, const char* port)
+{
+	m_BindIP = ip;
+	m_BindPort = port;
+	GetAddrinfo(ip, port, m_BindAddressInfo);
 }
 bool TcpSelectServer::Init()
 {
@@ -17,11 +23,11 @@ bool TcpSelectServer::Init()
 	{
 		return false;
 	}
-	if (!Bind())
+	if (!Bind(m_ListenSocket, m_BindAddressInfo))
 	{
 		return false;
 	}
-	return Listen();
+	return Listen(m_ListenSocket);
 }
 
 

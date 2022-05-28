@@ -1,10 +1,10 @@
 #include "TcpSelectBase.h"
 #include "Logger.h"
 #include "Event.h"
+#include "TcpUtility.h"
 
 
-TcpSelectBase::TcpSelectBase(const char* name)
-	:TcpBase(name)
+TcpSelectBase::TcpSelectBase()
 {
 	FD_ZERO(&m_RecvFds);
 	FD_ZERO(&m_SendFds);
@@ -14,54 +14,35 @@ TcpSelectBase::TcpSelectBase(const char* name)
 }
 
 
-void TcpSelectBase::Run()
+void TcpSelectBase::DisConnect(int sessionID)
 {
-	HandleEvent();
+	m_DisConnectSessions.push_back(sessionID);
+}
+void TcpSelectBase::Send(int sessionID, const char* data, int len)
+{
+	TcpEvent* tcpEvent = TcpEvent::Allocate();
+	tcpEvent->EventID = EventSend;
+	tcpEvent->SessionID = sessionID;
+	memcpy(tcpEvent->Buff, data, len);
+	tcpEvent->Length = len;
+	tcpEvent->Buff[len] = '\0';
+	Send(tcpEvent);
+}
+void TcpSelectBase::Send(TcpEvent* tcpEvent)
+{
+	m_SendEvents[tcpEvent->SessionID].push_back(tcpEvent);
+}
+void TcpSelectBase::HandleTcpEvent()
+{
 	CheckConnect();
+	DoDisConnect();
 	PrepareFds();
 	::select(0, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
 	DoAccept();
 	DoRecv();
 	DoSend();
-	HandleOtherTask();
 }
-void TcpSelectBase::HandleEvent()
-{
-	TcpEvent* tcpEvent = nullptr;
-	while (tcpEvent = (TcpEvent*)GetEvent())
-	{
-		bool shouldFree = true;
-		switch (tcpEvent->EventID)
-		{
-		case EventConnect:
-		{
-			DoConnect(tcpEvent->IP, tcpEvent->Port);
-			break;
-		}
-		case EventDisConnect:
-		{
-			DoDisConnect(tcpEvent->SessionID);
-			break;
-		}
-		case EventSend:
-		{
-			PushSendEvent(tcpEvent);
-			shouldFree = false;
-			break;
-		}
-		default:
-			break;
-		}
-		if (shouldFree)
-		{
-			tcpEvent->Free();
-		}
-	}
-}
-void TcpSelectBase::DoDisConnect(int sessionID)
-{
-	RemoveConnect(sessionID);
-}
+
 void TcpSelectBase::PrepareFds()
 {
 	FD_ZERO(&m_RecvFds);
@@ -71,6 +52,15 @@ void TcpSelectBase::PrepareFds()
 		FD_SET(it.second->SocketID, &m_RecvFds);
 		if (!m_SendEvents[it.first].empty())
 			FD_SET(it.second->SocketID, &m_SendFds);
+	}
+}
+void TcpSelectBase::DoDisConnect()
+{
+	while (!m_DisConnectSessions.empty())
+	{
+		auto sessionID = m_DisConnectSessions.front();
+		m_DisConnectSessions.pop_front();
+		RemoveConnect(sessionID);
 	}
 }
 void TcpSelectBase::DoSend()
@@ -172,10 +162,6 @@ TcpEvent* TcpSelectBase::GetSendEvent(int sessionID)
 	auto tcpEvent = m_SendEvents[sessionID].front();
 	m_SendEvents[sessionID].pop_front();
 	return tcpEvent;
-}
-void TcpSelectBase::PushSendEvent(TcpEvent* tcpEvent)
-{
-	m_SendEvents[tcpEvent->SessionID].push_back(tcpEvent);
 }
 SOCKET TcpSelectBase::PrepareSocket(int family)
 {

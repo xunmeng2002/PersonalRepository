@@ -10,19 +10,20 @@
 class TcpSelectBase : public TcpBase
 {
 public:
-	TcpSelectBase(const char* name);
+	TcpSelectBase();
 
+	virtual void Connect(const char* ip, const char* port) {}
+	virtual void DisConnect(int sessionID) override;
+	virtual void Send(int sessionID, const char* data, int len) override;
+	virtual void Send(TcpEvent* tcpEvent) override;
+	virtual void HandleTcpEvent() override;
 protected:
-	virtual void Run() override;
-	virtual void HandleEvent();
-	virtual void DoConnect(const std::string& ip, const std::string& port) {}
-	virtual void DoDisConnect(int sessionID);
 	virtual void PrepareFds();
 	virtual void CheckConnect() {}
+	virtual void DoDisConnect();
 	virtual void DoAccept() {}
 	virtual void DoSend();
 	virtual void DoRecv();
-	virtual void HandleOtherTask() {}
 
 
 	virtual void AddConnect(ConnectData* connectData) override;
@@ -30,7 +31,6 @@ protected:
 	
 
 	TcpEvent* GetSendEvent(int sessionID);
-	void PushSendEvent(TcpEvent* tcpEvent);
 	SOCKET PrepareSocket(int family);
 
 protected:
@@ -38,4 +38,5 @@ protected:
 	fd_set m_SendFds;
 	
 	std::map<int, std::list<TcpEvent*>> m_SendEvents;
+	std::list<int> m_DisConnectSessions;
 };

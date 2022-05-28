@@ -11,8 +11,7 @@ public:
 	virtual void Connect(const char* ip, const char* port) override;
 
 protected:
-	virtual void DoConnect(const std::string& ip, const std::string& port) override;
-	void CheckConnect();
+	virtual void CheckConnect() override;
 
 private:
 	fd_set m_ConnectFds;

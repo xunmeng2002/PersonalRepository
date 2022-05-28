@@ -2,11 +2,20 @@
 #include "Logger.h"
 
 
-TcpServerSubscriberImpl::TcpServerSubscriberImpl(TcpPublisher* tcpPublisher)
-    :m_TcpPublisher(tcpPublisher)
+TcpServerSubscriberImpl::TcpServerSubscriberImpl(TcpBase* tcp)
+    :ThreadBase("TcpServerSubscriberImpl"), m_Tcp(tcp)
 {
-
+    m_Tcp->Subscriber(this);
 }
+bool TcpServerSubscriberImpl::Init()
+{
+    return m_Tcp->Init();
+}
+void TcpServerSubscriberImpl::HandleEvent()
+{
+    m_Tcp->HandleTcpEvent();
+}
+
 void TcpServerSubscriberImpl::OnConnect(int sessionID, const char* ip, const char* port)
 {
     WRITE_LOG(LogLevel::Info, "TcpServerSubscriberImpl::OnConnect SessionID:[%d], IP:[%s], Port:[%s]", sessionID, ip, port);
@@ -24,5 +33,5 @@ void TcpServerSubscriberImpl::OnRecv(TcpEvent* tcpEvent)
 
     tcpEvent->EventID = EventSend;
     tcpEvent->Length = n;
-    m_TcpPublisher->Send(tcpEvent);
+    m_Tcp->Send(tcpEvent);
 }

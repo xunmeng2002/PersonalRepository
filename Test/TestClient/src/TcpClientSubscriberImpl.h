@@ -1,18 +1,24 @@
 #pragma once
-#include "TcpInterface.h"
+#include "ThreadBase.h"
+#include "TcpBase.h"
 #include <map>
 
 
-class TcpClientSubscriberImpl : public TcpSubscriber
+class TcpClientSubscriberImpl : public ThreadBase, public TcpSubscriber
 {
 public:
-	TcpClientSubscriberImpl(TcpPublisher* tcpPublisher);
+	TcpClientSubscriberImpl(TcpBase* tcp);
+	bool Init();
+	virtual void HandleEvent() override;
+
+
+
 	virtual void OnConnect(int sessionID, const char* ip, const char* port);
 	virtual void OnDisConnect(int sessionID, const char* ip, const char* port);
 	virtual void OnRecv(TcpEvent* tcpEvent);
 
 	void Send(int sessionID, const char* ip, const char* port);
 private:
-	TcpPublisher* m_TcpPublisher;
+	TcpBase* m_Tcp;
 	std::map<int, int> m_MessageCounts;
 };
