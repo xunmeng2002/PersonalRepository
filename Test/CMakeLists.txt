@@ -1,2 +1,5 @@
 add_subdirectory(TestClient)
 add_subdirectory(TestServer)
+
+add_subdirectory(TestSharedMemoryClient)
+add_subdirectory(TestSharedMemoryServer)

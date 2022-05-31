@@ -2,12 +2,13 @@
 #include "Logger.h"
 #include "Event.h"
 #include "TcpUtility.h"
+#include <string.h>
 
 
 TcpSelectServer::TcpSelectServer()
 {
 	m_ListenSocket = INVALID_SOCKET;
-	memset(&m_RemoteAddress, 0, sizeof(m_RemoteAddress));
+	::memset(&m_RemoteAddress, 0, sizeof(m_RemoteAddress));
 	m_RemoteAddressLen = sizeof(m_RemoteAddress);
 }
 void TcpSelectServer::SetBindAddressInfo(const char* ip, const char* port)
@@ -35,11 +36,15 @@ void TcpSelectServer::PrepareFds()
 {
 	TcpSelectBase::PrepareFds();
 	FD_SET(m_ListenSocket, &m_RecvFds);
+	if (m_ListenSocket > m_MaxID)
+	{
+		m_MaxID = m_ListenSocket;
+	}
 }
 void TcpSelectServer::DoAccept()
 {
 	PrepareFds();
-	::select(0, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
+	::select(m_MaxID + 1, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
 	if (FD_ISSET(m_ListenSocket, &m_RecvFds))
 	{
 		for (int i = 0; i < 5; i++)

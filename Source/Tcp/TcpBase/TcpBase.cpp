@@ -1,4 +1,5 @@
 #include "TcpBase.h"
+#include "Platform.h"
 #include "Logger.h"
 #include "TcpUtility.h"
 
@@ -60,7 +61,7 @@ ConnectData* TcpBase::GetConnect(int sessionID)
 
 bool TcpBase::InitSocket(SOCKET socketID)
 {
-	if (!SetSockUnblock(socketID) || !SetSockReuse(socketID)|| !SetSockNodelay(socketID) || !SetSockIPV6Only(socketID))
+	if (!SetSockUnblock(socketID) || !SetSockReuse(socketID)|| !SetSockNodelay(socketID))
 	{
 		WRITE_LOG(LogLevel::Warning, "InitSocket Failed. ErrorID:[%d]", GetLastError());
 		return false;

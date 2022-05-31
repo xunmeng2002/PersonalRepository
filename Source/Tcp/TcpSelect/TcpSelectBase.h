@@ -36,6 +36,7 @@ protected:
 protected:
 	fd_set m_RecvFds;
 	fd_set m_SendFds;
+	int m_MaxID;
 	
 	std::map<int, std::list<TcpEvent*>> m_SendEvents;
 	std::list<int> m_DisConnectSessions;

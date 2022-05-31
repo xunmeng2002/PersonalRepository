@@ -30,11 +30,16 @@ void TcpSelectClient::CheckConnect()
 	if (m_ConnectingSocket.size() == 0)
 		return;
 	FD_ZERO(&m_ConnectFds);
+	int maxID = 0;
 	for (auto& connectData : m_ConnectingSocket)
 	{
 		FD_SET(connectData->SocketID, &m_ConnectFds);
+		if (connectData->SocketID > maxID)
+		{
+			maxID = connectData->SocketID;
+		}
 	}
-	auto ret = select(0, NULL, &m_ConnectFds, NULL, &m_SocketTimeOut);
+	auto ret = select(maxID + 1, NULL, &m_ConnectFds, NULL, &m_SocketTimeOut);
 	WRITE_LOG(LogLevel::Info, "Connect Select: ret[%d]\n", ret);
 	while (!m_ConnectingSocket.empty())
 	{

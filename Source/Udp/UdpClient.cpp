@@ -1,4 +1,5 @@
 #include "UdpClient.h"
+#include "Platform.h"
 #include "Logger.h"
 #include "zlib.h"
 

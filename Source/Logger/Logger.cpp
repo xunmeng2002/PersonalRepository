@@ -52,11 +52,13 @@ void Logger::WriteLog(LogLevel level, const char* file, int line, const char* fu
 	va_list va;
 	va_start(va, formatStr);
 	WriteToLog(level, file, line, func, formatStr, va);
+	va_end(va);
 	if (level >= LogLevel::Info)
 	{
+		va_start(va, formatStr);
 		WriteToConsole(level, formatStr, va);
+		va_end(va);
 	}
-	va_end(va);
 }
 void Logger::ThreadInit()
 {

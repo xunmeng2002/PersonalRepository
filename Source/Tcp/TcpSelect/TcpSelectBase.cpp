@@ -2,12 +2,14 @@
 #include "Logger.h"
 #include "Event.h"
 #include "TcpUtility.h"
+#include <string.h>
 
 
 TcpSelectBase::TcpSelectBase()
 {
 	FD_ZERO(&m_RecvFds);
 	FD_ZERO(&m_SendFds);
+	m_MaxID = 0;
 
 	m_SocketTimeOut.tv_sec = 5;
 	m_SocketTimeOut.tv_usec = 0;
@@ -23,7 +25,7 @@ void TcpSelectBase::Send(int sessionID, const char* data, int len)
 	TcpEvent* tcpEvent = TcpEvent::Allocate();
 	tcpEvent->EventID = EventSend;
 	tcpEvent->SessionID = sessionID;
-	memcpy(tcpEvent->Buff, data, len);
+	::memcpy(tcpEvent->Buff, data, len);
 	tcpEvent->Length = len;
 	tcpEvent->Buff[len] = '\0';
 	Send(tcpEvent);
@@ -37,7 +39,7 @@ void TcpSelectBase::HandleTcpEvent()
 	CheckConnect();
 	DoDisConnect();
 	PrepareFds();
-	::select(0, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
+	::select(m_MaxID + 1, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
 	DoAccept();
 	DoRecv();
 	DoSend();
@@ -47,11 +49,16 @@ void TcpSelectBase::PrepareFds()
 {
 	FD_ZERO(&m_RecvFds);
 	FD_ZERO(&m_SendFds);
+	m_MaxID = 0;
 	for (auto& it : m_ConnectDatas)
 	{
 		FD_SET(it.second->SocketID, &m_RecvFds);
 		if (!m_SendEvents[it.first].empty())
 			FD_SET(it.second->SocketID, &m_SendFds);
+		if (it.second->SocketID > m_MaxID)
+		{
+			m_MaxID = it.second->SocketID;
+		}
 	}
 }
 void TcpSelectBase::DoDisConnect()

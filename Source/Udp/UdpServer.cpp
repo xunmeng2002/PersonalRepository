@@ -1,6 +1,8 @@
 #include "UdpServer.h"
+#include "Platform.h"
 #include "Logger.h"
 #include "zlib.h"
+#include <string.h>
 
 
 void UdpServer::SetBindAddressInfo(const char* ip, const char* port)
@@ -67,7 +69,7 @@ bool UdpServer::ZipRecvFrom(TcpEvent* tcpEvent)
 }
 int UdpServer::RecvFrom(TcpEvent* tcpEvent)
 {
-	memset(tcpEvent->Buff, 0, BuffSize);
+	::memset(tcpEvent->Buff, 0, BuffSize);
 	m_RemoteAddressLen = sizeof(sockaddr_storage);
 	tcpEvent->Length = ::recvfrom(m_Socket, tcpEvent->Buff, BuffSize - 1, 0, (sockaddr*)&m_RemoteAddress, &m_RemoteAddressLen);
 	if (tcpEvent->Length <= 0)

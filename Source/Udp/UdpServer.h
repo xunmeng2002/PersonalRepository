@@ -22,6 +22,11 @@ protected:
 	std::string m_BindPort;
 
 	sockaddr_storage m_RemoteAddress;
+#ifdef WINDOWS
 	int m_RemoteAddressLen;
+#endif
+#ifdef LINUX
+	unsigned int m_RemoteAddressLen;
+#endif
 };
 

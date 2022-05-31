@@ -6,11 +6,15 @@
 #ifdef LINUX
 #include <arpa/inet.h>
 #include <netdb.h>
-#endif // LINUX
+#include<unistd.h>
+#include <netinet/tcp.h>
+#include <sys/ioctl.h>
 
-
-#ifdef LINUX
 typedef unsigned long long SOCKET;
+#define INVALID_SOCKET  (SOCKET)(~0)
+#define SOCKET_ERROR            (-1)
+
+#define closesocket close
 #endif // LINUX
 
 class SocketInit

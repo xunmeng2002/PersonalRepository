@@ -1,11 +1,13 @@
 #include "TcpUtility.h"
+#include "Platform.h"
 #include "Logger.h"
+#include <string.h>
 
 
 int GetAddrinfo(const char* ip, const char* port, addrinfo*& addrInfo)
 {
 	struct addrinfo hints;
-	memset(&hints, 0, sizeof(hints));
+	::memset(&hints, 0, sizeof(hints));
 	hints.ai_flags = AI_PASSIVE;
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
@@ -26,12 +28,22 @@ int GetNameinfo(const sockaddr* sockAddr, int len, std::string& ip, std::string&
 
 bool SetSockUnblock(SOCKET socketID, unsigned long unblock)
 {
+#ifdef  WINDOWS
 	if (::ioctlsocket(socketID, FIONBIO, &unblock) == SOCKET_ERROR)
 	{
 		WRITE_LOG(LogLevel::Error, "ioctlsocket FIONBIO[%d] Failed. ErrorID:[%d]", unblock, GetLastError());
 		return false;
 	}
 	WRITE_LOG(LogLevel::Info, "ioctlsocket FIONBIO[%d] Success.", unblock);
+#endif //  WINDOWS
+#ifdef LINUX
+	if (ioctl(socketID, FIONBIO, &unblock) == SOCKET_ERROR)
+	{
+		WRITE_LOG(LogLevel::Error, "ioctl FIONBIO[%d] Failed. ErrorID:[%d]", unblock, GetLastError());
+		return false;
+	}
+	WRITE_LOG(LogLevel::Info, "ioctl FIONBIO[%d] Success.", unblock);
+#endif // LINUX
 	return true;
 }
 bool SetSockReuse(SOCKET socketID, int resue)

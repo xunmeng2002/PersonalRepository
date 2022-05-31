@@ -1,14 +1,16 @@
 #include "UdpBase.h"
+#include "Platform.h"
 #include "Logger.h"
 #include "zlib.h"
 #include <stdio.h>
 #include <iostream>
+#include <string.h>
 
 
 bool UdpBase::GetAddrinfo(const char* ip, const char* port, addrinfo*& addrInfo)
 {
 	struct addrinfo hints;
-	memset(&hints, 0, sizeof(hints));
+	::memset(&hints, 0, sizeof(hints));
 	hints.ai_flags = AI_PASSIVE;
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_DGRAM;
@@ -44,7 +46,7 @@ bool UdpBase::GetNameinfo(const sockaddr* sockAddr, int len, std::string& ip, st
 
 bool UdpBase::SetBroadcast(SOCKET socket, int broadcast)
 {
-	if (::setsockopt(socket, SOL_SOCKET, SO_BROADCAST, (char*)&broadcast, sizeof(BOOL)) == SOCKET_ERROR)
+	if (::setsockopt(socket, SOL_SOCKET, SO_BROADCAST, (char*)&broadcast, sizeof(int)) == SOCKET_ERROR)
 	{
 		WRITE_LOG(LogLevel::Error, "setsockopt SO_BROADCAST[%d] Failed.ErrorID:[%d]", broadcast, GetLastError());
 		return false;
