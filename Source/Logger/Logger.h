@@ -31,6 +31,7 @@ private:
 public:
 	static Logger& GetInstance();
 	bool Init(const char* fullProcessName);
+	void SetLogLevel(LogLevel logLevel = LogLevel::Info, LogLevel logLevelConsole = LogLevel::Warning);
 	void WriteLog(LogLevel level, const char* file, int line, const char* func, const char* formatStr, ...);
 
 
@@ -54,6 +55,8 @@ private:
 	char m_ProcessName[128];
 	tm m_CreateLogFileTime;
 	LogData* m_LogData;
+	static LogLevel s_LogLevel;
+	static LogLevel s_LogLevelConsole;
 };
 
 #define WRITE_LOG(level, formatStr, ...)\

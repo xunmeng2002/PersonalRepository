@@ -9,8 +9,6 @@
 
 #define LOG_LINE_LENGTH 64 * 1024
 
-static LogLevel s_logLevel = LogLevel::Info;
-
 static std::map<LogLevel, std::string> s_LogLevelName = {
 	{ LogLevel::None, "NONE"},
 	{ LogLevel::Emergency, "EMERGENCY"},
@@ -26,6 +24,8 @@ thread_local char* t_LogBuffer = new char[LOG_LINE_LENGTH];
 
 
 Logger Logger::m_Instance;
+LogLevel Logger::s_LogLevel = LogLevel::Info;
+LogLevel Logger::s_LogLevelConsole = LogLevel::Warning;
 
 Logger::Logger()
 	:ThreadBase("Logger"), m_ProcessName(""), m_CreateLogFileTime(), m_LogData(nullptr)
@@ -47,13 +47,18 @@ bool Logger::Init(const char* fullProcessName)
 	CreateLogDir("log");
 	return true;
 }
+void Logger::SetLogLevel(LogLevel logLevel, LogLevel logLevelConsole)
+{
+	s_LogLevel = logLevel;
+	s_LogLevelConsole = logLevelConsole;
+}
 void Logger::WriteLog(LogLevel level, const char* file, int line, const char* func, const char* formatStr, ...)
 {
 	va_list va;
 	va_start(va, formatStr);
 	WriteToLog(level, file, line, func, formatStr, va);
 	va_end(va);
-	if (level >= LogLevel::Info)
+	if (level >= s_LogLevelConsole)
 	{
 		va_start(va, formatStr);
 		WriteToConsole(level, formatStr, va);
@@ -121,7 +126,7 @@ void Logger::FlushBuffers()
 
 void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* func, const char* format, va_list va)
 {
-	if (level < s_logLevel)
+	if (level < s_LogLevel)
 		return;
 	for (auto p = file; *p != '\0'; p++)
 		if (*p == '\\' || *p == '/')
@@ -141,8 +146,6 @@ void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* 
 }
 void Logger::WriteToConsole(LogLevel level, const char* formatStr, va_list va)
 {
-	if (level < s_logLevel)
-		return;
 	char logString[10240];
 	int len = snprintf(logString, sizeof(logString), "ThreadID[%05d] ", std::this_thread::get_id());
 	len += vsnprintf(logString + len, sizeof(logString) - len - 3, formatStr, va);

@@ -1,10 +1,13 @@
 #pragma once
 #include <stdio.h>
+#if LINUX
 #include <sys/shm.h>
 #include <sys/ipc.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <string.h>
+
+#endif
 
 #define SIZE 4096
 #define PathName "/home/ams/Workspace/SharedMemory/shm"
@@ -12,6 +15,7 @@
 
 int main()
 {
+#if LINUX
 	key_t k = ftok(PathName, ProjID);
 	if (k < 0)
 	{
@@ -44,6 +48,7 @@ int main()
 	shmdt(mem);
 	printf("detach end.\n");
 	sleep(3);
+#endif
 
 	return 0;
 }

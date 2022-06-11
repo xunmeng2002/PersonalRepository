@@ -3,3 +3,5 @@ add_subdirectory(TestServer)
 
 add_subdirectory(TestSharedMemoryClient)
 add_subdirectory(TestSharedMemoryServer)
+
+add_subdirectory(TestCtpApi)
