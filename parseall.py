@@ -40,8 +40,9 @@ def DoParse(fileName):
 
 
 if __name__ == "__main__":
-    exclude = ['inttools']
+    exclude = ['.sv', '.vs', 'build', 'out']
     parsefiles = []
     Search(".", "parselist.xml", exclude, parsefiles)
     for parsefile in parsefiles:
+        print(parsefile)
         DoParse(parsefile)
