@@ -34,13 +34,13 @@ public:
 
 	virtual void OnRspQryInstrument(CThostFtdcInstrumentField* pInstrument, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
 
-	virtual void OnRspQryTradingAccount(CThostFtdcTradingAccountField* TradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
+	virtual void OnRspQryTradingAccount(CThostFtdcTradingAccountField* pTradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
 	
-	virtual void OnRspQryInvestorPosition(CThostFtdcInvestorPositionField* InvestorPosition, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
+	virtual void OnRspQryInvestorPosition(CThostFtdcInvestorPositionField* pInvestorPosition, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
 
-	virtual void OnRspQryOrder(CThostFtdcOrderField* Order, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
+	virtual void OnRspQryOrder(CThostFtdcOrderField* pOrder, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
 
-	virtual void OnRspQryTrade(CThostFtdcTradeField* Trade, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
+	virtual void OnRspQryTrade(CThostFtdcTradeField* pTrade, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast);
 
 public:
 	void SetAccountInfo(AccountInfo* accountInfo);

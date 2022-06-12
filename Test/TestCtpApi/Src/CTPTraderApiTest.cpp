@@ -62,13 +62,13 @@ int main(int argc, char* argv[])
 	Logger::GetInstance().SetLogLevel(LogLevel::Info, LogLevel::Warning);
 	Logger::GetInstance().Start();
 
-	string accountID = "132924";
+	string userID = "132924";
 	CThostFtdcTraderApi* traderApi = CThostFtdcTraderApiMiddle::CreateFtdcTraderApi();
 	cout << "API Version:" << traderApi->GetApiVersion() << endl;
 	CThostFtdcTraderSpiImpl* traderSpi = new CThostFtdcTraderSpiImpl(traderApi);
-	traderSpi->SetAccountInfo(accountInfos[accountID]);
+	traderSpi->SetAccountInfo(accountInfos[userID]);
 	traderApi->RegisterSpi(traderSpi);
-	for (auto frontAddr : accountInfos[accountID]->FrontAddrs)
+	for (auto frontAddr : accountInfos[userID]->FrontAddrs)
 	{
 		traderApi->RegisterFront((char*)frontAddr.c_str());
 	}

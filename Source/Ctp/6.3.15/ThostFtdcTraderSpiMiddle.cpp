@@ -19,830 +19,830 @@ void CThostFtdcTraderSpiMiddle::OnHeartBeatWarning(int nTimeLapse)
 	WRITE_LOG(LogLevel::Info, "OnHeartBeatWarning: nTimeLapse[%d]", nTimeLapse);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspAuthenticate(CThostFtdcRspAuthenticateField *RspAuthenticate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspAuthenticate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRspAuthenticate(RspAuthenticate);
-	WriteRspInfo(RspInfo);
+	WriteRspAuthenticate(pRspAuthenticate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspUserLogin(CThostFtdcRspUserLoginField *RspUserLogin, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspUserLogin: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRspUserLogin(RspUserLogin);
-	WriteRspInfo(RspInfo);
+	WriteRspUserLogin(pRspUserLogin);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspUserLogout(CThostFtdcUserLogoutField *UserLogout, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspUserLogout: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteUserLogout(UserLogout);
-	WriteRspInfo(RspInfo);
+	WriteUserLogout(pUserLogout);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *UserPasswordUpdate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspUserPasswordUpdate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteUserPasswordUpdate(UserPasswordUpdate);
-	WriteRspInfo(RspInfo);
+	WriteUserPasswordUpdate(pUserPasswordUpdate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *TradingAccountPasswordUpdate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspTradingAccountPasswordUpdate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTradingAccountPasswordUpdate(TradingAccountPasswordUpdate);
-	WriteRspInfo(RspInfo);
+	WriteTradingAccountPasswordUpdate(pTradingAccountPasswordUpdate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspUserAuthMethod(CThostFtdcRspUserAuthMethodField *RspUserAuthMethod, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspUserAuthMethod(CThostFtdcRspUserAuthMethodField *pRspUserAuthMethod, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspUserAuthMethod: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRspUserAuthMethod(RspUserAuthMethod);
-	WriteRspInfo(RspInfo);
+	WriteRspUserAuthMethod(pRspUserAuthMethod);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspGenUserCaptcha(CThostFtdcRspGenUserCaptchaField *RspGenUserCaptcha, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspGenUserCaptcha(CThostFtdcRspGenUserCaptchaField *pRspGenUserCaptcha, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspGenUserCaptcha: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRspGenUserCaptcha(RspGenUserCaptcha);
-	WriteRspInfo(RspInfo);
+	WriteRspGenUserCaptcha(pRspGenUserCaptcha);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspGenUserText(CThostFtdcRspGenUserTextField *RspGenUserText, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspGenUserText(CThostFtdcRspGenUserTextField *pRspGenUserText, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspGenUserText: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRspGenUserText(RspGenUserText);
-	WriteRspInfo(RspInfo);
+	WriteRspGenUserText(pRspGenUserText);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspOrderInsert(CThostFtdcInputOrderField *InputOrder, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspOrderInsert: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputOrder(InputOrder);
-	WriteRspInfo(RspInfo);
+	WriteInputOrder(pInputOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspParkedOrderInsert(CThostFtdcParkedOrderField *ParkedOrder, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspParkedOrderInsert(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspParkedOrderInsert: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteParkedOrder(ParkedOrder);
-	WriteRspInfo(RspInfo);
+	WriteParkedOrder(pParkedOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspParkedOrderAction(CThostFtdcParkedOrderActionField *ParkedOrderAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspParkedOrderAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteParkedOrderAction(ParkedOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteParkedOrderAction(pParkedOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspOrderAction(CThostFtdcInputOrderActionField *InputOrderAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspOrderAction(CThostFtdcInputOrderActionField *pInputOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspOrderAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputOrderAction(InputOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteInputOrderAction(pInputOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *QueryMaxOrderVolume, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQueryMaxOrderVolume: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteQueryMaxOrderVolume(QueryMaxOrderVolume);
-	WriteRspInfo(RspInfo);
+	WriteQueryMaxOrderVolume(pQueryMaxOrderVolume);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *SettlementInfoConfirm, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspSettlementInfoConfirm: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteSettlementInfoConfirm(SettlementInfoConfirm);
-	WriteRspInfo(RspInfo);
+	WriteSettlementInfoConfirm(pSettlementInfoConfirm);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspRemoveParkedOrder(CThostFtdcRemoveParkedOrderField *RemoveParkedOrder, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspRemoveParkedOrder(CThostFtdcRemoveParkedOrderField *pRemoveParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspRemoveParkedOrder: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRemoveParkedOrder(RemoveParkedOrder);
-	WriteRspInfo(RspInfo);
+	WriteRemoveParkedOrder(pRemoveParkedOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspRemoveParkedOrderAction(CThostFtdcRemoveParkedOrderActionField *RemoveParkedOrderAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspRemoveParkedOrderAction(CThostFtdcRemoveParkedOrderActionField *pRemoveParkedOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspRemoveParkedOrderAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRemoveParkedOrderAction(RemoveParkedOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteRemoveParkedOrderAction(pRemoveParkedOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspExecOrderInsert(CThostFtdcInputExecOrderField *InputExecOrder, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspExecOrderInsert(CThostFtdcInputExecOrderField *pInputExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspExecOrderInsert: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputExecOrder(InputExecOrder);
-	WriteRspInfo(RspInfo);
+	WriteInputExecOrder(pInputExecOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspExecOrderAction(CThostFtdcInputExecOrderActionField *InputExecOrderAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspExecOrderAction(CThostFtdcInputExecOrderActionField *pInputExecOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspExecOrderAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputExecOrderAction(InputExecOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteInputExecOrderAction(pInputExecOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspForQuoteInsert(CThostFtdcInputForQuoteField *InputForQuote, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspForQuoteInsert: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputForQuote(InputForQuote);
-	WriteRspInfo(RspInfo);
+	WriteInputForQuote(pInputForQuote);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQuoteInsert(CThostFtdcInputQuoteField *InputQuote, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQuoteInsert(CThostFtdcInputQuoteField *pInputQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQuoteInsert: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputQuote(InputQuote);
-	WriteRspInfo(RspInfo);
+	WriteInputQuote(pInputQuote);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQuoteAction(CThostFtdcInputQuoteActionField *InputQuoteAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQuoteAction(CThostFtdcInputQuoteActionField *pInputQuoteAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQuoteAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputQuoteAction(InputQuoteAction);
-	WriteRspInfo(RspInfo);
+	WriteInputQuoteAction(pInputQuoteAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspBatchOrderAction(CThostFtdcInputBatchOrderActionField *InputBatchOrderAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspBatchOrderAction(CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspBatchOrderAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputBatchOrderAction(InputBatchOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteInputBatchOrderAction(pInputBatchOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *InputOptionSelfClose, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspOptionSelfCloseInsert: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputOptionSelfClose(InputOptionSelfClose);
-	WriteRspInfo(RspInfo);
+	WriteInputOptionSelfClose(pInputOptionSelfClose);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspOptionSelfCloseAction(CThostFtdcInputOptionSelfCloseActionField *InputOptionSelfCloseAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspOptionSelfCloseAction(CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspOptionSelfCloseAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputOptionSelfCloseAction(InputOptionSelfCloseAction);
-	WriteRspInfo(RspInfo);
+	WriteInputOptionSelfCloseAction(pInputOptionSelfCloseAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspCombActionInsert(CThostFtdcInputCombActionField *InputCombAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspCombActionInsert: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInputCombAction(InputCombAction);
-	WriteRspInfo(RspInfo);
+	WriteInputCombAction(pInputCombAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryOrder(CThostFtdcOrderField *Order, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryOrder(CThostFtdcOrderField *pOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryOrder: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteOrder(Order);
-	WriteRspInfo(RspInfo);
+	WriteOrder(pOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryTrade(CThostFtdcTradeField *Trade, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryTrade(CThostFtdcTradeField *pTrade, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryTrade: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTrade(Trade);
-	WriteRspInfo(RspInfo);
+	WriteTrade(pTrade);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *InvestorPosition, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInvestorPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInvestorPosition: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInvestorPosition(InvestorPosition);
-	WriteRspInfo(RspInfo);
+	WriteInvestorPosition(pInvestorPosition);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryTradingAccount(CThostFtdcTradingAccountField *TradingAccount, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryTradingAccount(CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryTradingAccount: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTradingAccount(TradingAccount);
-	WriteRspInfo(RspInfo);
+	WriteTradingAccount(pTradingAccount);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInvestor(CThostFtdcInvestorField *Investor, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInvestor(CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInvestor: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInvestor(Investor);
-	WriteRspInfo(RspInfo);
+	WriteInvestor(pInvestor);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryTradingCode(CThostFtdcTradingCodeField *TradingCode, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryTradingCode(CThostFtdcTradingCodeField *pTradingCode, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryTradingCode: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTradingCode(TradingCode);
-	WriteRspInfo(RspInfo);
+	WriteTradingCode(pTradingCode);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInstrumentMarginRate(CThostFtdcInstrumentMarginRateField *InstrumentMarginRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInstrumentMarginRate(CThostFtdcInstrumentMarginRateField *pInstrumentMarginRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInstrumentMarginRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInstrumentMarginRate(InstrumentMarginRate);
-	WriteRspInfo(RspInfo);
+	WriteInstrumentMarginRate(pInstrumentMarginRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInstrumentCommissionRate(CThostFtdcInstrumentCommissionRateField *InstrumentCommissionRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInstrumentCommissionRate(CThostFtdcInstrumentCommissionRateField *pInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInstrumentCommissionRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInstrumentCommissionRate(InstrumentCommissionRate);
-	WriteRspInfo(RspInfo);
+	WriteInstrumentCommissionRate(pInstrumentCommissionRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryExchange(CThostFtdcExchangeField *Exchange, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryExchange(CThostFtdcExchangeField *pExchange, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryExchange: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteExchange(Exchange);
-	WriteRspInfo(RspInfo);
+	WriteExchange(pExchange);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryProduct(CThostFtdcProductField *Product, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryProduct(CThostFtdcProductField *pProduct, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryProduct: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteProduct(Product);
-	WriteRspInfo(RspInfo);
+	WriteProduct(pProduct);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInstrument(CThostFtdcInstrumentField *Instrument, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInstrument: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInstrument(Instrument);
-	WriteRspInfo(RspInfo);
+	WriteInstrument(pInstrument);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *DepthMarketData, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryDepthMarketData: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteDepthMarketData(DepthMarketData);
-	WriteRspInfo(RspInfo);
+	WriteDepthMarketData(pDepthMarketData);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *SettlementInfo, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettlementInfo, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQrySettlementInfo: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteSettlementInfo(SettlementInfo);
-	WriteRspInfo(RspInfo);
+	WriteSettlementInfo(pSettlementInfo);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryTransferBank(CThostFtdcTransferBankField *TransferBank, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryTransferBank(CThostFtdcTransferBankField *pTransferBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryTransferBank: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTransferBank(TransferBank);
-	WriteRspInfo(RspInfo);
+	WriteTransferBank(pTransferBank);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInvestorPositionDetail(CThostFtdcInvestorPositionDetailField *InvestorPositionDetail, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInvestorPositionDetail(CThostFtdcInvestorPositionDetailField *pInvestorPositionDetail, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInvestorPositionDetail: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInvestorPositionDetail(InvestorPositionDetail);
-	WriteRspInfo(RspInfo);
+	WriteInvestorPositionDetail(pInvestorPositionDetail);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryNotice(CThostFtdcNoticeField *Notice, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryNotice(CThostFtdcNoticeField *pNotice, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryNotice: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteNotice(Notice);
-	WriteRspInfo(RspInfo);
+	WriteNotice(pNotice);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQrySettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *SettlementInfoConfirm, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQrySettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQrySettlementInfoConfirm: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteSettlementInfoConfirm(SettlementInfoConfirm);
-	WriteRspInfo(RspInfo);
+	WriteSettlementInfoConfirm(pSettlementInfoConfirm);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInvestorPositionCombineDetail(CThostFtdcInvestorPositionCombineDetailField *InvestorPositionCombineDetail, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInvestorPositionCombineDetail(CThostFtdcInvestorPositionCombineDetailField *pInvestorPositionCombineDetail, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInvestorPositionCombineDetail: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInvestorPositionCombineDetail(InvestorPositionCombineDetail);
-	WriteRspInfo(RspInfo);
+	WriteInvestorPositionCombineDetail(pInvestorPositionCombineDetail);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryCFMMCTradingAccountKey(CThostFtdcCFMMCTradingAccountKeyField *CFMMCTradingAccountKey, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryCFMMCTradingAccountKey(CThostFtdcCFMMCTradingAccountKeyField *pCFMMCTradingAccountKey, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryCFMMCTradingAccountKey: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteCFMMCTradingAccountKey(CFMMCTradingAccountKey);
-	WriteRspInfo(RspInfo);
+	WriteCFMMCTradingAccountKey(pCFMMCTradingAccountKey);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryEWarrantOffset(CThostFtdcEWarrantOffsetField *EWarrantOffset, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryEWarrantOffset(CThostFtdcEWarrantOffsetField *pEWarrantOffset, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryEWarrantOffset: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteEWarrantOffset(EWarrantOffset);
-	WriteRspInfo(RspInfo);
+	WriteEWarrantOffset(pEWarrantOffset);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInvestorProductGroupMargin(CThostFtdcInvestorProductGroupMarginField *InvestorProductGroupMargin, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInvestorProductGroupMargin(CThostFtdcInvestorProductGroupMarginField *pInvestorProductGroupMargin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInvestorProductGroupMargin: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInvestorProductGroupMargin(InvestorProductGroupMargin);
-	WriteRspInfo(RspInfo);
+	WriteInvestorProductGroupMargin(pInvestorProductGroupMargin);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryExchangeMarginRate(CThostFtdcExchangeMarginRateField *ExchangeMarginRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryExchangeMarginRate(CThostFtdcExchangeMarginRateField *pExchangeMarginRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryExchangeMarginRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteExchangeMarginRate(ExchangeMarginRate);
-	WriteRspInfo(RspInfo);
+	WriteExchangeMarginRate(pExchangeMarginRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryExchangeMarginRateAdjust(CThostFtdcExchangeMarginRateAdjustField *ExchangeMarginRateAdjust, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryExchangeMarginRateAdjust(CThostFtdcExchangeMarginRateAdjustField *pExchangeMarginRateAdjust, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryExchangeMarginRateAdjust: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteExchangeMarginRateAdjust(ExchangeMarginRateAdjust);
-	WriteRspInfo(RspInfo);
+	WriteExchangeMarginRateAdjust(pExchangeMarginRateAdjust);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryExchangeRate(CThostFtdcExchangeRateField *ExchangeRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryExchangeRate(CThostFtdcExchangeRateField *pExchangeRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryExchangeRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteExchangeRate(ExchangeRate);
-	WriteRspInfo(RspInfo);
+	WriteExchangeRate(pExchangeRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentACIDMap(CThostFtdcSecAgentACIDMapField *SecAgentACIDMap, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentACIDMap(CThostFtdcSecAgentACIDMapField *pSecAgentACIDMap, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQrySecAgentACIDMap: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteSecAgentACIDMap(SecAgentACIDMap);
-	WriteRspInfo(RspInfo);
+	WriteSecAgentACIDMap(pSecAgentACIDMap);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryProductExchRate(CThostFtdcProductExchRateField *ProductExchRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryProductExchRate(CThostFtdcProductExchRateField *pProductExchRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryProductExchRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteProductExchRate(ProductExchRate);
-	WriteRspInfo(RspInfo);
+	WriteProductExchRate(pProductExchRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryProductGroup(CThostFtdcProductGroupField *ProductGroup, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryProductGroup(CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryProductGroup: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteProductGroup(ProductGroup);
-	WriteRspInfo(RspInfo);
+	WriteProductGroup(pProductGroup);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryMMInstrumentCommissionRate(CThostFtdcMMInstrumentCommissionRateField *MMInstrumentCommissionRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryMMInstrumentCommissionRate(CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryMMInstrumentCommissionRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteMMInstrumentCommissionRate(MMInstrumentCommissionRate);
-	WriteRspInfo(RspInfo);
+	WriteMMInstrumentCommissionRate(pMMInstrumentCommissionRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryMMOptionInstrCommRate(CThostFtdcMMOptionInstrCommRateField *MMOptionInstrCommRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryMMOptionInstrCommRate(CThostFtdcMMOptionInstrCommRateField *pMMOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryMMOptionInstrCommRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteMMOptionInstrCommRate(MMOptionInstrCommRate);
-	WriteRspInfo(RspInfo);
+	WriteMMOptionInstrCommRate(pMMOptionInstrCommRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInstrumentOrderCommRate(CThostFtdcInstrumentOrderCommRateField *InstrumentOrderCommRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInstrumentOrderCommRate(CThostFtdcInstrumentOrderCommRateField *pInstrumentOrderCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInstrumentOrderCommRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInstrumentOrderCommRate(InstrumentOrderCommRate);
-	WriteRspInfo(RspInfo);
+	WriteInstrumentOrderCommRate(pInstrumentOrderCommRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentTradingAccount(CThostFtdcTradingAccountField *TradingAccount, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentTradingAccount(CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQrySecAgentTradingAccount: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTradingAccount(TradingAccount);
-	WriteRspInfo(RspInfo);
+	WriteTradingAccount(pTradingAccount);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentCheckMode(CThostFtdcSecAgentCheckModeField *SecAgentCheckMode, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentCheckMode(CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQrySecAgentCheckMode: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteSecAgentCheckMode(SecAgentCheckMode);
-	WriteRspInfo(RspInfo);
+	WriteSecAgentCheckMode(pSecAgentCheckMode);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentTradeInfo(CThostFtdcSecAgentTradeInfoField *SecAgentTradeInfo, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQrySecAgentTradeInfo(CThostFtdcSecAgentTradeInfoField *pSecAgentTradeInfo, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQrySecAgentTradeInfo: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteSecAgentTradeInfo(SecAgentTradeInfo);
-	WriteRspInfo(RspInfo);
+	WriteSecAgentTradeInfo(pSecAgentTradeInfo);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryOptionInstrTradeCost(CThostFtdcOptionInstrTradeCostField *OptionInstrTradeCost, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryOptionInstrTradeCost(CThostFtdcOptionInstrTradeCostField *pOptionInstrTradeCost, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryOptionInstrTradeCost: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteOptionInstrTradeCost(OptionInstrTradeCost);
-	WriteRspInfo(RspInfo);
+	WriteOptionInstrTradeCost(pOptionInstrTradeCost);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryOptionInstrCommRate(CThostFtdcOptionInstrCommRateField *OptionInstrCommRate, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryOptionInstrCommRate(CThostFtdcOptionInstrCommRateField *pOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryOptionInstrCommRate: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteOptionInstrCommRate(OptionInstrCommRate);
-	WriteRspInfo(RspInfo);
+	WriteOptionInstrCommRate(pOptionInstrCommRate);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryExecOrder(CThostFtdcExecOrderField *ExecOrder, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryExecOrder(CThostFtdcExecOrderField *pExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryExecOrder: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteExecOrder(ExecOrder);
-	WriteRspInfo(RspInfo);
+	WriteExecOrder(pExecOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryForQuote(CThostFtdcForQuoteField *ForQuote, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryForQuote(CThostFtdcForQuoteField *pForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryForQuote: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteForQuote(ForQuote);
-	WriteRspInfo(RspInfo);
+	WriteForQuote(pForQuote);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryQuote(CThostFtdcQuoteField *Quote, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryQuote(CThostFtdcQuoteField *pQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryQuote: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteQuote(Quote);
-	WriteRspInfo(RspInfo);
+	WriteQuote(pQuote);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryOptionSelfClose(CThostFtdcOptionSelfCloseField *OptionSelfClose, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryOptionSelfClose(CThostFtdcOptionSelfCloseField *pOptionSelfClose, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryOptionSelfClose: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteOptionSelfClose(OptionSelfClose);
-	WriteRspInfo(RspInfo);
+	WriteOptionSelfClose(pOptionSelfClose);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryInvestUnit(CThostFtdcInvestUnitField *InvestUnit, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryInvestUnit(CThostFtdcInvestUnitField *pInvestUnit, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryInvestUnit: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteInvestUnit(InvestUnit);
-	WriteRspInfo(RspInfo);
+	WriteInvestUnit(pInvestUnit);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryCombInstrumentGuard(CThostFtdcCombInstrumentGuardField *CombInstrumentGuard, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryCombInstrumentGuard(CThostFtdcCombInstrumentGuardField *pCombInstrumentGuard, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryCombInstrumentGuard: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteCombInstrumentGuard(CombInstrumentGuard);
-	WriteRspInfo(RspInfo);
+	WriteCombInstrumentGuard(pCombInstrumentGuard);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryCombAction(CThostFtdcCombActionField *CombAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryCombAction(CThostFtdcCombActionField *pCombAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryCombAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteCombAction(CombAction);
-	WriteRspInfo(RspInfo);
+	WriteCombAction(pCombAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryTransferSerial(CThostFtdcTransferSerialField *TransferSerial, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryTransferSerial(CThostFtdcTransferSerialField *pTransferSerial, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryTransferSerial: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTransferSerial(TransferSerial);
-	WriteRspInfo(RspInfo);
+	WriteTransferSerial(pTransferSerial);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryAccountregister(CThostFtdcAccountregisterField *Accountregister, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryAccountregister(CThostFtdcAccountregisterField *pAccountregister, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryAccountregister: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteAccountregister(Accountregister);
-	WriteRspInfo(RspInfo);
+	WriteAccountregister(pAccountregister);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspError(CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspError: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteRspInfo(RspInfo);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnOrder(CThostFtdcOrderField *Order)
+void CThostFtdcTraderSpiMiddle::OnRtnOrder(CThostFtdcOrderField *pOrder)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnOrder:");
-	WriteOrder(Order);
+	WriteOrder(pOrder);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnTrade(CThostFtdcTradeField *Trade)
+void CThostFtdcTraderSpiMiddle::OnRtnTrade(CThostFtdcTradeField *pTrade)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnTrade:");
-	WriteTrade(Trade);
+	WriteTrade(pTrade);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnOrderInsert(CThostFtdcInputOrderField *InputOrder, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnOrderInsert:");
-	WriteInputOrder(InputOrder);
-	WriteRspInfo(RspInfo);
+	WriteInputOrder(pInputOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnOrderAction(CThostFtdcOrderActionField *OrderAction, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnOrderAction(CThostFtdcOrderActionField *pOrderAction, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnOrderAction:");
-	WriteOrderAction(OrderAction);
-	WriteRspInfo(RspInfo);
+	WriteOrderAction(pOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnInstrumentStatus(CThostFtdcInstrumentStatusField *InstrumentStatus)
+void CThostFtdcTraderSpiMiddle::OnRtnInstrumentStatus(CThostFtdcInstrumentStatusField *pInstrumentStatus)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnInstrumentStatus:");
-	WriteInstrumentStatus(InstrumentStatus);
+	WriteInstrumentStatus(pInstrumentStatus);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnBulletin(CThostFtdcBulletinField *Bulletin)
+void CThostFtdcTraderSpiMiddle::OnRtnBulletin(CThostFtdcBulletinField *pBulletin)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnBulletin:");
-	WriteBulletin(Bulletin);
+	WriteBulletin(pBulletin);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnTradingNotice(CThostFtdcTradingNoticeInfoField *TradingNoticeInfo)
+void CThostFtdcTraderSpiMiddle::OnRtnTradingNotice(CThostFtdcTradingNoticeInfoField *pTradingNoticeInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnTradingNotice:");
-	WriteTradingNoticeInfo(TradingNoticeInfo);
+	WriteTradingNoticeInfo(pTradingNoticeInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnErrorConditionalOrder(CThostFtdcErrorConditionalOrderField *ErrorConditionalOrder)
+void CThostFtdcTraderSpiMiddle::OnRtnErrorConditionalOrder(CThostFtdcErrorConditionalOrderField *pErrorConditionalOrder)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnErrorConditionalOrder:");
-	WriteErrorConditionalOrder(ErrorConditionalOrder);
+	WriteErrorConditionalOrder(pErrorConditionalOrder);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnExecOrder(CThostFtdcExecOrderField *ExecOrder)
+void CThostFtdcTraderSpiMiddle::OnRtnExecOrder(CThostFtdcExecOrderField *pExecOrder)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnExecOrder:");
-	WriteExecOrder(ExecOrder);
+	WriteExecOrder(pExecOrder);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnExecOrderInsert(CThostFtdcInputExecOrderField *InputExecOrder, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnExecOrderInsert(CThostFtdcInputExecOrderField *pInputExecOrder, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnExecOrderInsert:");
-	WriteInputExecOrder(InputExecOrder);
-	WriteRspInfo(RspInfo);
+	WriteInputExecOrder(pInputExecOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnExecOrderAction(CThostFtdcExecOrderActionField *ExecOrderAction, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnExecOrderAction(CThostFtdcExecOrderActionField *pExecOrderAction, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnExecOrderAction:");
-	WriteExecOrderAction(ExecOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteExecOrderAction(pExecOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnForQuoteInsert(CThostFtdcInputForQuoteField *InputForQuote, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnForQuoteInsert:");
-	WriteInputForQuote(InputForQuote);
-	WriteRspInfo(RspInfo);
+	WriteInputForQuote(pInputForQuote);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnQuote(CThostFtdcQuoteField *Quote)
+void CThostFtdcTraderSpiMiddle::OnRtnQuote(CThostFtdcQuoteField *pQuote)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnQuote:");
-	WriteQuote(Quote);
+	WriteQuote(pQuote);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnQuoteInsert(CThostFtdcInputQuoteField *InputQuote, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnQuoteInsert(CThostFtdcInputQuoteField *pInputQuote, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnQuoteInsert:");
-	WriteInputQuote(InputQuote);
-	WriteRspInfo(RspInfo);
+	WriteInputQuote(pInputQuote);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnQuoteAction(CThostFtdcQuoteActionField *QuoteAction, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnQuoteAction(CThostFtdcQuoteActionField *pQuoteAction, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnQuoteAction:");
-	WriteQuoteAction(QuoteAction);
-	WriteRspInfo(RspInfo);
+	WriteQuoteAction(pQuoteAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *ForQuoteRsp)
+void CThostFtdcTraderSpiMiddle::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnForQuoteRsp:");
-	WriteForQuoteRsp(ForQuoteRsp);
+	WriteForQuoteRsp(pForQuoteRsp);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnCFMMCTradingAccountToken(CThostFtdcCFMMCTradingAccountTokenField *CFMMCTradingAccountToken)
+void CThostFtdcTraderSpiMiddle::OnRtnCFMMCTradingAccountToken(CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnCFMMCTradingAccountToken:");
-	WriteCFMMCTradingAccountToken(CFMMCTradingAccountToken);
+	WriteCFMMCTradingAccountToken(pCFMMCTradingAccountToken);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnBatchOrderAction(CThostFtdcBatchOrderActionField *BatchOrderAction, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnBatchOrderAction(CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnBatchOrderAction:");
-	WriteBatchOrderAction(BatchOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteBatchOrderAction(pBatchOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnOptionSelfClose(CThostFtdcOptionSelfCloseField *OptionSelfClose)
+void CThostFtdcTraderSpiMiddle::OnRtnOptionSelfClose(CThostFtdcOptionSelfCloseField *pOptionSelfClose)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnOptionSelfClose:");
-	WriteOptionSelfClose(OptionSelfClose);
+	WriteOptionSelfClose(pOptionSelfClose);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *InputOptionSelfClose, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnOptionSelfCloseInsert:");
-	WriteInputOptionSelfClose(InputOptionSelfClose);
-	WriteRspInfo(RspInfo);
+	WriteInputOptionSelfClose(pInputOptionSelfClose);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnOptionSelfCloseAction(CThostFtdcOptionSelfCloseActionField *OptionSelfCloseAction, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnOptionSelfCloseAction(CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnOptionSelfCloseAction:");
-	WriteOptionSelfCloseAction(OptionSelfCloseAction);
-	WriteRspInfo(RspInfo);
+	WriteOptionSelfCloseAction(pOptionSelfCloseAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnCombAction(CThostFtdcCombActionField *CombAction)
+void CThostFtdcTraderSpiMiddle::OnRtnCombAction(CThostFtdcCombActionField *pCombAction)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnCombAction:");
-	WriteCombAction(CombAction);
+	WriteCombAction(pCombAction);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnCombActionInsert(CThostFtdcInputCombActionField *InputCombAction, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnCombActionInsert:");
-	WriteInputCombAction(InputCombAction);
-	WriteRspInfo(RspInfo);
+	WriteInputCombAction(pInputCombAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryContractBank(CThostFtdcContractBankField *ContractBank, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryContractBank(CThostFtdcContractBankField *pContractBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryContractBank: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteContractBank(ContractBank);
-	WriteRspInfo(RspInfo);
+	WriteContractBank(pContractBank);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryParkedOrder(CThostFtdcParkedOrderField *ParkedOrder, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryParkedOrder(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryParkedOrder: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteParkedOrder(ParkedOrder);
-	WriteRspInfo(RspInfo);
+	WriteParkedOrder(pParkedOrder);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryParkedOrderAction(CThostFtdcParkedOrderActionField *ParkedOrderAction, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryParkedOrderAction: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteParkedOrderAction(ParkedOrderAction);
-	WriteRspInfo(RspInfo);
+	WriteParkedOrderAction(pParkedOrderAction);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryTradingNotice(CThostFtdcTradingNoticeField *TradingNotice, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryTradingNotice(CThostFtdcTradingNoticeField *pTradingNotice, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryTradingNotice: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteTradingNotice(TradingNotice);
-	WriteRspInfo(RspInfo);
+	WriteTradingNotice(pTradingNotice);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryBrokerTradingParams(CThostFtdcBrokerTradingParamsField *BrokerTradingParams, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryBrokerTradingParams(CThostFtdcBrokerTradingParamsField *pBrokerTradingParams, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryBrokerTradingParams: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteBrokerTradingParams(BrokerTradingParams);
-	WriteRspInfo(RspInfo);
+	WriteBrokerTradingParams(pBrokerTradingParams);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQryBrokerTradingAlgos(CThostFtdcBrokerTradingAlgosField *BrokerTradingAlgos, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQryBrokerTradingAlgos(CThostFtdcBrokerTradingAlgosField *pBrokerTradingAlgos, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQryBrokerTradingAlgos: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteBrokerTradingAlgos(BrokerTradingAlgos);
-	WriteRspInfo(RspInfo);
+	WriteBrokerTradingAlgos(pBrokerTradingAlgos);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQueryCFMMCTradingAccountToken(CThostFtdcQueryCFMMCTradingAccountTokenField *QueryCFMMCTradingAccountToken, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQueryCFMMCTradingAccountToken(CThostFtdcQueryCFMMCTradingAccountTokenField *pQueryCFMMCTradingAccountToken, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQueryCFMMCTradingAccountToken: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteQueryCFMMCTradingAccountToken(QueryCFMMCTradingAccountToken);
-	WriteRspInfo(RspInfo);
+	WriteQueryCFMMCTradingAccountToken(pQueryCFMMCTradingAccountToken);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnFromBankToFutureByBank(CThostFtdcRspTransferField *RspTransfer)
+void CThostFtdcTraderSpiMiddle::OnRtnFromBankToFutureByBank(CThostFtdcRspTransferField *pRspTransfer)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnFromBankToFutureByBank:");
-	WriteRspTransfer(RspTransfer);
+	WriteRspTransfer(pRspTransfer);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnFromFutureToBankByBank(CThostFtdcRspTransferField *RspTransfer)
+void CThostFtdcTraderSpiMiddle::OnRtnFromFutureToBankByBank(CThostFtdcRspTransferField *pRspTransfer)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnFromFutureToBankByBank:");
-	WriteRspTransfer(RspTransfer);
+	WriteRspTransfer(pRspTransfer);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnRepealFromBankToFutureByBank(CThostFtdcRspRepealField *RspRepeal)
+void CThostFtdcTraderSpiMiddle::OnRtnRepealFromBankToFutureByBank(CThostFtdcRspRepealField *pRspRepeal)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnRepealFromBankToFutureByBank:");
-	WriteRspRepeal(RspRepeal);
+	WriteRspRepeal(pRspRepeal);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnRepealFromFutureToBankByBank(CThostFtdcRspRepealField *RspRepeal)
+void CThostFtdcTraderSpiMiddle::OnRtnRepealFromFutureToBankByBank(CThostFtdcRspRepealField *pRspRepeal)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnRepealFromFutureToBankByBank:");
-	WriteRspRepeal(RspRepeal);
+	WriteRspRepeal(pRspRepeal);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnFromBankToFutureByFuture(CThostFtdcRspTransferField *RspTransfer)
+void CThostFtdcTraderSpiMiddle::OnRtnFromBankToFutureByFuture(CThostFtdcRspTransferField *pRspTransfer)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnFromBankToFutureByFuture:");
-	WriteRspTransfer(RspTransfer);
+	WriteRspTransfer(pRspTransfer);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnFromFutureToBankByFuture(CThostFtdcRspTransferField *RspTransfer)
+void CThostFtdcTraderSpiMiddle::OnRtnFromFutureToBankByFuture(CThostFtdcRspTransferField *pRspTransfer)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnFromFutureToBankByFuture:");
-	WriteRspTransfer(RspTransfer);
+	WriteRspTransfer(pRspTransfer);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnRepealFromBankToFutureByFutureManual(CThostFtdcRspRepealField *RspRepeal)
+void CThostFtdcTraderSpiMiddle::OnRtnRepealFromBankToFutureByFutureManual(CThostFtdcRspRepealField *pRspRepeal)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnRepealFromBankToFutureByFutureManual:");
-	WriteRspRepeal(RspRepeal);
+	WriteRspRepeal(pRspRepeal);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnRepealFromFutureToBankByFutureManual(CThostFtdcRspRepealField *RspRepeal)
+void CThostFtdcTraderSpiMiddle::OnRtnRepealFromFutureToBankByFutureManual(CThostFtdcRspRepealField *pRspRepeal)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnRepealFromFutureToBankByFutureManual:");
-	WriteRspRepeal(RspRepeal);
+	WriteRspRepeal(pRspRepeal);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnQueryBankBalanceByFuture(CThostFtdcNotifyQueryAccountField *NotifyQueryAccount)
+void CThostFtdcTraderSpiMiddle::OnRtnQueryBankBalanceByFuture(CThostFtdcNotifyQueryAccountField *pNotifyQueryAccount)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnQueryBankBalanceByFuture:");
-	WriteNotifyQueryAccount(NotifyQueryAccount);
+	WriteNotifyQueryAccount(pNotifyQueryAccount);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnBankToFutureByFuture(CThostFtdcReqTransferField *ReqTransfer, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnBankToFutureByFuture:");
-	WriteReqTransfer(ReqTransfer);
-	WriteRspInfo(RspInfo);
+	WriteReqTransfer(pReqTransfer);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnFutureToBankByFuture(CThostFtdcReqTransferField *ReqTransfer, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnFutureToBankByFuture:");
-	WriteReqTransfer(ReqTransfer);
-	WriteRspInfo(RspInfo);
+	WriteReqTransfer(pReqTransfer);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnRepealBankToFutureByFutureManual(CThostFtdcReqRepealField *ReqRepeal, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnRepealBankToFutureByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnRepealBankToFutureByFutureManual:");
-	WriteReqRepeal(ReqRepeal);
-	WriteRspInfo(RspInfo);
+	WriteReqRepeal(pReqRepeal);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnRepealFutureToBankByFutureManual(CThostFtdcReqRepealField *ReqRepeal, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnRepealFutureToBankByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnRepealFutureToBankByFutureManual:");
-	WriteReqRepeal(ReqRepeal);
-	WriteRspInfo(RspInfo);
+	WriteReqRepeal(pReqRepeal);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnErrRtnQueryBankBalanceByFuture(CThostFtdcReqQueryAccountField *ReqQueryAccount, CThostFtdcRspInfoField *RspInfo)
+void CThostFtdcTraderSpiMiddle::OnErrRtnQueryBankBalanceByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount, CThostFtdcRspInfoField *pRspInfo)
 {
 	WRITE_LOG(LogLevel::Info, "OnErrRtnQueryBankBalanceByFuture:");
-	WriteReqQueryAccount(ReqQueryAccount);
-	WriteRspInfo(RspInfo);
+	WriteReqQueryAccount(pReqQueryAccount);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnRepealFromBankToFutureByFuture(CThostFtdcRspRepealField *RspRepeal)
+void CThostFtdcTraderSpiMiddle::OnRtnRepealFromBankToFutureByFuture(CThostFtdcRspRepealField *pRspRepeal)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnRepealFromBankToFutureByFuture:");
-	WriteRspRepeal(RspRepeal);
+	WriteRspRepeal(pRspRepeal);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnRepealFromFutureToBankByFuture(CThostFtdcRspRepealField *RspRepeal)
+void CThostFtdcTraderSpiMiddle::OnRtnRepealFromFutureToBankByFuture(CThostFtdcRspRepealField *pRspRepeal)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnRepealFromFutureToBankByFuture:");
-	WriteRspRepeal(RspRepeal);
+	WriteRspRepeal(pRspRepeal);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspFromBankToFutureByFuture(CThostFtdcReqTransferField *ReqTransfer, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspFromBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspFromBankToFutureByFuture: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteReqTransfer(ReqTransfer);
-	WriteRspInfo(RspInfo);
+	WriteReqTransfer(pReqTransfer);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspFromFutureToBankByFuture(CThostFtdcReqTransferField *ReqTransfer, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspFromFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspFromFutureToBankByFuture: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteReqTransfer(ReqTransfer);
-	WriteRspInfo(RspInfo);
+	WriteReqTransfer(pReqTransfer);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRspQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *ReqQueryAccount, CThostFtdcRspInfoField *RspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiMiddle::OnRspQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 	WRITE_LOG(LogLevel::Info, "OnRspQueryBankAccountMoneyByFuture: nRequestID[%d] bIsLast[%d]", nRequestID, bIsLast);
-	WriteReqQueryAccount(ReqQueryAccount);
-	WriteRspInfo(RspInfo);
+	WriteReqQueryAccount(pReqQueryAccount);
+	WriteRspInfo(pRspInfo);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnOpenAccountByBank(CThostFtdcOpenAccountField *OpenAccount)
+void CThostFtdcTraderSpiMiddle::OnRtnOpenAccountByBank(CThostFtdcOpenAccountField *pOpenAccount)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnOpenAccountByBank:");
-	WriteOpenAccount(OpenAccount);
+	WriteOpenAccount(pOpenAccount);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnCancelAccountByBank(CThostFtdcCancelAccountField *CancelAccount)
+void CThostFtdcTraderSpiMiddle::OnRtnCancelAccountByBank(CThostFtdcCancelAccountField *pCancelAccount)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnCancelAccountByBank:");
-	WriteCancelAccount(CancelAccount);
+	WriteCancelAccount(pCancelAccount);
 }
 
-void CThostFtdcTraderSpiMiddle::OnRtnChangeAccountByBank(CThostFtdcChangeAccountField *ChangeAccount)
+void CThostFtdcTraderSpiMiddle::OnRtnChangeAccountByBank(CThostFtdcChangeAccountField *pChangeAccount)
 {
 	WRITE_LOG(LogLevel::Info, "OnRtnChangeAccountByBank:");
-	WriteChangeAccount(ChangeAccount);
+	WriteChangeAccount(pChangeAccount);
 }
 

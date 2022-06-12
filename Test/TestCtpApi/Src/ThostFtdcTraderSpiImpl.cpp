@@ -33,30 +33,30 @@ void CThostFtdcTraderSpiImpl::OnRspQryInstrument(CThostFtdcInstrumentField* pIns
 		ReqQryTradingAccount();
 	}
 }
-void CThostFtdcTraderSpiImpl::OnRspQryTradingAccount(CThostFtdcTradingAccountField* TradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiImpl::OnRspQryTradingAccount(CThostFtdcTradingAccountField* pTradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
 {
-	CThostFtdcTraderSpiMiddle::OnRspQryTradingAccount(TradingAccount, pRspInfo, nRequestID, bIsLast);
+	CThostFtdcTraderSpiMiddle::OnRspQryTradingAccount(pTradingAccount, pRspInfo, nRequestID, bIsLast);
 	ReqQryInvestorPosition();
 }
-void CThostFtdcTraderSpiImpl::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField* InvestorPosition, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiImpl::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField* pInvestorPosition, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
 {
-	CThostFtdcTraderSpiMiddle::OnRspQryInvestorPosition(InvestorPosition, pRspInfo, nRequestID, bIsLast);
+	CThostFtdcTraderSpiMiddle::OnRspQryInvestorPosition(pInvestorPosition, pRspInfo, nRequestID, bIsLast);
 	if (bIsLast)
 	{
 		ReqQryOrder();
 	}
 }
-void CThostFtdcTraderSpiImpl::OnRspQryOrder(CThostFtdcOrderField* Order, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiImpl::OnRspQryOrder(CThostFtdcOrderField* pOrder, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
 {
-	CThostFtdcTraderSpiMiddle::OnRspQryOrder(Order, pRspInfo, nRequestID, bIsLast);
+	CThostFtdcTraderSpiMiddle::OnRspQryOrder(pOrder, pRspInfo, nRequestID, bIsLast);
 	if (bIsLast)
 	{
 		ReqQryTrade();
 	}
 }
-void CThostFtdcTraderSpiImpl::OnRspQryTrade(CThostFtdcTradeField* Trade, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
+void CThostFtdcTraderSpiImpl::OnRspQryTrade(CThostFtdcTradeField* pTrade, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast)
 {
-	CThostFtdcTraderSpiMiddle::OnRspQryTrade(Trade, pRspInfo, nRequestID, bIsLast);
+	CThostFtdcTraderSpiMiddle::OnRspQryTrade(pTrade, pRspInfo, nRequestID, bIsLast);
 	if (bIsLast)
 	{
 		
