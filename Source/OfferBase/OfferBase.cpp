@@ -101,10 +101,13 @@ void OfferBase::HandleEvent()
 		case EventOnErrRtnOrderCancel:
 		{
 			HandleErrRtnOrderCancel((OrderCancel*)myEvent->Field);
+			break;
 		}
 		default:
+		{
 			WRITE_LOG(LogLevel::Warning, "UnHandled Event. EventID:[%s]", myEvent->EventID);
 			break;
+		}
 		}
 		myEvent->Free();
 	}
