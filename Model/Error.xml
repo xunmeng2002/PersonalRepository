@@ -1,0 +1,6 @@
+<root>
+	<errors>
+		<error name="Success" value="0" desc="发送成功"/>
+		<error name="PrimaryAccountNotLogin" value="10000" desc="主账号未登录"/>
+	</errors>
+</root>
