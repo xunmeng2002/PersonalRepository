@@ -18,6 +18,7 @@ public:
 	virtual void Send(TcpEvent* tcpEvent) override;
 	virtual void HandleTcpEvent() override;
 protected:
+	virtual void CheckHeartBeat();
 	virtual void PrepareFds();
 	virtual void CheckConnect() {}
 	virtual void DoDisConnect();
