@@ -7,8 +7,16 @@ TcpSelectClient::TcpSelectClient()
 {
 	m_ConnectAddressInfo = nullptr;
 	FD_ZERO(&m_ConnectFds);
+
+	m_ConnectTimeOut.tv_sec = 0;
+	m_ConnectTimeOut.tv_usec = 0;
 }
 
+void TcpSelectClient::SetConnectTimeOut(int milliSeconds)
+{
+	m_ConnectTimeOut.tv_sec = milliSeconds / 1000;
+	m_ConnectTimeOut.tv_usec = (milliSeconds % 1000) * 1000;
+}
 void TcpSelectClient::Connect(const char* ip, const char* port)
 {
 	auto ret = GetAddrinfo(ip, port, m_ConnectAddressInfo);
@@ -39,7 +47,7 @@ void TcpSelectClient::CheckConnect()
 			maxID = connectData->SocketID;
 		}
 	}
-	auto ret = select(maxID + 1, NULL, &m_ConnectFds, NULL, &m_SocketTimeOut);
+	auto ret = select(maxID + 1, NULL, &m_ConnectFds, NULL, &m_ConnectTimeOut);
 	WRITE_LOG(LogLevel::Info, "Connect Select: ret[%d]\n", ret);
 	while (!m_ConnectingSocket.empty())
 	{

@@ -10,9 +10,6 @@ TcpSelectBase::TcpSelectBase()
 	FD_ZERO(&m_RecvFds);
 	FD_ZERO(&m_SendFds);
 	m_MaxID = 0;
-
-	m_SocketTimeOut.tv_sec = 5;
-	m_SocketTimeOut.tv_usec = 0;
 }
 
 

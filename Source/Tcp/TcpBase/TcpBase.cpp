@@ -7,7 +7,7 @@
 TcpBase::TcpBase()
 	:m_Subscriber(nullptr), m_MaxSessionID(0)
 {
-	m_SocketTimeOut.tv_sec = 1;
+	m_SocketTimeOut.tv_sec = 0;
 	m_SocketTimeOut.tv_usec = 0;
 }
 void TcpBase::Subscriber(TcpSubscriber* subscriber)

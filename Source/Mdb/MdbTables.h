@@ -47,6 +47,8 @@ public:
 	int Volume;
 	int VolumeTraded;
 	OrderStatus OrderStatus;
+	int ErrorID;
+	string ErrorMsg;
 	string StatusMsg;
 	string RequestID;
 	string FrontID;

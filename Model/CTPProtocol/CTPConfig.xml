@@ -6,10 +6,12 @@
 		<item name="UdpIP" type="string"></item>
 		<item name="UdpPort" type="string"></item>
 		<item name="CommodityFile" type="string"></item>
-		<item name="User" type="string"></item>
+		<item name="BrokerID" type="string"></item>
+		<item name="UserID" type="string"></item>
 		<item name="Password" type="string"></item>
-		<item name="HKAddress" type="string"></item>
-		<item name="HKPort" type="string"></item>
+		<item name="UserProductInfo" type="string"></item>
+		<item name="AuthCode" type="string"></item>
 		<item name="AppID" type="string"></item>
+		<item name="FrontAddr" type="string"></item>
 	</items>
 </root>
