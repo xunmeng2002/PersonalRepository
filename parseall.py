@@ -44,5 +44,4 @@ if __name__ == "__main__":
     parsefiles = []
     Search(".", "parselist.xml", exclude, parsefiles)
     for parsefile in parsefiles:
-        print(parsefile)
         DoParse(parsefile)
