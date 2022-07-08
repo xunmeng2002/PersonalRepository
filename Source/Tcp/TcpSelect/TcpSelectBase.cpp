@@ -184,6 +184,7 @@ SOCKET TcpSelectBase::PrepareSocket(int family)
 	auto socketID = socket(family, SOCK_STREAM, IPPROTO_TCP);
 	if (!InitSocket(socketID))
 	{
+		closesocket(socketID);
 		return INVALID_SOCKET;
 	}
 	return socketID;

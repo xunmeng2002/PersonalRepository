@@ -9,6 +9,7 @@
 int main(int argc, const char* argv[])
 {
     Logger::GetInstance().Init(argv[0]);
+    Logger::GetInstance().SetLogLevel(LogLevel::Info, LogLevel::Info);
     Logger::GetInstance().Start();
 
     TestTcpSelectClient();

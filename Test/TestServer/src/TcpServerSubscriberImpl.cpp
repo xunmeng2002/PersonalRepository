@@ -1,6 +1,7 @@
 #include "TcpServerSubscriberImpl.h"
 #include "Logger.h"
 #include <string.h>
+#include <iostream>
 
 
 TcpServerSubscriberImpl::TcpServerSubscriberImpl(TcpBase* tcp)
@@ -25,6 +26,9 @@ void TcpServerSubscriberImpl::OnDisConnect(int sessionID, const char* ip, const 
 {
     WRITE_LOG(LogLevel::Info, "TcpServerSubscriberImpl::OnDisConnect SessionID:[%d], IP:[%s], Port:[%s]", sessionID, ip, port);
 }
+
+
+
 void TcpServerSubscriberImpl::OnRecv(TcpEvent* tcpEvent)
 {
     char message[1024] = { 0 };
@@ -33,6 +37,6 @@ void TcpServerSubscriberImpl::OnRecv(TcpEvent* tcpEvent)
     ::strcpy(tcpEvent->ReadPos, message);
 
     tcpEvent->EventID = EventSend;
-    tcpEvent->Length = n;
+    tcpEvent->Length = BuffSize;
     m_Tcp->Send(tcpEvent);
 }

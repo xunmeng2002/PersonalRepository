@@ -21,6 +21,7 @@ add_package(TcpIOCP ${CMAKE_SOURCE_DIR}/Source/Tcp/TcpIOCP)
 endif()
 
 include_package(Zlib ${CMAKE_SOURCE_DIR}/Libs/Zlib/1.2.11/include)
+include_package(ProtoBuf ${CMAKE_SOURCE_DIR}/Libs/ProtoBuf/3.21.1/include)
 
 
 message(STATUS "CMAKE_SYSTEM_NAME: " ${CMAKE_SYSTEM_NAME})

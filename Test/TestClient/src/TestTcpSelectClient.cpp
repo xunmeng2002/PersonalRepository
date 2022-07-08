@@ -26,7 +26,7 @@ void TestTcpSelectClient()
 
     //tcpSelectClient.Connect(IP, Port);
     //tcpSelectClient.Connect(IP1, Port);
-    tcpSelectClient.Connect(IP3, Port);
+    tcpSelectClient.Connect(IP1, Port);
     //tcpSelectClient.Connect(IP3, Port);
     //tcpSelectClient.Connect(IP4, Port);
 
