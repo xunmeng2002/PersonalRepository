@@ -10,14 +10,13 @@
 #define LOG_LINE_LENGTH 64 * 1024
 
 static std::map<LogLevel, std::string> s_LogLevelName = {
-	{ LogLevel::None, "NONE"},
-	{ LogLevel::Emergency, "EMERGENCY"},
-	{ LogLevel::Critical, "CRITICAL"},
-	{ LogLevel::Error, "ERROR"},
-	{ LogLevel::Warning, "WARNING"},
-	{ LogLevel::Info, "INFO"},
+	{ LogLevel::Ignore, "IGNORE"},
 	{ LogLevel::Debug, "DEBUG"},
-	{ LogLevel::Ignore, "IGNORE"}
+	{ LogLevel::Info, "INFO"},
+	{ LogLevel::Warning, "WARNING"},
+	{ LogLevel::Error, "ERROR"},
+	{ LogLevel::Critical, "CRITICAL"},
+	{ LogLevel::Emergency, "EMERGENCY"},
 };
 
 thread_local char* t_LogBuffer = new char[LOG_LINE_LENGTH];
