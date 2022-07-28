@@ -1,6 +1,7 @@
 #include "TestTcpSelectClient.h"
 #include "TcpClientSubscriberImpl.h"
 #include "Logger.h"
+#include "Config.h"
 
 
 void TestTcpSelectClient()
@@ -26,7 +27,7 @@ void TestTcpSelectClient()
 
     //tcpSelectClient.Connect(IP, Port);
     //tcpSelectClient.Connect(IP1, Port);
-    tcpSelectClient.Connect(IP1, Port);
+    tcpSelectClient.Connect(Config::GetInstance().ConnectIP.c_str(), Config::GetInstance().ConnectPort.c_str());
     //tcpSelectClient.Connect(IP3, Port);
     //tcpSelectClient.Connect(IP4, Port);
 
