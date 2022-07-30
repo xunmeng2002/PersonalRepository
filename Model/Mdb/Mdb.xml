@@ -25,6 +25,8 @@
 				<item name="Volume" type="int"/>
 				<item name="VolumeTraded" type="int"/>
 				<item name="OrderStatus" type="enum"/>
+				<item name="ErrorID" type="int"/>
+				<item name="ErrorMsg" type="string" len="255"/>
 				<item name="StatusMsg" len="255" type="string"/>
 				<item name="RequestID" type="string"/>
 				<item name="FrontID" type="string"/>

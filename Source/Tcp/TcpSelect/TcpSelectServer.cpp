@@ -43,8 +43,6 @@ void TcpSelectServer::PrepareFds()
 }
 void TcpSelectServer::DoAccept()
 {
-	PrepareFds();
-	::select(m_MaxID + 1, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
 	if (FD_ISSET(m_ListenSocket, &m_RecvFds))
 	{
 		for (int i = 0; i < 5; i++)

@@ -4,12 +4,14 @@ project(${PROJECT_NAME})
 
 add_package(src ./src)
 add_package(Platform ${CMAKE_SOURCE_DIR}/Source/Platform)
+add_package(Error ${CMAKE_SOURCE_DIR}/Source/Error)
 add_package(Event ${CMAKE_SOURCE_DIR}/Source/Event)
 add_package(Utility ${CMAKE_SOURCE_DIR}/Source/Utility)
 add_package(CacheList ${CMAKE_SOURCE_DIR}/Source/CacheList)
 add_package(MemCache ${CMAKE_SOURCE_DIR}/Source/MemCache)
 add_package(ThreadBase ${CMAKE_SOURCE_DIR}/Source/ThreadBase)
 add_package(Logger ${CMAKE_SOURCE_DIR}/Source/Logger)
+add_package(jsoncpp ../../source/jsoncpp)
 
 add_package(SocketInit ${CMAKE_SOURCE_DIR}/Source/SocketInit)
 add_package(Udp ${CMAKE_SOURCE_DIR}/Source/Udp)
@@ -20,6 +22,7 @@ add_package(TcpIOCP ${CMAKE_SOURCE_DIR}/Source/Tcp/TcpIOCP)
 endif()
 
 include_package(Zlib ${CMAKE_SOURCE_DIR}/Libs/Zlib/1.2.11/include)
+include_package(ProtoBuf ${CMAKE_SOURCE_DIR}/Libs/ProtoBuf/3.21.1/include)
 
 
 message(STATUS "CMAKE_SYSTEM_NAME: " ${CMAKE_SYSTEM_NAME})

@@ -2,19 +2,15 @@
 #include "TcpSelectServer.h"
 #include "TcpServerSubscriberImpl.h"
 #include "Logger.h"
+#include "Config.h"
 
 
 
 void TestTcpSelectServer()
 {
-    auto IP1 = "0.0.0.0";
-    auto IP2 = "::";
-
-    auto Port = "10000";
-
     TcpSelectServer tcpSelectServer;
     tcpSelectServer.SetSocketTimeOut(2000);
-    tcpSelectServer.SetBindAddressInfo(IP2, Port);
+    tcpSelectServer.SetBindAddressInfo(Config::GetInstance().ListenIP.c_str(), Config::GetInstance().ListenPort.c_str());
     
     TcpServerSubscriberImpl tcpServerSubscriberImpl(&tcpSelectServer);
     if (!tcpServerSubscriberImpl.Init())

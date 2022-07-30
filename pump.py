@@ -21,7 +21,7 @@ def new_line():
     global _indent_cnt
     out_line = "\n"
     for i in range(_indent_cnt):
-        out_line += "\t"
+        out_line += "    "
     return out_line
  
  #处理!!entry!!标记
@@ -116,7 +116,7 @@ def get_node_value(node, name):
 def gen_indent():
     out = ""
     for i in range(_indent_cnt):
-        out += "\t"
+        out += "    "
     return out
         
         
@@ -324,9 +324,9 @@ if __name__ == "__main__":
         raise MyException("Tag Not Match:%s" % str(entry_list))
     
     #执行临时文件
-    if os.system("python pumptemp.py"):	
+    if os.system("python pumptemp.py"):
         os.remove(out_file_name)
         exit(-1)
 
     #执行完毕后删除临时文件
-    os.remove("pumptemp.py")
+    #os.remove("pumptemp.py")

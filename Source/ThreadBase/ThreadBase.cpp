@@ -4,7 +4,7 @@
 
 
 ThreadBase::ThreadBase(const char* name)
-	:m_ShouldRun(false), m_TimeOut(1000)
+	:m_ShouldRun(false), m_TimeOut(100)
 {
 	m_ThreadName = name;
 }

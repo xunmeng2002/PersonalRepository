@@ -1,0 +1,4 @@
+<pumplist>
+	<pump dest="./Source/Error/Error.h" tpl="./Source/Error/Error.h.tpl" model="./Model/Error.xml"/>
+	<pump dest="./Source/Error/Error.cpp" tpl="./Source/Error/Error.cpp.tpl" model="./Model/Error.xml"/>
+</pumplist>

@@ -8,16 +8,17 @@
 #include <filesystem>
 
 #define LOG_LINE_LENGTH 64 * 1024
+#define MAX_LOG_FORMAT_LENGTH 1024
+#define MAX_LOG_LINE_CONTENT_LENGTH (LOG_LINE_LENGTH - MAX_LOG_FORMAT_LENGTH)
 
 static std::map<LogLevel, std::string> s_LogLevelName = {
-	{ LogLevel::None, "NONE"},
-	{ LogLevel::Emergency, "EMERGENCY"},
-	{ LogLevel::Critical, "CRITICAL"},
-	{ LogLevel::Error, "ERROR"},
-	{ LogLevel::Warning, "WARNING"},
-	{ LogLevel::Info, "INFO"},
+	{ LogLevel::Ignore, "IGNORE"},
 	{ LogLevel::Debug, "DEBUG"},
-	{ LogLevel::Ignore, "IGNORE"}
+	{ LogLevel::Info, "INFO"},
+	{ LogLevel::Warning, "WARNING"},
+	{ LogLevel::Error, "ERROR"},
+	{ LogLevel::Critical, "CRITICAL"},
+	{ LogLevel::Emergency, "EMERGENCY"},
 };
 
 thread_local char* t_LogBuffer = new char[LOG_LINE_LENGTH];
@@ -131,11 +132,15 @@ void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* 
 	for (auto p = file; *p != '\0'; p++)
 		if (*p == '\\' || *p == '/')
 			file = p + 1;
-	int len = sprintf(t_LogBuffer, "%s %d %s ", GetLocalDateTimeWithMilliSecond().c_str(), std::this_thread::get_id(), s_LogLevelName[level].c_str());
+	int len1 = snprintf(t_LogBuffer, MAX_LOG_FORMAT_LENGTH, "%s %d %s ", GetLocalDateTimeWithMilliSecond().c_str(), std::this_thread::get_id(), s_LogLevelName[level].c_str());
 
-	len += vsnprintf(t_LogBuffer + len, (sizeof(t_LogBuffer) - len - 1), format, va);
-	len += snprintf(t_LogBuffer + len, (sizeof(t_LogBuffer) - len - 1), "\t\t---%s:%d[%s]\n", file, line, func);
-
+	int len2 = vsnprintf(t_LogBuffer + len1, MAX_LOG_LINE_CONTENT_LENGTH, format, va);
+	if (len2 > MAX_LOG_LINE_CONTENT_LENGTH)
+	{
+		len2 = MAX_LOG_LINE_CONTENT_LENGTH;
+	}
+	int len3 = snprintf(t_LogBuffer + len1 + len2, LOG_LINE_LENGTH - len1 - len2 - 1, "\t\t---%s:%d[%s]\n", file, line, func);
+	int len = len1 + len2 + len3;
 	std::lock_guard<std::mutex> guard(m_LogData->Mutex);
 	if (m_LogData->CurrBuffer->Available() < len)
 	{
@@ -146,9 +151,9 @@ void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* 
 }
 void Logger::WriteToConsole(LogLevel level, const char* formatStr, va_list va)
 {
-	char logString[10240];
-	int len = snprintf(logString, sizeof(logString), "ThreadID[%05d] ", std::this_thread::get_id());
-	len += vsnprintf(logString + len, sizeof(logString) - len - 3, formatStr, va);
+	static char* logString = new char[LOG_LINE_LENGTH] {0};
+	int len = snprintf(logString, MAX_LOG_FORMAT_LENGTH, "ThreadID[%05d] ", std::this_thread::get_id());
+	len += vsnprintf(logString + len, LOG_LINE_LENGTH - len -1, formatStr, va);
 
 	printf("%s\n", logString);
 }
@@ -162,7 +167,7 @@ void Logger::CreateLogFile()
 	char timeBuff[32];
 	strftime(timeBuff, 32, "%Y%m%d-%H%M%S", &m_CreateLogFileTime);
 	char fileName[256];		
-	sprintf(fileName, "log/%s.%s.log", m_ProcessName, timeBuff);
+	snprintf(fileName, sizeof(fileName), "log/%s.%s.log", m_ProcessName, timeBuff);
 	m_LogData->LogFile = fopen(fileName, "a+");
 	assert(m_LogData->LogFile != nullptr);
 }

@@ -10,9 +10,6 @@ TcpSelectBase::TcpSelectBase()
 	FD_ZERO(&m_RecvFds);
 	FD_ZERO(&m_SendFds);
 	m_MaxID = 0;
-
-	m_SocketTimeOut.tv_sec = 5;
-	m_SocketTimeOut.tv_usec = 0;
 }
 
 
@@ -38,6 +35,7 @@ void TcpSelectBase::HandleTcpEvent()
 {
 	CheckConnect();
 	DoDisConnect();
+	CheckHeartBeat();
 	PrepareFds();
 	::select(m_MaxID + 1, &m_RecvFds, &m_SendFds, nullptr, &m_SocketTimeOut);
 	DoAccept();
@@ -45,6 +43,16 @@ void TcpSelectBase::HandleTcpEvent()
 	DoSend();
 }
 
+void TcpSelectBase::CheckHeartBeat()
+{
+	for (auto& it : m_ConnectDatas)
+	{
+		if (m_SendEvents[it.first].empty() && it.second->CheckHeartBeat())
+		{
+			Send(it.first, "HelloWorld!", 12);
+		}
+	}
+}
 void TcpSelectBase::PrepareFds()
 {
 	FD_ZERO(&m_RecvFds);
@@ -81,6 +89,7 @@ void TcpSelectBase::DoSend()
 			{
 				auto tcpEvent = m_SendEvents[it.first].front();
 				int len = send(connectData->SocketID, tcpEvent->ReadPos, tcpEvent->Length, 0);
+				connectData->UpdateLastSendTime();
 				if (len <= 0)
 				{
 					WRITE_LOG(LogLevel::Info, "DisConnect For Send. SessionID[%d], Len:[%d]", connectData->SessionID, len);
@@ -175,6 +184,7 @@ SOCKET TcpSelectBase::PrepareSocket(int family)
 	auto socketID = socket(family, SOCK_STREAM, IPPROTO_TCP);
 	if (!InitSocket(socketID))
 	{
+		closesocket(socketID);
 		return INVALID_SOCKET;
 	}
 	return socketID;

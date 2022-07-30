@@ -5,6 +5,7 @@ project(${PROJECT_NAME})
 
 add_package(src ./src)
 add_package(Platform ${CMAKE_SOURCE_DIR}/Source/Platform)
+add_package(Error ${CMAKE_SOURCE_DIR}/Source/Error)
 add_package(Event ${CMAKE_SOURCE_DIR}/Source/Event)
 add_package(Utility ${CMAKE_SOURCE_DIR}/Source/Utility)
 add_package(CacheList ${CMAKE_SOURCE_DIR}/Source/CacheList)

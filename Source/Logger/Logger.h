@@ -16,7 +16,6 @@ enum class LogLevel : int
 	Error = 4,
 	Critical = 5,
 	Emergency = 6,
-	None = 7,
 };
 
 struct LogData;
