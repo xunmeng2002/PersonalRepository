@@ -11,6 +11,7 @@ add_package(CacheList ${CMAKE_SOURCE_DIR}/Source/CacheList)
 add_package(MemCache ${CMAKE_SOURCE_DIR}/Source/MemCache)
 add_package(ThreadBase ${CMAKE_SOURCE_DIR}/Source/ThreadBase)
 add_package(Logger ${CMAKE_SOURCE_DIR}/Source/Logger)
+add_package(Encode ${CMAKE_SOURCE_DIR}/Source/Encode)
 add_package(jsoncpp ../../source/jsoncpp)
 
 add_package(SocketInit ${CMAKE_SOURCE_DIR}/Source/SocketInit)

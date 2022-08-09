@@ -1,6 +1,10 @@
 #include "TestUdpServer.h"
 #include "UdpServer.h"
 #include "Config.h"
+#include "Logger.h"
+#include "Encode.h"
+#include <iostream>
+#include <fstream>
 
 void TestUdpServer()
 {
@@ -15,12 +19,33 @@ void TestUdpServer()
     udpServer.SetBindAddressInfo(Config::GetInstance().ListenIP.c_str(), Config::GetInstance().ListenPort.c_str());
     udpServer.Init(true);
 
-    std::string msg = "Hello World, From UdpClient!";
     for (auto i = 0; i < 5; i++)
     {
         TcpEvent* tcpEvent = TcpEvent::Allocate();
         udpServer.ZipRecvFrom(tcpEvent);
 
-        printf("udpServer RecvFrom IP[%s], Port[%s], Content:[%s]\n\n", tcpEvent->IP.c_str(), tcpEvent->Port.c_str(), tcpEvent->Buff);
+        printf("udpServer RecvFrom IP[%s], Port[%s], Len:[%d] Content:[%s]\n\n", tcpEvent->IP.c_str(), tcpEvent->Port.c_str(), tcpEvent->Length, tcpEvent->Buff);
+
+        std::ofstream of("utf8.txt");
+        of.imbue(std::locale(std::locale(""), new std::codecvt_utf8<wchar_t>));
+        of << tcpEvent->Buff;
+        of.close();
+
+        auto ws = Encode::utf8_to_wstring(tcpEvent->Buff);
+        std::wofstream wfo(L"ws.txt");
+        wfo.imbue(std::locale("zh_CN"));
+        wfo << ws;
+        wfo.close();
+
+        auto s = Encode::to_string(ws);
+        std::ofstream of2("gbk.txt");
+        of2.imbue(std::locale("zh_CN"));
+        of2 << s;
+        of2.close();
+
+
+        WRITE_LOG(LogLevel::Info, "TcpEvent Buff:[%s]", tcpEvent->Buff);
+        WRITE_LOG(LogLevel::Info, "wstring:[%ws]", ws.c_str());
+        WRITE_LOG(LogLevel::Info, "GBK:[%s]", s.c_str());
     }
 }
