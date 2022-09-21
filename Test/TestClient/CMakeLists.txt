@@ -3,7 +3,7 @@ project(${PROJECT_NAME})
 message("PROJECT_NAME:" ${PROJECT_NAME})
 
 
-add_package(src ./src)
+add_package(Src ./Src)
 add_package(Platform ${CMAKE_SOURCE_DIR}/Source/Platform)
 add_package(Error ${CMAKE_SOURCE_DIR}/Source/Error)
 add_package(Event ${CMAKE_SOURCE_DIR}/Source/Event)
