@@ -1,6 +1,6 @@
 #include "OpenSSL.h"
 #include <openssl/hmac.h>
-#include <string>
+#include <string.h>
 
 
 void OpenSSL::Replace(char* data, int len, char oldChar, char newChar)

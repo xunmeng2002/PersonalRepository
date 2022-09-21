@@ -1,5 +1,6 @@
 #include "ThostFtdcTraderSpiImpl.h"
 #include "Logger.h"
+#include <string.h>
 
 
 CThostFtdcTraderSpiImpl::CThostFtdcTraderSpiImpl(CThostFtdcTraderApi* traderApi)

@@ -6,7 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <map>
-#include <Windows.h>
+#include <string.h>
 
 using namespace std;
 
@@ -14,7 +14,7 @@ void PrintAccountInfo(AccountInfo* accountInfo)
 {
 	printf("AccountInfo: AccountType[%s], BrokerID[%s],  UserID[%s], Password[%s],  UserProductInfo[%s], AuthCode[%s],  AppID[%s]\nFrontAddrs",
 		accountInfo->AccountType, accountInfo->BrokerID, accountInfo->UserID, accountInfo->Password, accountInfo->UserProductInfo, accountInfo->AuthCode, accountInfo->AppID);
-	for (auto FrontAddr : accountInfo->FrontAddrs)
+	for (auto& FrontAddr : accountInfo->FrontAddrs)
 	{
 		printf("  [%s]", FrontAddr.c_str());
 	}
@@ -47,18 +47,18 @@ void ReadAccountInfo(map<string, AccountInfo*>& accountInfos)
 		}
 		accountInfos.insert(make_pair(accountInfo->UserID, accountInfo));
 	}
-	for (auto it : accountInfos)
+	for (auto& it : accountInfos)
 	{
 		PrintAccountInfo(it.second);
 	}
 }
 
-int main(int argc, char* argv[])
+int main()
 {
 	map<string, AccountInfo*> accountInfos;
 	ReadAccountInfo(accountInfos);
 
-	Logger::GetInstance().Init(argv[0]);
+	Logger::GetInstance().Init("CTPTraderApiTest");
 	Logger::GetInstance().SetLogLevel(LogLevel::Info, LogLevel::Warning);
 	Logger::GetInstance().Start();
 
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 	CThostFtdcTraderSpiImpl* traderSpi = new CThostFtdcTraderSpiImpl(traderApi);
 	traderSpi->SetAccountInfo(accountInfos[userID]);
 	traderApi->RegisterSpi(traderSpi);
-	for (auto frontAddr : accountInfos[userID]->FrontAddrs)
+	for (auto& frontAddr : accountInfos[userID]->FrontAddrs)
 	{
 		traderApi->RegisterFront((char*)frontAddr.c_str());
 	}
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 	traderApi->Init();
 
 
-	Sleep(30000);
+	std::this_thread::sleep_for(std::chrono::seconds(30));
 
 	traderApi->Release();
 	//traderApi->Join();

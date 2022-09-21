@@ -1,9 +1,8 @@
 ﻿SET(PROJECT_NAME "TestSharedMemoryServer")
 project(${PROJECT_NAME})
+message("PROJECT_NAME:" ${PROJECT_NAME})
 
-add_package(src ./src)
+add_package(Src ./Src)
 
-message(STATUS "CMAKE_SYSTEM_NAME: " ${CMAKE_SYSTEM_NAME})
-message(STATUS "CMAKE_CL_64: " ${CMAKE_CL_64})
 
 add_executable(${PROJECT_NAME} ${all_file})

@@ -2,6 +2,7 @@
 #include "OpenSSL.h"
 #include <iostream>
 #include <stdlib.h>
+#include <string.h>
 
 
 void Print(const unsigned char* data, int len)

@@ -1,6 +1,8 @@
 #include "TestUdpClient.h"
 #include "UdpClient.h"
 #include "Config.h"
+#include <thread>
+#include <string.h>
 
 void TestUdpClient()
 {
@@ -22,11 +24,11 @@ void TestUdpClient()
         TcpEvent* tcpEvent = TcpEvent::Allocate();
         tcpEvent->IP = Config::GetInstance().ConnectIP.c_str();
         tcpEvent->Port = Config::GetInstance().ConnectPort.c_str();
-        memcpy(tcpEvent->Buff, msg.c_str(), msg.length());
+        ::memcpy(tcpEvent->Buff, msg.c_str(), msg.length());
         tcpEvent->Length = msg.length();
         tcpEvent->Buff[tcpEvent->Length] = '\0';
         udpClient.ZipSendTo(tcpEvent);
 
-        Sleep(10000);
+        std::this_thread::sleep_for(std::chrono::seconds(10));
     }
 }

@@ -32,7 +32,7 @@ void TestUdpServer()
         of.close();
 
         auto ws = Encode::utf8_to_wstring(tcpEvent->Buff);
-        std::wofstream wfo(L"ws.txt");
+        std::wofstream wfo("ws.txt");
         wfo.imbue(std::locale("zh_CN"));
         wfo << ws;
         wfo.close();
