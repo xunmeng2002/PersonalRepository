@@ -1,4 +1,3 @@
-#pragma once
 #include <stdio.h>
 #if LINUX
 #include <sys/shm.h>

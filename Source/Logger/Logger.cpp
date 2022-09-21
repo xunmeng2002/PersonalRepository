@@ -132,7 +132,7 @@ void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* 
 	for (auto p = file; *p != '\0'; p++)
 		if (*p == '\\' || *p == '/')
 			file = p + 1;
-	int len1 = snprintf(t_LogBuffer, MAX_LOG_FORMAT_LENGTH, "%s %d %s ", GetLocalDateTimeWithMilliSecond().c_str(), std::this_thread::get_id(), s_LogLevelName[level].c_str());
+	int len1 = snprintf(t_LogBuffer, MAX_LOG_FORMAT_LENGTH, "%s %d %s ", GetLocalDateTimeWithMilliSecond().c_str(), GetCurrentThreadID(), s_LogLevelName[level].c_str());
 
 	int len2 = vsnprintf(t_LogBuffer + len1, MAX_LOG_LINE_CONTENT_LENGTH, format, va);
 	if (len2 > MAX_LOG_LINE_CONTENT_LENGTH)
@@ -152,7 +152,7 @@ void Logger::WriteToLog(LogLevel level, const char* file, int line, const char* 
 void Logger::WriteToConsole(LogLevel level, const char* formatStr, va_list va)
 {
 	static char* logString = new char[LOG_LINE_LENGTH] {0};
-	int len = snprintf(logString, MAX_LOG_FORMAT_LENGTH, "ThreadID[%05d] ", std::this_thread::get_id());
+	int len = snprintf(logString, MAX_LOG_FORMAT_LENGTH, "ThreadID[%06d] ", GetCurrentThreadID());
 	len += vsnprintf(logString + len, LOG_LINE_LENGTH - len -1, formatStr, va);
 
 	printf("%s\n", logString);
@@ -171,4 +171,8 @@ void Logger::CreateLogFile()
 	m_LogData->LogFile = fopen(fileName, "a+");
 	assert(m_LogData->LogFile != nullptr);
 }
-
+uint32_t Logger::GetCurrentThreadID()
+{
+	auto id = std::this_thread::get_id();
+	return *(uint32_t*)(&id);
+}

@@ -38,7 +38,7 @@ void TcpSelectClient::CheckConnect()
 	if (m_ConnectingSocket.size() == 0)
 		return;
 	FD_ZERO(&m_ConnectFds);
-	int maxID = 0;
+	uint64_t maxID = 0;
 	for (auto& connectData : m_ConnectingSocket)
 	{
 		FD_SET(connectData->SocketID, &m_ConnectFds);

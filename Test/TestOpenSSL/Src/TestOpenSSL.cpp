@@ -39,7 +39,7 @@ void HmacCalculate(const char* name, unsigned char* inData, int inLen, unsigned 
 	{
 		OpenSSL::HmacMD5(inData, inLen, key, keyLen, outData, outLen);
 	}
-	printf("HMAC By:[%s], hmacOutLen:[%d] strlen(hmacOut):[%lld]\n", name, outLen, strlen((char*)outData));
+	printf("HMAC By:[%s], hmacOutLen:[%d] strlen(hmacOut):[%lld]\n", name, outLen, (long long)strlen((char*)outData));
 	Print(outData, outLen);
 
 	printf("\n");
@@ -55,7 +55,7 @@ int main()
 	auto decodeKeyLen = OpenSSL::Base64UrlDecode(key, inLen, decodeKey);
 
 	Print(decodeKey, decodeKeyLen);
-	printf("decodeKeyLen:[%d], strlen(decodeKey):[%lld]\n", decodeKeyLen, strlen((const char*)decodeKey));
+	printf("decodeKeyLen:[%d], strlen(decodeKey):[%lld]\n", decodeKeyLen, (long long)strlen((const char*)decodeKey));
 
 	unsigned char* hmacOut = new unsigned char[1024]{ 0 };
 	unsigned char* target = new unsigned char[1024]{ 0 };
