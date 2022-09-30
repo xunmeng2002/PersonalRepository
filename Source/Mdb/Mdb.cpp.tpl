@@ -3,6 +3,7 @@
 
 Mdb Mdb::m_Instance;
 
+!!entry mdb!!
 !!entry tables!!
 Mdb::Mdb()
 	:m_DB(nullptr), m_Callback(nullptr), m_ErrorMsg(nullptr)
@@ -39,4 +40,5 @@ void Mdb::SelectAllTables()
 !!leave!!
 }
 
+!!leave!!
 !!leave!!

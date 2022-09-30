@@ -8,7 +8,7 @@
 !!types['double']='f'!!
 !!types['string']='s'!!
 
-
+!!entry ctp!!
 !!entry fields!!
 !!travel!!
 void Write!!@shortname!!(!!@name!!* !!@shortname!!)
@@ -21,5 +21,6 @@ void Write!!@shortname!!(!!@name!!* !!@shortname!!)
 	}
 }
 
+!!leave!!
 !!leave!!
 !!leave!!

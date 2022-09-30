@@ -8,7 +8,7 @@ public:
 	static CThostFtdcTraderApi *CreateFtdcTraderApi(const char *pszFlowPath = "");
 	
 	static const char *GetApiVersion();
-	
+
 	virtual void Release();
 
 	virtual void Init();

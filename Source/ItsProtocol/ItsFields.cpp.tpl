@@ -1,7 +1,7 @@
 #include "ItsFields.h"
 #include "Logger.h"
 
-
+!!entry protocols!!
 !!travel!!
 !!travel!!
 Its!!@name!!::Its!!@name!!()
@@ -49,5 +49,6 @@ int Its!!@name!!::OnSelectCallback(void* callback, int colCount, char** colValue
 	return 0;
 }
 
+!!leave!!
 !!leave!!
 !!leave!!

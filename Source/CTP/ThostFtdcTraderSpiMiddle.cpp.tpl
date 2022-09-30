@@ -11,6 +11,7 @@
 !!types['double']='f'!!
 !!types['string']='s'!!
 
+!!entry ctp!!
 !!entry spi!!
 !!travel!!
 void CThostFtdcTraderSpiMiddle::!!@name!!(!!travel!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!@type!! !!if @custom == "True":!!!!inc indent!!*p!!dec indent!!!!@name!!!!leave!!)
@@ -24,5 +25,6 @@ void CThostFtdcTraderSpiMiddle::!!@name!!(!!travel!!!!if $pumpid >= '1':!!!!inc 
 !!leave!!
 }
 
+!!leave!!
 !!leave!!
 !!leave!!

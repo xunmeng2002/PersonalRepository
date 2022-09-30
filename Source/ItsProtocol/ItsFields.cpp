@@ -1,7 +1,6 @@
 ﻿#include "ItsFields.h"
 #include "Logger.h"
 
-
 ItsReqQryPrimaryAccountInfo::ItsReqQryPrimaryAccountInfo()
 	:ProtocolType("R")
 {

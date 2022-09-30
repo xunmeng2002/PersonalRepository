@@ -1,4 +1,4 @@
-<root>
+<events>
 	<TcpEvents startID="0">
 		<event name="Connect" desc="请求连接"/>
 		<event name="DisConnect" desc="请求断开连接"/>
@@ -20,4 +20,4 @@
 		<event name="QryOrder" desc="委托查询"/>
 		<event name="QryTrade" desc="成交查询"/>
 	</BusinessEvents>
-</root>
+</events>

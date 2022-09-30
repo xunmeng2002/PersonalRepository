@@ -169,13 +169,9 @@ if __name__ == "__main__":
     out_content += "sys.setdefaultencoding(\"utf-8-sig\")\n"
     out_content += "out_file = codecs.open(\"%s\",\"w+\",\"utf-8-sig\")\n\n" % out_file_name
     #xml文件可以大于1，如果有多个xml文件，添加一个根节点，把每个xml文件的根节点挂在新加的根节点下面，新加的根节点作为当前节点
-    if len(sys.argv) == 4:
-        out_content += "tree = ET.parse(\"%s\")\n" % sys.argv[3]
-        out_content += "curr_node = tree.getroot()\n"
-    else:
-        out_content += "curr_node = ET.Element(\"root\")\n"
-        for i in range(3, len(sys.argv)):
-            out_content += "curr_node.append(ET.parse(\"%s\").getroot())\n" % sys.argv[i]
+    out_content += "curr_node = ET.Element(\"root\")\n"
+    for i in range(3, len(sys.argv)):
+        out_content += "curr_node.append(ET.parse(\"%s\").getroot())\n" % sys.argv[i]
     out_content += "parent_map = {}\n"
     out_content += "pumpidlist = []\n"        
     

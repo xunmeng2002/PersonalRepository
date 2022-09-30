@@ -40,7 +40,6 @@ struct MyEvent : public Event
 	virtual void Free() override;
 };
 
-
 constexpr int EventConnect = 0;		//请求连接
 constexpr int EventDisConnect = 1;		//请求断开连接
 constexpr int EventAccept = 2;		//请求接受连接

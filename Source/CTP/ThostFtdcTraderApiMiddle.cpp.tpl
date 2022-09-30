@@ -30,6 +30,7 @@ const char *CThostFtdcTraderApiMiddle::GetApiVersion()
 	return CThostFtdcTraderApi::GetApiVersion();
 }
 
+!!entry ctp!!
 !!entry api!!
 !!travel!!
 !!@return!! CThostFtdcTraderApiMiddle::!!@name!!(!!travel!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!@type!! !!if @custom == "True":!!!!inc indent!!*p!!dec indent!!!!@name!!!!leave!!)
@@ -45,5 +46,6 @@ const char *CThostFtdcTraderApiMiddle::GetApiVersion()
 	return m_TraderApi->!!@name!!(!!travel!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!if @custom == "True":!!!!inc indent!!p!!dec indent!!!!@name!!!!leave!!);
 }
 
+!!leave!!
 !!leave!!
 !!leave!!

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "ThostFtdcUserApiStruct.h"
 
-
 void WriteDissemination(CThostFtdcDisseminationField* Dissemination);
 
 void WriteReqUserLogin(CThostFtdcReqUserLoginField* ReqUserLogin);

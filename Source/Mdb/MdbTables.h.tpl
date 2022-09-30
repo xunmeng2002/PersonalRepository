@@ -5,6 +5,7 @@
 
 using std::string;
 
+!!entry mdb!!
 !!entry tables!!
 !!travel!!
 class !!@name!!
@@ -48,3 +49,4 @@ public:
 !!leave!!
 };
 
+!!leave!!

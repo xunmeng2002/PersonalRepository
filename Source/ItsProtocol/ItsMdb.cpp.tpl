@@ -3,6 +3,7 @@
 
 ItsMdb ItsMdb::m_Instance;
 
+!!entry protocols!!
 !!entry Its!!
 ItsMdb::ItsMdb()
 	:m_DB(nullptr), m_Callback(nullptr), m_ErrorMsg(nullptr)
@@ -39,4 +40,5 @@ void ItsMdb::SelectAllTables()
 !!leave!!
 }
 
+!!leave!!
 !!leave!!

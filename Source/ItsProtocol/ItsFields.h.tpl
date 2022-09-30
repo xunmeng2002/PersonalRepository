@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+!!entry protocols!!
 !!travel!!
 !!travel!!
 class Its!!@name!!
@@ -40,3 +41,4 @@ public:
 !!leave!!
 };
 
+!!leave!!

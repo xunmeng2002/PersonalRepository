@@ -11,6 +11,7 @@
 !!formatSymbols["double"] = "f"!!
 !!formatSymbols["enum"] = "d"!!
 
+!!entry mdb!!
 !!entry tables!!
 !!travel!!
 int !!@name!!::ToStream(char* buff, int size) const
@@ -65,5 +66,6 @@ int !!@name!!::OnSelectCallback(void* callback, int colCount, char** colValues, 
 	return 0;
 }
 
+!!leave!!
 !!leave!!
 !!leave!!

@@ -40,7 +40,7 @@ struct MyEvent : public Event
 	virtual void Free() override;
 };
 
-
+!!entry events!!
 !!travel!!
 !!startID = @startID!!
 !!travel!!
@@ -49,4 +49,5 @@ constexpr int Event!!@name!! = !!$id!!;		//!!@desc!!
 !!leave!!
 
 
+!!leave!!
 !!leave!!

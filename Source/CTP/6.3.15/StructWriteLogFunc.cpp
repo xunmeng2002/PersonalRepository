@@ -2,7 +2,6 @@
 #include "Logger.h"
 
 
-
 void WriteDissemination(CThostFtdcDisseminationField* Dissemination)
 {
 	if(Dissemination)
