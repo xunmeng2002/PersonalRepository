@@ -16,8 +16,8 @@ void Write!!@shortname!!(!!@name!!* !!@shortname!!)
 	if(!!@shortname!!)
 	{
 !!fieldName=@shortname!!
-		WRITE_LOG(LogLevel::Info, "!!@name!!: !!travel!!!!currType=types[@basetype]!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!@name!![%!!$currType!!]!!leave!!",
-			!!travel!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!$fieldName!!->!!@name!!!!leave!!);
+		WRITE_LOG(LogLevel::Info, "!!@name!!: !!travel!!!!currType=types[@basetype]!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!!!@name!![%!!$currType!!]!!leave!!",
+			!!travel!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!!!$fieldName!!->!!@name!!!!leave!!);
 	}
 }
 

@@ -12,7 +12,7 @@ public:
 !!entry ctp!!
 !!entry api!!
 !!travel!!
-	virtual !!@return!! !!@name!!(!!travel!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!@type!! !!if @custom == "True":!!!!inc indent!!*p!!dec indent!!!!@name!!!!leave!!);
+	virtual !!@return!! !!@name!!(!!travel!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!!!@type!! !!if @custom == "True":!!!!inc indent!!*p!!dec indent!!!!@name!!!!leave!!);
 
 !!leave!!
 !!leave!!

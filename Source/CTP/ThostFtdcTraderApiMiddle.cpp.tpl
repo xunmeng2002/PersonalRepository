@@ -33,7 +33,7 @@ const char *CThostFtdcTraderApiMiddle::GetApiVersion()
 !!entry ctp!!
 !!entry api!!
 !!travel!!
-!!@return!! CThostFtdcTraderApiMiddle::!!@name!!(!!travel!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!@type!! !!if @custom == "True":!!!!inc indent!!*p!!dec indent!!!!@name!!!!leave!!)
+!!@return!! CThostFtdcTraderApiMiddle::!!@name!!(!!travel!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!!!@type!! !!if @custom == "True":!!!!inc indent!!*p!!dec indent!!!!@name!!!!leave!!)
 {
 	WRITE_LOG(LogLevel::Info, "!!@name!!:!!travel!!!!if @custom == "False":!!!!inc indent!!!!currType=types[@basetype]!! !!@name!![%!!$currType!!]!!dec indent!!!!leave!!"!!travel!!!!if @custom == "False":!!!!inc indent!!, !!@name!!!!dec indent!!!!leave!!);
 !!travel!!
@@ -43,7 +43,7 @@ const char *CThostFtdcTraderApiMiddle::GetApiVersion()
 !!dec indent!!
 !!leave!!
 
-	return m_TraderApi->!!@name!!(!!travel!!!!if $pumpid >= '1':!!!!inc indent!!, !!dec indent!!!!if @custom == "True":!!!!inc indent!!p!!dec indent!!!!@name!!!!leave!!);
+	return m_TraderApi->!!@name!!(!!travel!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!!!if @custom == "True":!!!!inc indent!!p!!dec indent!!!!@name!!!!leave!!);
 }
 
 !!leave!!
