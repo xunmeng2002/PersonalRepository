@@ -10,7 +10,7 @@
 #include <netinet/tcp.h>
 #include <sys/ioctl.h>
 
-typedef unsigned long long SOCKET;
+typedef int SOCKET;
 #define INVALID_SOCKET  (SOCKET)(~0)
 #define SOCKET_ERROR            (-1)
 

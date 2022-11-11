@@ -28,13 +28,3 @@ void ConnectData::UpdateLastSendTime()
 {
 	LastSendTimePoint = std::chrono::steady_clock::now();
 }
-bool ConnectData::CheckHeartBeat(int heartBeatSeconds)
-{
-	auto now = std::chrono::steady_clock::now();
-	auto sendDiffSeconds = GetDuration<std::chrono::seconds>(LastSendTimePoint, now);
-	if (sendDiffSeconds >= heartBeatSeconds)
-	{
-		return true;
-	}
-	return false;
-}

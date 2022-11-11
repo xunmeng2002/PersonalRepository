@@ -1,6 +1,5 @@
 #pragma once
 #include "SocketInit.h"
-#include "CacheList.h"
 #include <mutex>
 #include <string>
 #include <chrono>
@@ -13,7 +12,6 @@ public:
 
 	void Set(int sessionID, const SOCKET& socketID, const std::string& remoteIP, const std::string& remotePort);
 	void UpdateLastSendTime();
-	bool CheckHeartBeat(int heartBeatSeconds = 30);
 
 
 	int SessionID;
