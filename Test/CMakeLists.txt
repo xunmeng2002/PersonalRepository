@@ -12,3 +12,5 @@ add_subdirectory(TestMysqlConnector)
 
 add_subdirectory(TestNamedPipe)
 add_subdirectory(TestNamedPipe2)
+
+add_subdirectory(TestEpoll)
