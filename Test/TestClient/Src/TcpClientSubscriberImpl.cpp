@@ -20,6 +20,7 @@ void TcpClientSubscriberImpl::HandleEvent()
 void TcpClientSubscriberImpl::OnConnect(int sessionID, const char* ip, const char* port)
 {
     WRITE_LOG(LogLevel::Info, "TcpClientSubscriberImpl::OnConnect SessionID:[%d], IP:[%s], Port:[%s]", sessionID, ip, port);
+    m_MessageCounts.insert(std::make_pair(sessionID, 0));
     Send(sessionID, ip, port);
 }
 void TcpClientSubscriberImpl::OnDisConnect(int sessionID, const char* ip, const char* port)
@@ -52,4 +53,15 @@ void TcpClientSubscriberImpl::Send(int sessionID, const char* ip, const char* po
     tcpEvent->Length = n;
     m_Tcp->Send(tcpEvent);
 }
-
+void TcpClientSubscriberImpl::SendCommand(int sessionID, const char* ip, const char* port, const char* cmd)
+{
+    ++m_MessageCounts[sessionID];
+    TcpEvent* tcpEvent = TcpEvent::Allocate();
+    tcpEvent->EventID = EventSend;
+    tcpEvent->SessionID = sessionID;
+    tcpEvent->IP = ip;
+    tcpEvent->Port = port;
+    int n = sprintf(tcpEvent->Buff, "%s\r\n", cmd);
+    tcpEvent->Length = n;
+    m_Tcp->Send(tcpEvent);
+}

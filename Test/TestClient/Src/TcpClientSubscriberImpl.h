@@ -18,6 +18,7 @@ public:
 	virtual void OnRecv(TcpEvent* tcpEvent);
 
 	void Send(int sessionID, const char* ip, const char* port);
+	void SendCommand(int sessionID, const char* ip, const char* port, const char* cmd);
 private:
 	TcpBase* m_Tcp;
 	std::map<int, int> m_MessageCounts;

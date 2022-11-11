@@ -1,10 +1,10 @@
-#include "TestTcpSelectClient.h"
+#include "TestTcpEpollClient.h"
 #include "TcpClientSubscriberImpl.h"
 #include "Logger.h"
 #include "Config.h"
 
 
-void TestTcpSelectClient()
+void TestTcpEpollClient()
 {
     auto IP1 = "127.0.0.1";
     auto IP2 = "192.168.2.29";
@@ -15,10 +15,10 @@ void TestTcpSelectClient()
 
     auto Port = "10000";
 
-    TcpSelectClient tcpSelectClient;
-    tcpSelectClient.SetSocketTimeOut(5000);
+    TcpEpollClient tcpEpollClient;
+    tcpEpollClient.SetSocketTimeOut(5000);
     
-    TcpClientSubscriberImpl tcpClientSubscriberImpl(&tcpSelectClient);
+    TcpClientSubscriberImpl tcpClientSubscriberImpl(&tcpEpollClient);
     if (!tcpClientSubscriberImpl.Init())
     {
         return;
@@ -27,12 +27,13 @@ void TestTcpSelectClient()
 
     //tcpSelectClient.Connect(IP, Port);
     //tcpSelectClient.Connect(IP1, Port);
-    tcpSelectClient.Connect(Config::GetInstance().ConnectIP.c_str(), Config::GetInstance().ConnectPort.c_str());
-    tcpSelectClient.Connect(Config::GetInstance().ConnectIP.c_str(), Config::GetInstance().ConnectPort.c_str());
-    tcpSelectClient.Connect(Config::GetInstance().ConnectIP.c_str(), Config::GetInstance().ConnectPort.c_str());
+    tcpEpollClient.Connect(Config::GetInstance().ConnectIP.c_str(), Config::GetInstance().ConnectPort.c_str());
+    tcpEpollClient.Connect(Config::GetInstance().ConnectIP.c_str(), Config::GetInstance().ConnectPort.c_str());
+    tcpEpollClient.Connect(Config::GetInstance().ConnectIP.c_str(), Config::GetInstance().ConnectPort.c_str());
     //tcpSelectClient.Connect(IP3, Port);
     //tcpSelectClient.Connect(IP4, Port);
 
+    
     std::this_thread::sleep_for(std::chrono::seconds(5));
     tcpClientSubscriberImpl.Stop();
     tcpClientSubscriberImpl.Join();

@@ -2,6 +2,7 @@
 #include <set>
 #include <string.h>
 #include "TestTcpSelectServer.h"
+#include "TestTcpEpollServer.h"
 #include "TestUdpServer.h"
 #include "Logger.h"
 #include "Config.h"
@@ -21,13 +22,16 @@ int main(int argc, const char* argv[])
         TestTcpSelectServer();
         break;
     case '1':
+        TestTcpEpollServer();
+        break;
+    case '2':
         TestUdpServer();
         break;
     default:
         break;
     }
 
-    Logger::GetInstance().Join();
+    Logger::GetInstance().Stop();
     Logger::GetInstance().Join();
 	return 0;
 }

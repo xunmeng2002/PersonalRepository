@@ -4,6 +4,7 @@
 #include <thread>
 #include "Logger.h"
 #include "TestTcpSelectClient.h"
+#include "TestTcpEpollClient.h"
 #include "TestUdpClient.h"
 #include "Config.h"
 
@@ -23,13 +24,16 @@ int main(int argc, const char* argv[])
         TestTcpSelectClient();
         break;
     case '1':
+        TestTcpEpollClient();
+        break;
+    case '2':
         TestUdpClient();
         break;
     default:
         break;
     }
 
-    std::this_thread::sleep_for(std::chrono::seconds(10));
+    //std::this_thread::sleep_for(std::chrono::seconds(10));
     Logger::GetInstance().Stop();
     Logger::GetInstance().Join();
 

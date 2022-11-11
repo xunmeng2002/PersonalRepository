@@ -34,9 +34,6 @@ void TcpServerSubscriberImpl::OnRecv(TcpEvent* tcpEvent)
     char message[1024] = { 0 };
     auto n = sprintf(message, "TcpServerSubscriberImpl::OnRecv SessionID:[%d], IP:[%s], Port:[%s], Data:[%s]", tcpEvent->SessionID, tcpEvent->IP.c_str(), tcpEvent->Port.c_str(), tcpEvent->ReadPos);
     WRITE_LOG(LogLevel::Info, message);
-    ::strcpy(tcpEvent->ReadPos, message);
 
-    tcpEvent->EventID = EventSend;
-    tcpEvent->Length = BuffSize;
     m_Tcp->Send(tcpEvent);
 }
