@@ -149,7 +149,6 @@ int main()
 	string host = "tcp://192.168.2.238:3306/Test";
 	string user = "test";
 	string passwd = "test";
-	//Connection* conn = driver->connect(host.c_str(), user.c_str(), passwd.c_str());
 	Connection* conn = driver->connect(host, user, passwd);
 	PreparedStatement* state = conn->prepareStatement("insert into t_AuthorizedSoftware Values(?, ?, ?);");
 	PreparedStatement* state2 = conn->prepareStatement("replace into t_AuthorizedSoftware Values(?, ?, ?);");
@@ -174,10 +173,8 @@ int main()
 	state2->setString(2, "103");
 	state2->setInt(3, 102);
 	state2->execute();
-
 	conn->commit();
 
-	CSoftwareType a("1");
 	CTradeStatusType status = CTradeStatusType::Closed;
 
 	state3->setInt(1, 100);
@@ -191,8 +188,6 @@ int main()
 	state3->setInt(1, 102);
 	state3->setString(2, "102");
 	state3->execute();
-
-	auto result = state3->executeQuery();
 
 	return 0;
 }
