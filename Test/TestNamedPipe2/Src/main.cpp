@@ -10,13 +10,13 @@ using namespace std;
 #define FIFO2 "/home/ams/fifo2"
 
 
-void CreateFIFO(char* path, mode_t mode)
+void CreateFIFO(const char* path, mode_t mode)
 {
     int ret = mkfifo(path, mode);
     string result = ret == -1 ? "failed" : "success";
     printf("Create FIFO channel %s for %s\n", result.c_str(), path);
 }
-int OpenFIFO(char* path, int flag)
+int OpenFIFO(const char* path, int flag)
 {
     int fd = open(path, flag);
     string result = fd == -1 ? "failed" : "success";

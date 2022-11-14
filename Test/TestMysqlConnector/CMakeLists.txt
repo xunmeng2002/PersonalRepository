@@ -16,9 +16,6 @@ IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
 	add_executable(${PROJECT_NAME} ${all_file})
 	target_link_libraries(${PROJECT_NAME} mysqlcppconn.lib libcrypto.lib libssl.lib WS2_32.LIB)
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
-	link_directories(${CMAKE_SOURCE_DIR}/Libs/MysqlConnector/8.0.31/linux)
-	
 	add_executable(${PROJECT_NAME} ${all_file})
-	
-	target_link_libraries(${PROJECT_NAME} mysqlcppconn8 crypto ssl pthread dl)
+	target_link_libraries(${PROJECT_NAME} mysqlcppconn crypto ssl pthread dl)
 endif()

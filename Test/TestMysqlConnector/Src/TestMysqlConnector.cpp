@@ -2,8 +2,10 @@
 #include <jdbc/mysql_driver.h>
 #include <jdbc/mysql_error.h>
 #include <jdbc/cppconn/statement.h>
+#include <jdbc/cppconn/prepared_statement.h>
 #include <jdbc/cppconn/resultset.h>
 #include <string>
+#include <string.h>
 #include <vector>
 
 using namespace std;
@@ -93,38 +95,29 @@ void Print(DboAuthorizedSoftware* record)
 {
 	printf("Software:%s, AuthCode:%s, Account:%d\n", record->Software, record->AuthCode, record->Account);
 }
-
-
-int main()
+void Test()
 {
-	Driver* driver = sql::mysql::get_driver_instance();
-	string host = "tcp://192.168.2.238:3306/Test";
-	string user = "test";
-	string passwd = "test";
-	//Connection* conn = driver->connect(host.c_str(), user.c_str(), passwd.c_str());
-	Connection* conn = driver->connect(host, user, passwd);
-	conn->setAutoCommit(false);
-	m_Statement = conn->createStatement();
-
 	for (auto i = 0; i < 10; i++)
 	{
 		auto record = PrepareDboAuthorizedSoftware(i);
 		InsertDboAuthorizedSoftware(record);
 	}
-	
-	auto record = QueryDboAuthorizedSoftwareFromPrimaryKey(CSoftwareType("1"), 1);
+
+	CSoftwareType software("1");
+	CAuthCodeType authCode("1");
+	auto record = QueryDboAuthorizedSoftwareFromPrimaryKey(software, 1);
 	cout << "QueryDboAuthorizedSoftwareFromPrimaryKey" << endl;
 	if (record)
 	{
 		Print(record);
 	}
-	record = QueryDboAuthorizedSoftwareFromUniqueKeyAuthCode(CSoftwareType("1"), CAuthCodeType("1"));
+	record = QueryDboAuthorizedSoftwareFromUniqueKeyAuthCode(software, authCode);
 	cout << "QueryDboAuthorizedSoftwareFromUniqueKeyAuthCode" << endl;
 	if (record)
 	{
 		Print(record);
 	}
-	vector< DboAuthorizedSoftware*> records;
+	vector<DboAuthorizedSoftware*> records;
 	QueryDboAuthorizedSoftwareFromIndexAccount(records, 1);
 	cout << "QueryDboAuthorizedSoftwareFromIndexAccount" << endl;
 	if (records.size() > 0)
@@ -134,9 +127,72 @@ int main()
 			Print(record);
 		}
 	}
+}
 
+enum class CTradeStatusType : char
+{
+	//未知
+	Unknown = '0',
+	//集合竞价报单
+	AuctionOrdering = '1',
+	//连续交易
+	Trading = '2',
+	//暂停
+	Pause = '3',
+	//收市
+	Closed = '4',
+};
+
+int main()
+{
+	Driver* driver = sql::mysql::get_driver_instance();
+	string host = "tcp://192.168.2.238:3306/Test";
+	string user = "test";
+	string passwd = "test";
+	//Connection* conn = driver->connect(host.c_str(), user.c_str(), passwd.c_str());
+	Connection* conn = driver->connect(host, user, passwd);
+	PreparedStatement* state = conn->prepareStatement("insert into t_AuthorizedSoftware Values(?, ?, ?);");
+	PreparedStatement* state2 = conn->prepareStatement("replace into t_AuthorizedSoftware Values(?, ?, ?);");
+	PreparedStatement* state3 = conn->prepareStatement("delete from t_AuthorizedSoftware where Account = ? and Software = ?;");
+	state->setString(1, "100");
+	state->setString(2, "100");
+	state->setInt(3, 100);
+	state->execute();
+
+	state->setString(1, "101");
+	state->setString(2, "101");
+	state->setInt(3, 101);
+	state->execute();
+
+	state->setString(1, "102");
+	state->setString(2, "102");
+	state->setInt(3, 102);
+	state->execute();
+
+
+	state2->setString(1, "102");
+	state2->setString(2, "103");
+	state2->setInt(3, 102);
+	state2->execute();
 
 	conn->commit();
+
+	CSoftwareType a("1");
+	CTradeStatusType status = CTradeStatusType::Closed;
+
+	state3->setInt(1, 100);
+	state3->setString(2, "100");
+	state3->execute();
+
+	state3->setInt(1, 101);
+	state3->setString(2, "101");
+	state3->execute();
+
+	state3->setInt(1, 102);
+	state3->setString(2, "102");
+	state3->execute();
+
+	auto result = state3->executeQuery();
 
 	return 0;
 }
