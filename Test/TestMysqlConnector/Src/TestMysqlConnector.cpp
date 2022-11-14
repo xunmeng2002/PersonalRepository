@@ -153,6 +153,7 @@ int main()
 	PreparedStatement* state = conn->prepareStatement("insert into t_AuthorizedSoftware Values(?, ?, ?);");
 	PreparedStatement* state2 = conn->prepareStatement("replace into t_AuthorizedSoftware Values(?, ?, ?);");
 	PreparedStatement* state3 = conn->prepareStatement("delete from t_AuthorizedSoftware where Account = ? and Software = ?;");
+	//state: insert into
 	state->setString(1, "100");
 	state->setString(2, "100");
 	state->setInt(3, 100);
@@ -168,15 +169,14 @@ int main()
 	state->setInt(3, 102);
 	state->execute();
 
-
+	//state2:replace into
 	state2->setString(1, "102");
 	state2->setString(2, "103");
 	state2->setInt(3, 102);
 	state2->execute();
 	conn->commit();
 
-	CTradeStatusType status = CTradeStatusType::Closed;
-
+	//state3:delete
 	state3->setInt(1, 100);
 	state3->setString(2, "100");
 	state3->execute();
