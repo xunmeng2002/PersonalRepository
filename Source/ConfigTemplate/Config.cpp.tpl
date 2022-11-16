@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+!!entry config!!
 
 !!formatSymbols = {}!!
 !!formatSymbols["bool"] = "d"!!
@@ -51,8 +52,6 @@ void Config::Load(const char* fileName)
 !!dec indent!!
 !!leave!!
 !!leave!!
-	
-	Print();
 }
 
 void Config::Print()
@@ -62,3 +61,5 @@ void Config::Print()
 		!!travel!!!!if pumpid > 0:!!!!inc indent!!, !!dec indent!!!!@name!!!!if @type == "string":!!!!inc indent!!.c_str()!!dec indent!!!!leave!!);
 !!leave!!
 }
+
+!!leave!!

@@ -48,6 +48,5 @@ struct MyEvent : public Event
 constexpr int Event!!@name!! = !!$id!!;		//!!@desc!!
 !!leave!!
 
-
 !!leave!!
 !!leave!!

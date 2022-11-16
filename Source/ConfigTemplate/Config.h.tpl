@@ -12,9 +12,11 @@ public:
 	void Print();
 	
 public:
+!!entry config!!
 !!entry items!!
 !!travel!!
 	!!@type!! !!@name!!;
+!!leave!!
 !!leave!!
 !!leave!!
 	
