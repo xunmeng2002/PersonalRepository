@@ -39,6 +39,6 @@ public:
 	virtual void SelectIts!!@name!!Callback(Its!!@name!!* field) { delete field; }
 !!leave!!
 !!leave!!
+!!leave!!
 };
 
-!!leave!!

@@ -9,6 +9,8 @@ TcpSelectBase::TcpSelectBase()
 {
 	FD_ZERO(&m_RecvFds);
 	m_MaxID = 0;
+	m_SelectSocketTimeOut.tv_sec = 0;
+	m_SelectSocketTimeOut.tv_usec = 0;
 }
 
 void TcpSelectBase::SetSocketTimeOut(int milliSeconds)

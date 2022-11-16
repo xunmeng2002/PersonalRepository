@@ -22,7 +22,7 @@ public:
 !!travel!!
 !!if @type == "enum":!!
 !!inc indent!!
-	!!@name!! !!@name!!;
+	!!@name!! !!@name!! = !!@default!!;
 !!dec indent!!
 !!else:!!
 !!inc indent!!
@@ -32,8 +32,6 @@ public:
 !!leave!!
 	
 	static constexpr const char* TableName = "t_Mdb!!@name!!";
-private:
-	char m_Buff[4096];
 };
 
 !!leave!!
@@ -47,6 +45,6 @@ public:
 	virtual void SelectMdb!!@name!!Callback(!!@name!!* field) { delete field; }
 !!leave!!
 !!leave!!
+!!leave!!
 };
 
-!!leave!!

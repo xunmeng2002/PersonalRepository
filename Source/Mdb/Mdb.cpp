@@ -39,5 +39,29 @@ void Mdb::SelectAllTables()
 	SelectTable<Order>();
 	SelectTable<OrderCancel>();
 	SelectTable<Trade>();
+	SelectHistoryOrder();
+}
+int Mdb::SelectHistoryOrder()
+{
+	std::string localDate = GetLocalDate();
+	std::string tableName = Order::TableName;
+	std::string sql = "SELECT * FROM " + tableName + " WHERE TradingDay != '' AND TradingDay < '" + localDate + "' AND OrderStatus <= '2' AND TimeCondition = '5'"
+					  "UNION ALL "
+					  "SELECT * FROM " + tableName + " WHERE TradingDay != '' AND TradingDay < '" + localDate + "' AND OrderStatus <= '2' AND TimeCondition = '4' AND GTDDate != '' AND GTDDate >= '" + localDate + "';";
+
+	WRITE_LOG(LogLevel::Info, "SelectHistoryOrder SQL:[%s]", sql.c_str());
+
+	int rc = sqlite3_exec(m_DB, sql.c_str(), Order::OnSelectCallback, m_Callback, &m_ErrorMsg);
+	if (rc != SQLITE_OK)
+	{
+		WRITE_LOG(LogLevel::Warning, "SQL error: %s", m_ErrorMsg);
+		WRITE_LOG(LogLevel::Warning, "SQL: %s", sql.c_str());
+		sqlite3_free(m_ErrorMsg);
+	}
+	else
+	{
+		WRITE_LOG(LogLevel::Info, "SelectHistoryOrder successfully");
+	}
+	return rc;
 }
 

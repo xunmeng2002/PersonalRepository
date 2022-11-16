@@ -27,12 +27,14 @@ out_file.write("\n")
 out_file.write("#include \"MdbTables.h\"\n")
 out_file.write("#include \"Mdb.h\"\n")
 out_file.write("\n")
+out_file.write("thread_local char StreamBuff[4096];\n")
+out_file.write("\n")
 out_file.write("")
 formatSymbols = {}
 formatSymbols["string"] = "s"
 formatSymbols["int"] = "d"
 formatSymbols["double"] = "f"
-formatSymbols["enum"] = "d"
+formatSymbols["enum"] = "c"
 out_file.write("\n")
 out_file.write("")
 entry_name = "mdb"
@@ -202,11 +204,11 @@ for node3 in curr_node:
     out_file.write("%s" % get_attr(curr_node, "name"))
     out_file.write("::InsertSql()\n")
     out_file.write("{\n")
-    out_file.write("	::memset(m_Buff, 0, sizeof(m_Buff));\n")
-    out_file.write("	ToStream(m_Buff, 4096);\n")
+    out_file.write("	::memset(StreamBuff, 0, sizeof(StreamBuff));\n")
+    out_file.write("	ToStream(StreamBuff, 4096);\n")
     out_file.write("	return \"REPLACE INTO t_Mdb")
     out_file.write("%s" % get_attr(curr_node, "name"))
-    out_file.write(" VALUES(\" + string(m_Buff) + \");\";\n")
+    out_file.write(" VALUES(\" + string(StreamBuff) + \");\";\n")
     out_file.write("}\n")
     out_file.write("int ")
     out_file.write("%s" % get_attr(curr_node, "name"))

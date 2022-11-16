@@ -24,7 +24,7 @@ public:
 	int CreateTable()
 	{
 		std::string sql = T::CreateSql();
-		WRITE_LOG(LogLevel::Debug, "CreateSql SQL:[%s]", sql.c_str());
+		WRITE_LOG(LogLevel::Info, "CreateSql SQL:[%s]", sql.c_str());
 
 		int rc = sqlite3_exec(m_DB, sql.c_str(), nullptr, (void*)"CreateTable", &m_ErrorMsg);
 		if (rc != SQLITE_OK)
@@ -44,6 +44,7 @@ public:
 		if (rc != SQLITE_OK)
 		{
 			WRITE_LOG(LogLevel::Warning, "SQL error: %s", m_ErrorMsg);
+			WRITE_LOG(LogLevel::Warning, "SQL: %s", sql.c_str());
 			sqlite3_free(m_ErrorMsg);
 		}
 		return rc;
@@ -58,6 +59,7 @@ public:
 		if (rc != SQLITE_OK)
 		{
 			WRITE_LOG(LogLevel::Warning, "SQL error: %s", m_ErrorMsg);
+			WRITE_LOG(LogLevel::Warning, "SQL: %s", sql.c_str());
 			sqlite3_free(m_ErrorMsg);
 		}
 		return rc;
@@ -72,6 +74,7 @@ public:
 		if (rc != SQLITE_OK)
 		{
 			WRITE_LOG(LogLevel::Warning, "SQL error: %s", m_ErrorMsg);
+			WRITE_LOG(LogLevel::Warning, "SQL: %s", sql.c_str());
 			sqlite3_free(m_ErrorMsg);
 		}
 		else
@@ -80,6 +83,7 @@ public:
 		}
 		return rc;
 	}
+	int SelectHistoryOrder();
 private:
 	static Mdb m_Instance;
 	sqlite3* m_DB;

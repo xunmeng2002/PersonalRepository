@@ -5,6 +5,8 @@
 #include "MdbTables.h"
 #include "Mdb.h"
 
+thread_local char StreamBuff[4096];
+
 
 int OrderSequence::ToStream(char* buff, int size) const
 {
@@ -22,9 +24,9 @@ string OrderSequence::CreateSql()
 }
 string OrderSequence::InsertSql()
 {
-	::memset(m_Buff, 0, sizeof(m_Buff));
-	ToStream(m_Buff, 4096);
-	return "REPLACE INTO t_MdbOrderSequence VALUES(" + string(m_Buff) + ");";
+	::memset(StreamBuff, 0, sizeof(StreamBuff));
+	ToStream(StreamBuff, 4096);
+	return "REPLACE INTO t_MdbOrderSequence VALUES(" + string(StreamBuff) + ");";
 }
 int OrderSequence::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -38,12 +40,12 @@ int OrderSequence::OnSelectCallback(void* callback, int colCount, char** colValu
 
 int Order::ToStream(char* buff, int size) const
 {
-	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%d',  '%d',  '%d',  '%d',  '%f',  '%d',  '%d',  '%d',  '%d',  '%s',  '%s',  '%s',  '%s',  '%d',  '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%d',  '%d',  '%s',  '%d',  '%s',  '%d',  '%d',  '%d',  '%f',  '%d'",
+	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%c',  '%c',  '%c',  '%f',  '%d',  '%d',  '%c',  '%d',  '%s',  '%s',  '%s',  '%s',  '%d',  '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%c',  '%s',  '%c',  '%s',  '%c',  '%d',  '%c',  '%f',  '%d'",
 		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrderSysID.c_str(), Direction, OffsetFlag, HedgeFlag, OrderPriceType, Price, Volume, VolumeTraded, OrderStatus, ErrorID, ErrorMsg.c_str(), StatusMsg.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID, InsertDate.c_str(), InsertTime.c_str(), ExchangeInsertDate.c_str(), ExchangeInsertTime.c_str(), CancelDate.c_str(), CancelTime.c_str(), ForceCloseReason, IsLocalOrder, UserProductInfo.c_str(), TimeCondition, GTDDate.c_str(), VolumeCondition, MinVolume, ContingentCondition, StopPrice, IsSwapOrder);
 }
 int Order::ToString(char* buff, int size) const
 {
-	return snprintf(buff, size, "MdbOrder: TradingDay:[%s], AccountID:[%s], ExchangeID:[%s], InstrumentID:[%s], OrderLocalID:[%s], OrderSysID:[%s], Direction:[%d], OffsetFlag:[%d], HedgeFlag:[%d], OrderPriceType:[%d], Price:[%f], Volume:[%d], VolumeTraded:[%d], OrderStatus:[%d], ErrorID:[%d], ErrorMsg:[%s], StatusMsg:[%s], RequestID:[%s], FrontID:[%s], SessionID:[%d], InsertDate:[%s], InsertTime:[%s], ExchangeInsertDate:[%s], ExchangeInsertTime:[%s], CancelDate:[%s], CancelTime:[%s], ForceCloseReason:[%d], IsLocalOrder:[%d], UserProductInfo:[%s], TimeCondition:[%d], GTDDate:[%s], VolumeCondition:[%d], MinVolume:[%d], ContingentCondition:[%d], StopPrice:[%f], IsSwapOrder:[%d]",
+	return snprintf(buff, size, "MdbOrder: TradingDay:[%s], AccountID:[%s], ExchangeID:[%s], InstrumentID:[%s], OrderLocalID:[%s], OrderSysID:[%s], Direction:[%c], OffsetFlag:[%c], HedgeFlag:[%c], OrderPriceType:[%c], Price:[%f], Volume:[%d], VolumeTraded:[%d], OrderStatus:[%c], ErrorID:[%d], ErrorMsg:[%s], StatusMsg:[%s], RequestID:[%s], FrontID:[%s], SessionID:[%d], InsertDate:[%s], InsertTime:[%s], ExchangeInsertDate:[%s], ExchangeInsertTime:[%s], CancelDate:[%s], CancelTime:[%s], ForceCloseReason:[%c], IsLocalOrder:[%c], UserProductInfo:[%s], TimeCondition:[%c], GTDDate:[%s], VolumeCondition:[%c], MinVolume:[%d], ContingentCondition:[%c], StopPrice:[%f], IsSwapOrder:[%d]",
 		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrderSysID.c_str(), Direction, OffsetFlag, HedgeFlag, OrderPriceType, Price, Volume, VolumeTraded, OrderStatus, ErrorID, ErrorMsg.c_str(), StatusMsg.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID, InsertDate.c_str(), InsertTime.c_str(), ExchangeInsertDate.c_str(), ExchangeInsertTime.c_str(), CancelDate.c_str(), CancelTime.c_str(), ForceCloseReason, IsLocalOrder, UserProductInfo.c_str(), TimeCondition, GTDDate.c_str(), VolumeCondition, MinVolume, ContingentCondition, StopPrice, IsSwapOrder);
 }
 string Order::CreateSql()
@@ -52,9 +54,9 @@ string Order::CreateSql()
 }
 string Order::InsertSql()
 {
-	::memset(m_Buff, 0, sizeof(m_Buff));
-	ToStream(m_Buff, 4096);
-	return "REPLACE INTO t_MdbOrder VALUES(" + string(m_Buff) + ");";
+	::memset(StreamBuff, 0, sizeof(StreamBuff));
+	ToStream(StreamBuff, 4096);
+	return "REPLACE INTO t_MdbOrder VALUES(" + string(StreamBuff) + ");";
 }
 int Order::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -102,12 +104,12 @@ int Order::OnSelectCallback(void* callback, int colCount, char** colValues, char
 
 int OrderCancel::ToStream(char* buff, int size) const
 {
-	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%d',  '%s',  '%s',  '%d',  '%d',  '%s',  '%s',  '%s'",
+	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%s',  '%s',  '%d',  '%d',  '%s',  '%s',  '%s'",
 		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrigOrderLocalID.c_str(), OrderSysID.c_str(), Direction, OrderRef.c_str(), FrontID.c_str(), SessionID, ErrorID, ErrorMsg.c_str(), InsertDate.c_str(), CancelDate.c_str());
 }
 int OrderCancel::ToString(char* buff, int size) const
 {
-	return snprintf(buff, size, "MdbOrderCancel: TradingDay:[%s], AccountID:[%s], ExchangeID:[%s], InstrumentID:[%s], OrderLocalID:[%s], OrigOrderLocalID:[%s], OrderSysID:[%s], Direction:[%d], OrderRef:[%s], FrontID:[%s], SessionID:[%d], ErrorID:[%d], ErrorMsg:[%s], InsertDate:[%s], CancelDate:[%s]",
+	return snprintf(buff, size, "MdbOrderCancel: TradingDay:[%s], AccountID:[%s], ExchangeID:[%s], InstrumentID:[%s], OrderLocalID:[%s], OrigOrderLocalID:[%s], OrderSysID:[%s], Direction:[%c], OrderRef:[%s], FrontID:[%s], SessionID:[%d], ErrorID:[%d], ErrorMsg:[%s], InsertDate:[%s], CancelDate:[%s]",
 		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrigOrderLocalID.c_str(), OrderSysID.c_str(), Direction, OrderRef.c_str(), FrontID.c_str(), SessionID, ErrorID, ErrorMsg.c_str(), InsertDate.c_str(), CancelDate.c_str());
 }
 string OrderCancel::CreateSql()
@@ -116,9 +118,9 @@ string OrderCancel::CreateSql()
 }
 string OrderCancel::InsertSql()
 {
-	::memset(m_Buff, 0, sizeof(m_Buff));
-	ToStream(m_Buff, 4096);
-	return "REPLACE INTO t_MdbOrderCancel VALUES(" + string(m_Buff) + ");";
+	::memset(StreamBuff, 0, sizeof(StreamBuff));
+	ToStream(StreamBuff, 4096);
+	return "REPLACE INTO t_MdbOrderCancel VALUES(" + string(StreamBuff) + ");";
 }
 int OrderCancel::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
@@ -145,12 +147,12 @@ int OrderCancel::OnSelectCallback(void* callback, int colCount, char** colValues
 
 int Trade::ToStream(char* buff, int size) const
 {
-	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%d',  '%d',  '%d',  '%f',  '%d',  '%s',  '%s',  '%s',  '%s'",
+	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%c',  '%c',  '%f',  '%d',  '%s',  '%s',  '%s',  '%s'",
 		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), TradeID.c_str(), Direction, OffsetFlag, HedgeFlag, Price, Volume, OrderLocalID.c_str(), OrderSysID.c_str(), TradeTime.c_str(), TradeDate.c_str());
 }
 int Trade::ToString(char* buff, int size) const
 {
-	return snprintf(buff, size, "MdbTrade: TradingDay:[%s], AccountID:[%s], ExchangeID:[%s], InstrumentID:[%s], TradeID:[%s], Direction:[%d], OffsetFlag:[%d], HedgeFlag:[%d], Price:[%f], Volume:[%d], OrderLocalID:[%s], OrderSysID:[%s], TradeTime:[%s], TradeDate:[%s]",
+	return snprintf(buff, size, "MdbTrade: TradingDay:[%s], AccountID:[%s], ExchangeID:[%s], InstrumentID:[%s], TradeID:[%s], Direction:[%c], OffsetFlag:[%c], HedgeFlag:[%c], Price:[%f], Volume:[%d], OrderLocalID:[%s], OrderSysID:[%s], TradeTime:[%s], TradeDate:[%s]",
 		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), TradeID.c_str(), Direction, OffsetFlag, HedgeFlag, Price, Volume, OrderLocalID.c_str(), OrderSysID.c_str(), TradeTime.c_str(), TradeDate.c_str());
 }
 string Trade::CreateSql()
@@ -159,9 +161,9 @@ string Trade::CreateSql()
 }
 string Trade::InsertSql()
 {
-	::memset(m_Buff, 0, sizeof(m_Buff));
-	ToStream(m_Buff, 4096);
-	return "REPLACE INTO t_MdbTrade VALUES(" + string(m_Buff) + ");";
+	::memset(StreamBuff, 0, sizeof(StreamBuff));
+	ToStream(StreamBuff, 4096);
+	return "REPLACE INTO t_MdbTrade VALUES(" + string(StreamBuff) + ");";
 }
 int Trade::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {

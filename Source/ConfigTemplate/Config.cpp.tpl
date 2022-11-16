@@ -1,3 +1,4 @@
+#pragma warning(disable: 4311)
 #include "Config.h"
 #include "json/json.h"
 #include "Logger.h"

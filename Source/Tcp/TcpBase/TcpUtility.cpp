@@ -53,7 +53,7 @@ bool SetSockReuse(SOCKET socketID, int resue)
 		WRITE_LOG(LogLevel::Error, "setsockopt SO_REUSEADDR[%d] Failed. ErrorID:[%d]", resue, GetLastError());
 		return false;
 	}
-	WRITE_LOG(LogLevel::Error, "setsockopt SO_REUSEADDR[%d] Success.", resue);
+	WRITE_LOG(LogLevel::Info, "setsockopt SO_REUSEADDR[%d] Success.", resue);
 	return true;
 }
 bool SetSockNodelay(SOCKET socketID, int nodelay)
@@ -63,7 +63,7 @@ bool SetSockNodelay(SOCKET socketID, int nodelay)
 		WRITE_LOG(LogLevel::Error, "setsockopt TCP_NODELAY[%d] Failed. ErrorID:[%d]", nodelay, GetLastError());
 		return false;
 	}
-	WRITE_LOG(LogLevel::Error, "setsockopt TCP_NODELAY[%d] Success.", nodelay);
+	WRITE_LOG(LogLevel::Info, "setsockopt TCP_NODELAY[%d] Success.", nodelay);
 	return true;
 }
 bool SetSockIPV6Only(SOCKET socketID, int ipv6Only)

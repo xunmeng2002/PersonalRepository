@@ -5,11 +5,13 @@
 #include "MdbTables.h"
 #include "Mdb.h"
 
+thread_local char StreamBuff[4096];
+
 !!formatSymbols = {}!!
 !!formatSymbols["string"] = "s"!!
 !!formatSymbols["int"] = "d"!!
 !!formatSymbols["double"] = "f"!!
-!!formatSymbols["enum"] = "d"!!
+!!formatSymbols["enum"] = "c"!!
 
 !!entry mdb!!
 !!entry tables!!
@@ -34,9 +36,9 @@ string !!@name!!::CreateSql()
 }
 string !!@name!!::InsertSql()
 {
-	::memset(m_Buff, 0, sizeof(m_Buff));
-	ToStream(m_Buff, 4096);
-	return "REPLACE INTO t_Mdb!!@name!! VALUES(" + string(m_Buff) + ");";
+	::memset(StreamBuff, 0, sizeof(StreamBuff));
+	ToStream(StreamBuff, 4096);
+	return "REPLACE INTO t_Mdb!!@name!! VALUES(" + string(StreamBuff) + ");";
 }
 int !!@name!!::OnSelectCallback(void* callback, int colCount, char** colValues, char** colNames)
 {
