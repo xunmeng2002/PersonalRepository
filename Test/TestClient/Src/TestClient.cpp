@@ -21,13 +21,16 @@ int main(int argc, const char* argv[])
     switch (config.ProtocolType[0])
     {
     case '0':
-        TestTcpSelectClient();
+        TestUdpClient();
         break;
     case '1':
-        TestTcpEpollClient();
+        TestTcpSelectClient();
         break;
     case '2':
-        TestUdpClient();
+        TestTcpEpollClient();
+        break;
+    case '3':
+        //TestIOCPClient();
         break;
     default:
         break;

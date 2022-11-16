@@ -25,7 +25,7 @@ void TestUdpClient()
         tcpEvent->IP = Config::GetInstance().ConnectIP.c_str();
         tcpEvent->Port = Config::GetInstance().ConnectPort.c_str();
         ::memcpy(tcpEvent->Buff, msg.c_str(), msg.length());
-        tcpEvent->Length = msg.length();
+        tcpEvent->Length = int(msg.length());
         tcpEvent->Buff[tcpEvent->Length] = '\0';
         udpClient.ZipSendTo(tcpEvent);
 

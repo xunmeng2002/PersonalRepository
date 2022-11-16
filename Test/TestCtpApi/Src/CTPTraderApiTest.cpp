@@ -32,7 +32,7 @@ void ReadAccountInfo(map<string, AccountInfo*>& accountInfos)
 	cout << "parse: " << reader.parse(in_file, root) << endl;
 	in_file.close();
 	
-	for (auto i = 0; i < root.size(); i++)
+	for (auto i = 0u; i < root.size(); i++)
 	{
 		AccountInfo* accountInfo = new AccountInfo();
 		strcpy(accountInfo->AccountType, root[i]["AccountType"].asString().c_str());
@@ -42,7 +42,7 @@ void ReadAccountInfo(map<string, AccountInfo*>& accountInfos)
 		strcpy(accountInfo->UserProductInfo, root[i]["UserProductInfo"].asString().c_str());
 		strcpy(accountInfo->AuthCode, root[i]["AuthCode"].asString().c_str());
 		strcpy(accountInfo->AppID, root[i]["AppID"].asString().c_str());
-		for (auto j = 0; j < root[i]["FrontAddrs"].size(); j++)
+		for (auto j = 0u; j < root[i]["FrontAddrs"].size(); j++)
 		{
 			accountInfo->FrontAddrs.insert(root[i]["FrontAddrs"][j].asString());
 		}

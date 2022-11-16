@@ -21,7 +21,7 @@ void TcpSelectBase::HandleTcpEvent()
 {
 	DoDisConnect();
 	PrepareFds();
-	::select(m_MaxID + 1, &m_RecvFds, nullptr, nullptr, &m_SelectSocketTimeOut);
+	::select(int(m_MaxID + 1), &m_RecvFds, nullptr, nullptr, &m_SelectSocketTimeOut);
 	if (FD_ISSET(m_ListenSocket, &m_RecvFds))
 	{
 		DoAccept();

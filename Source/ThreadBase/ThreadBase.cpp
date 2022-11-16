@@ -28,6 +28,7 @@ bool ThreadBase::Start()
 void ThreadBase::Stop()
 {
 	m_ShouldRun.store(false);
+	m_ThreadConditionVariable.notify_one();
 }
 void ThreadBase::Join()
 {

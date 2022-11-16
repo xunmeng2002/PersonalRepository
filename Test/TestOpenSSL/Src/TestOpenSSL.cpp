@@ -49,7 +49,7 @@ int main()
 {
 	unsigned char* key = new unsigned char[1024]{ 0 };
 	memcpy(key, "MCDcTzCDusVFFmM5mfQ6NtBFeZDPdcoMvg_kbPh5trM", strlen("MCDcTzCDusVFFmM5mfQ6NtBFeZDPdcoMvg_kbPh5trM"));
-	int inLen = strlen((const char*)key);
+	int inLen = int(strlen((const char*)key));
 
 	unsigned char decodeKey[1024] = { 0 };
 	auto decodeKeyLen = OpenSSL::Base64UrlDecode(key, inLen, decodeKey);
@@ -60,7 +60,7 @@ int main()
 	unsigned char* hmacOut = new unsigned char[1024]{ 0 };
 	unsigned char* target = new unsigned char[1024]{ 0 };
 	memcpy(target, "1168\n2F5004U\n004\n20220805-10:13:36.577\nG\n30\nCN\nTEST_BYIFTS\n1.0\nBoyee", strlen("1168\n2F5004U\n004\n20220805-10:13:36.577\nG\n30\nCN\nTEST_BYIFTS\n1.0\nBoyee"));
-	int targetLen = strlen((char*)target);
+	int targetLen = int(strlen((char*)target));
 	Print(target, targetLen);
 	printf("targetLen:[%d]\n", targetLen);
 
@@ -74,7 +74,7 @@ int main()
 
 
 	unsigned char* encodeData = new unsigned char[1024]{ 0 };
-	int encodeLen = OpenSSL::Base64UrlEncode(hmacOut, strlen((char*)hmacOut), encodeData);
+	int encodeLen = OpenSSL::Base64UrlEncode(hmacOut, int(strlen((char*)hmacOut)), encodeData);
 	printf("encodeLen:[%d], encodeData:[%s]\n", encodeLen, encodeData);
 
 	return 0;

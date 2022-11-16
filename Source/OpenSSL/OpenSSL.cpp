@@ -43,7 +43,7 @@ int OpenSSL::Base64Decode(unsigned char* inData, int inLen, unsigned char* outDa
 	inLen += len;
 
 	EVP_DecodeBlock(outData, newInData, inLen);
-	int outLen = strlen((char*)outData);
+	int outLen = int(strlen((char*)outData));
 	delete[] newInData;
 	return outLen;
 }

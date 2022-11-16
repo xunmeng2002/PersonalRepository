@@ -6,6 +6,7 @@
 
 void TestTcpEpollClient()
 {
+#ifdef LINUX
     auto IP1 = "127.0.0.1";
     auto IP2 = "192.168.2.29";
     auto IP3 = "::1";
@@ -37,4 +38,5 @@ void TestTcpEpollClient()
     std::this_thread::sleep_for(std::chrono::seconds(5));
     tcpClientSubscriberImpl.Stop();
     tcpClientSubscriberImpl.Join();
+#endif
 }
