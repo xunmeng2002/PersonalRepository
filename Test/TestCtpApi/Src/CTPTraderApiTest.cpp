@@ -8,6 +8,11 @@
 #include <iostream>
 #include <map>
 #include <string.h>
+#ifdef LINUX
+#include <signal.h>
+#endif // LINUX
+
+
 
 using namespace std;
 
@@ -54,6 +59,15 @@ void ReadAccountInfo(map<string, AccountInfo*>& accountInfos)
 	}
 }
 
+#ifdef LINUX
+void sigusr1_handler(int signo)
+{
+	printf("catch SIGUSR1\n");
+	printf("back to main\n");
+}
+#endif // LINUX
+
+
 int main()
 {
 	map<string, AccountInfo*> accountInfos;
@@ -77,7 +91,17 @@ int main()
 	traderApi->SubscribePublicTopic(THOST_TE_RESUME_TYPE::THOST_TERT_RESTART);
 	traderApi->Init();
 
-
+#ifdef LINUX
+	struct sigaction act;
+	act.sa_handler = sigusr1_handler;
+	act.sa_flags = SA_NODEFER;
+	sigemptyset(&act.sa_mask);
+	if (sigaction(SIGUSR1, &act, NULL) == -1)
+	{
+		perror("fail to set handler for SIGUSR1");
+		exit(1);
+	}
+#endif // LINUX
 	std::this_thread::sleep_for(std::chrono::seconds(30));
 
 	traderApi->Release();
