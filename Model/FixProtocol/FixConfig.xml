@@ -1,10 +1,11 @@
-<root>
+<config>
 	<items>
 		<item name="ChannelID" type="string"></item>
 		<item name="ListenIP" type="string"></item>
 		<item name="ListenPort" type="string"></item>
 		<item name="UdpIP" type="string"></item>
 		<item name="UdpPort" type="string"></item>
+		<item name="LogLevel" type="int"></item>
 		<item name="CommodityFile" type="string"></item>
 		<item name="CmeGlobexIP" type="string"></item>
 		<item name="CmeGlobexPrimaryPort" type="string"></item>
@@ -28,4 +29,4 @@
 		<item name="RecordFixAuditTrail" type="bool"></item>
 		<item name="FixAuditTrailFileName" type="string"></item>
 	</items>
-</root>
+</config>

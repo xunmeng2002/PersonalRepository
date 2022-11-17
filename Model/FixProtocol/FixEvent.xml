@@ -1,4 +1,4 @@
-<root>
+<events>
 	<FixEvents startID="10000">
 		<event name="OnMessage" desc="收到消息"/>
 		<event name="OnSequenceGap" desc="序号间隙信息"/>
@@ -24,4 +24,4 @@
 		
 		<event name="DoResendLastResendRequest" desc="重发上次重发的请求报文"/>
 	</FixEvents>
-</root>
+</events>

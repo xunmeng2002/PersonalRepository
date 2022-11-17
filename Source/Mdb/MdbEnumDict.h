@@ -33,6 +33,16 @@ enum class Direction : char
 	Sell = '1',
 };
 
+enum class LoginStatus : char
+{
+	//未登录
+	NotLog = '0',
+	//已登录
+	Logged = '1',
+	//登录中
+	Logging = '2',
+};
+
 enum class HedgeFlag : char
 {
 	//投机
@@ -160,6 +170,7 @@ enum class IsLocalOrder : char
 
 OrderStatus ConvertToOrderStatus(const std::string& value);
 Direction ConvertToDirection(const std::string& value);
+LoginStatus ConvertToLoginStatus(const std::string& value);
 HedgeFlag ConvertToHedgeFlag(const std::string& value);
 OrderPriceType ConvertToOrderPriceType(const std::string& value);
 OffsetFlag ConvertToOffsetFlag(const std::string& value);

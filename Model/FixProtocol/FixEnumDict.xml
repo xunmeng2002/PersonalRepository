@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root>
+<enumdict>
 	<enums>
 		<enum name="Direction" tag="54">
 			<item name="Buy" value="1" desc="买"/>
@@ -51,4 +51,4 @@
 		<item name="InterestRateSwap" value="IRS" desc="利率互换"/>
 		<item name="FXSpot" value="FXSPOT" desc="外汇即期交易"/>
 	</dict>
-</root>
+</enumdict>

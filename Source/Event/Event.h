@@ -49,13 +49,14 @@ constexpr int EventOnAccept = 5;		//已接受连接
 constexpr int EventSend = 6;		//请求发送
 constexpr int EventRecv = 7;		//请求接收
 
-constexpr int EventInsertOrder = 100;		//请求报单
-constexpr int EventInsertOrderCancel = 101;		//请求撤单
-constexpr int EventOnRspOrder = 102;		//报单回报
-constexpr int EventOnRspOrderCancel = 103;		//撤单回报
-constexpr int EventOnErrRtnOrderCancel = 104;		//撤单错误推送
-constexpr int EventOnRtnOrder = 105;		//报单推送
-constexpr int EventOnRtnTrade = 106;		//成交推送
-constexpr int EventQryOrder = 107;		//委托查询
-constexpr int EventQryTrade = 108;		//成交查询
+constexpr int EventItsInsertOrder = 100;		//请求报单
+constexpr int EventItsInsertOrderCancel = 101;		//请求撤单
+constexpr int EventItsRspOrder = 102;		//报单回报
+constexpr int EventItsRtnOrder = 103;		//报单推送
+constexpr int EventItsRtnTrade = 104;		//成交推送
+constexpr int EventItsRtnOrderCancel = 105;		//撤单推送
+constexpr int EventOrderSequence = 106;		//委托序号
+constexpr int EventOnRtnOrder = 107;		//报单推送
+constexpr int EventOnRtnTrade = 108;		//成交推送
+constexpr int EventOnRtnOrderCancel = 109;		//撤单推送
 

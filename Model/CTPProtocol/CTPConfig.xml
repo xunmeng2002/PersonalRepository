@@ -1,10 +1,11 @@
-<root>
+<config>
 	<items>
 		<item name="ChannelID" type="string"></item>
 		<item name="ListenIP" type="string"></item>
 		<item name="ListenPort" type="string"></item>
 		<item name="UdpIP" type="string"></item>
 		<item name="UdpPort" type="string"></item>
+		<item name="LogLevel" type="int"></item>
 		<item name="CommodityFile" type="string"></item>
 		<item name="BrokerID" type="string"></item>
 		<item name="UserID" type="string"></item>
@@ -14,4 +15,4 @@
 		<item name="AppID" type="string"></item>
 		<item name="FrontAddr" type="string"></item>
 	</items>
-</root>
+</config>

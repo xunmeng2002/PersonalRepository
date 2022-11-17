@@ -15,6 +15,11 @@
 		<item name="Buy" value="0" desc="买"/>
 		<item name="Sell" value="1" desc="卖"/>
 	</enum>
+	<enum name="LoginStatus">
+		<item name="NotLog" value="0" desc="未登录"/>
+		<item name="Logged" value="1" desc="已登录"/>
+		<item name="Logging" value="2" desc="登录中"/>
+	</enum>
 	<enum name="HedgeFlag">
 		<item name="Speculation" value="1" desc="投机"/>
 		<item name="Arbitrage" value="2" desc="套利"/>
@@ -78,3 +83,4 @@
 		<item name="Local" value="1" desc="本地"/>
 	</enum>
 </enums>
+

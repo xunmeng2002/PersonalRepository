@@ -9,6 +9,10 @@ Direction ConvertToDirection(const std::string& value)
 {
 	return (Direction)value[0];
 }
+LoginStatus ConvertToLoginStatus(const std::string& value)
+{
+	return (LoginStatus)value[0];
+}
 HedgeFlag ConvertToHedgeFlag(const std::string& value)
 {
 	return (HedgeFlag)value[0];

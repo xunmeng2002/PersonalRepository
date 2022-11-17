@@ -1,10 +1,11 @@
-<root>
+<config>
 	<items>
 		<item name="ChannelID" type="string"></item>
 		<item name="ListenIP" type="string"></item>
 		<item name="ListenPort" type="string"></item>
 		<item name="UdpIP" type="string"></item>
 		<item name="UdpPort" type="string"></item>
+		<item name="LogLevel" type="int"></item>
 		<item name="CommodityFile" type="string"></item>
 		<item name="User" type="string"></item>
 		<item name="Password" type="string"></item>
@@ -12,4 +13,4 @@
 		<item name="HKPort" type="string"></item>
 		<item name="AppID" type="string"></item>
 	</items>
-</root>
+</config>

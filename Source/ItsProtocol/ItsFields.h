@@ -98,6 +98,8 @@ public:
 	std::string ForceCloseReason;
 	std::string AccountID;
 	std::string TradingDay;
+	std::string CurrencyID;
+	std::string T1Valid;
 
 	static constexpr const char* TableName = "t_ItsInsertOrder";
 private:
@@ -130,7 +132,7 @@ public:
 	std::string SessionID;
 	std::string ExchangeID;
 	std::string OrderSysID;
-	std::string BrokerOrderID;
+	std::string OrderLocalID;
 	std::string ProcessorOrderID;
 	std::string InstrumentID;
 	std::string Direction;
@@ -201,7 +203,7 @@ public:
 	std::string RequestID;
 	std::string FrontID;
 	std::string SessionID;
-	std::string BrokerOrderID;
+	std::string OrderLocalID;
 	std::string VolumeTotalOriginal;
 	std::string VolumeTraded;
 	std::string InsertDate;
@@ -251,7 +253,7 @@ public:
 	std::string Direction;
 	std::string OffsetFlag;
 	std::string HedgeFlag;
-	std::string BrokerOrderID;
+	std::string OrderLocalID;
 	std::string Volume;
 	std::string TradeDate;
 	std::string TradingDay;
@@ -286,7 +288,7 @@ public:
 	std::string Reserve3;
 	std::string Reserve4;
 	std::string ChannelID;
-	std::string BrokerOrderID;
+	std::string OrderLocalID;
 	std::string OrderRef;
 	std::string FrontID;
 	std::string SessionID;

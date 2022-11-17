@@ -1,77 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root>
-	<enums>
-		<enum name="Direction" type="uint8_t">
-			<item name="BidAndAsk"			value="0" desc=""/>
-			<item name="Bid"				value="1" desc="买"/>
-			<item name="Ask"				value="2" desc="卖"/>
-		</enum>
-		<enum name="OrderPriceType" type="uint8_t">
-			<item name="LimitOrder"			value="1" desc="限价单"/>
-			<item name="MarketOrder"		value="2" desc="市价单"/>
-			<item name="MarketToLimit"		value="3" desc="市价转限价单"/>
-			<item name="PassiveOrder"		value="4" desc=""/>
-			<item name="OnlyBestOrder"		value="8" desc=""/>
-			<item name="BestOrder"			value="16" desc=""/>
-			<item name="OddLotOrder"		value="32" desc=""/>
-			<item name="ImbalanceOrder"		value="64" desc=""/>
-			<item name="OverrideQuote"		value="128" desc=""/>
-		</enum>
-		<enum name="OrderStatus" type="uint32_t">
-			<item name="Preliminary"		value="1" desc=""/>
-			<item name="Accepted"			value="2" desc=""/>
-			<item name="Rejected"			value="3" desc=""/>
-			<item name="PreliminaryEnter"	value="4" desc=""/>
-			<item name="PreliminaryAlter"	value="5" desc=""/>
-			<item name="PreliminaryDelete"	value="6" desc=""/>
-			<item name="OrderAlter"			value="7" desc=""/>
-			<item name="OrderDeleted"		value="8" desc=""/>
-			<item name="Deleted"			value="9" desc=""/>
-			<item name="OrderActive"		value="10" desc=""/>
-			<item name="OrderInactive"		value="11" desc=""/>
-		</enum>
-		<enum name="ChangeReason" type="uint8_t">
-			<item name="Delete"				value="1" desc=""/>
-			<item name="Deal"				value="3" desc=""/>
-			<item name="Inactive"			value="4" desc=""/>
-			<item name="Change"				value="5" desc=""/>
-			<item name="Add"				value="6" desc=""/>
-			<item name="ModMkt"				value="7" desc=""/>
-			<item name="ModPrice"			value="8" desc=""/>
-			<item name="SystemDelete"		value="9" desc=""/>
-			<item name="ProxyDelete"		value="10" desc=""/>
-			<item name="Recalculated"		value="11" desc=""/>
-			<item name="ActivatedStop"		value="12" desc=""/>
-			<item name="HvRecalc"			value="13" desc=""/>
-			<item name="LimitChangeDel"		value="15" desc=""/>
-			<item name="SystemDelDay"		value="19" desc=""/>
-			<item name="IssInactivate"		value="21" desc=""/>
-			<item name="Reload"				value="30" desc=""/>
-			<item name="ReloadIntraday"		value="31" desc=""/>
-			<item name="NoLongerValid"		value="33" desc=""/>
-			<item name="AuctionDelete"		value="34" desc=""/>
-			<item name="LimitChangeInactivate"		value="35" desc=""/>
-			<item name="LimitChangeActivate"		value="36" desc=""/>
-			<item name="SystemDelDeltaProtection"	value="41" desc=""/>
-			<item name="SystemDelQuantityProtection" value="42" desc=""/>
-			<item name="InternalCrossingDelete"		value="43" desc=""/>
-			<item name="TPlusOneInactivate"	value="52" desc=""/>
-			<item name="TPlusOneActivate"	value="53" desc=""/>
-		</enum>
-		<enum name="TimeCondition" type="uint16_t">
-			<item name="Bouncing"			value="0" desc="即时有效"/>
-			<item name="RestOfDay"			value="1" desc="当日有效"/>
-			<item name="GoodTillCanceled"	value="2" desc="撤销前有效"/>
-			<item name="Days"				value="5" desc="指定日期前有效"/>
-			<item name="CurrentMax"			value="6" desc="当前最大有效期内有效"/>
-			<item name="GoodTillSession"	value="32" desc="本节有效"/>
-		</enum>
-		<enum name="OffsetFlag" type="uint16_t">
-			<item name="ReqDefault"			value="0" desc="账号默认"/>
-			<item name="ReqOpen"			value="1" desc="开仓"/>
-			<item name="ReqClose"			value="2" desc="平仓"/>
-			<item name="ReqMndClose"		value="3" desc="强制平仓"/>
-			<item name="ReqReset"			value="4" desc="设置为账号默认，仅对改单有效"/>
-		</enum>
-	</enums>
-</root>
+<enums>
+	<enum name="Direction" type="uint8_t">
+		<item name="BidAndAsk"			value="0" desc=""/>
+		<item name="Bid"				value="1" desc="买"/>
+		<item name="Ask"				value="2" desc="卖"/>
+	</enum>
+	<enum name="OrderPriceType" type="uint8_t">
+		<item name="LimitOrder"			value="1" desc="限价单"/>
+		<item name="MarketOrder"		value="2" desc="市价单"/>
+		<item name="MarketToLimit"		value="3" desc="市价转限价单"/>
+		<item name="PassiveOrder"		value="4" desc=""/>
+		<item name="OnlyBestOrder"		value="8" desc=""/>
+		<item name="BestOrder"			value="16" desc=""/>
+		<item name="OddLotOrder"		value="32" desc=""/>
+		<item name="ImbalanceOrder"		value="64" desc=""/>
+		<item name="OverrideQuote"		value="128" desc=""/>
+	</enum>
+	<enum name="OrderStatus" type="uint32_t">
+		<item name="Preliminary"		value="1" desc=""/>
+		<item name="Accepted"			value="2" desc=""/>
+		<item name="Rejected"			value="3" desc=""/>
+		<item name="PreliminaryEnter"	value="4" desc=""/>
+		<item name="PreliminaryAlter"	value="5" desc=""/>
+		<item name="PreliminaryDelete"	value="6" desc=""/>
+		<item name="OrderAlter"			value="7" desc=""/>
+		<item name="OrderDeleted"		value="8" desc=""/>
+		<item name="Deleted"			value="9" desc=""/>
+		<item name="OrderActive"		value="10" desc=""/>
+		<item name="OrderInactive"		value="11" desc=""/>
+	</enum>
+	<enum name="ChangeReason" type="uint8_t">
+		<item name="Delete"				value="1" desc=""/>
+		<item name="Deal"				value="3" desc=""/>
+		<item name="Inactive"			value="4" desc=""/>
+		<item name="Change"				value="5" desc=""/>
+		<item name="Add"				value="6" desc=""/>
+		<item name="ModMkt"				value="7" desc=""/>
+		<item name="ModPrice"			value="8" desc=""/>
+		<item name="SystemDelete"		value="9" desc=""/>
+		<item name="ProxyDelete"		value="10" desc=""/>
+		<item name="Recalculated"		value="11" desc=""/>
+		<item name="ActivatedStop"		value="12" desc=""/>
+		<item name="HvRecalc"			value="13" desc=""/>
+		<item name="LimitChangeDel"		value="15" desc=""/>
+		<item name="SystemDelDay"		value="19" desc=""/>
+		<item name="IssInactivate"		value="21" desc=""/>
+		<item name="Reload"				value="30" desc=""/>
+		<item name="ReloadIntraday"		value="31" desc=""/>
+		<item name="NoLongerValid"		value="33" desc=""/>
+		<item name="AuctionDelete"		value="34" desc=""/>
+		<item name="LimitChangeInactivate"		value="35" desc=""/>
+		<item name="LimitChangeActivate"		value="36" desc=""/>
+		<item name="SystemDelDeltaProtection"	value="41" desc=""/>
+		<item name="SystemDelQuantityProtection" value="42" desc=""/>
+		<item name="InternalCrossingDelete"		value="43" desc=""/>
+		<item name="TPlusOneInactivate"	value="52" desc=""/>
+		<item name="TPlusOneActivate"	value="53" desc=""/>
+	</enum>
+	<enum name="TimeCondition" type="uint16_t">
+		<item name="Bouncing"			value="0" desc="即时有效"/>
+		<item name="RestOfDay"			value="1" desc="当日有效"/>
+		<item name="GoodTillCanceled"	value="2" desc="撤销前有效"/>
+		<item name="Days"				value="5" desc="指定日期前有效"/>
+		<item name="CurrentMax"			value="6" desc="当前最大有效期内有效"/>
+		<item name="GoodTillSession"	value="32" desc="本节有效"/>
+	</enum>
+	<enum name="OffsetFlag" type="uint16_t">
+		<item name="ReqDefault"			value="0" desc="账号默认"/>
+		<item name="ReqOpen"			value="1" desc="开仓"/>
+		<item name="ReqClose"			value="2" desc="平仓"/>
+		<item name="ReqMndClose"		value="3" desc="强制平仓"/>
+		<item name="ReqReset"			value="4" desc="设置为账号默认，仅对改单有效"/>
+	</enum>
+</enums>

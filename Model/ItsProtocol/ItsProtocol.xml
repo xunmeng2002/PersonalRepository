@@ -67,6 +67,8 @@
 				<item name="ForceCloseReason" value="0" desc="强平原因"/>
 				<item name="AccountID" value="9894" desc="账号代码"/>
 				<item name="TradingDay" value="20211021" desc="交易日"/>
+				<item name="CurrencyID" value="HKD" desc="币种"/>
+				<item name="T1Valid" value="1" desc="T+1"/>
 			</items>
 			<primarykey>
 				<item name="TradingDay"/>
@@ -89,7 +91,7 @@
 				<item name="SessionID" value="0" desc="会话编号"/>
 				<item name="ExchangeID" value="HKEX" desc="交易所"/>
 				<item name="OrderSysID" value="" desc="交易所报单编号"/>
-				<item name="BrokerOrderID" value="" desc="柜台报单编号"/>
+				<item name="OrderLocalID" value="" desc="柜台报单编号"/>
 				<item name="ProcessorOrderID" value="1" desc="处理机报单编号"/>
 				<item name="InstrumentID" value="1" desc="合约代码"/>
 				<item name="Direction" value="1" desc="买卖方向"/>
@@ -131,7 +133,7 @@
 				<item name="InsertTime" value="06:53:43" desc="委托时间"/>
 				<item name="CancelTime" value="" desc="撤销时间"/>
 				<item name="OrderSysID" value="           1" desc="交易所报单编号"/>
-				<item name="StatusMsg" value="全部成交" desc="状态信息"/>
+				<item name="StatusMsg" value="全部成交" len="255" desc="状态信息"/>
 				<item name="Direction" value="0" desc="买卖方向"/>
 				<item name="CombOffsetFlag" value="0" desc="开平标志"/>
 				<item name="CombHedgeFlag" value="1" desc="投保标志"/>
@@ -141,7 +143,7 @@
 				<item name="RequestID" value="105" desc="请求编号"/>
 				<item name="FrontID" value="16777343" desc="前置编号"/>
 				<item name="SessionID" value="1570679412" desc="会话编号"/>
-				<item name="BrokerOrderID" value="164" desc="柜台报单编号"/>
+				<item name="OrderLocalID" value="164" desc="柜台报单编号"/>
 				<item name="VolumeTotalOriginal" value="1" desc="数量"/>
 				<item name="VolumeTraded" value="1" desc="今成交数量"/>
 				<item name="InsertDate" value="20210701" desc="报单日期"/>
@@ -163,7 +165,7 @@
 				<item name="ExchangeID"/>
 				<item name="InstrumentID"/>
 				<item name="Direction"/>
-				<item name="BrokerOrderID"/>
+				<item name="OrderLocalID"/>
 			</primarykey>
 		</field>
 		<field name="Trade" fucnName="OnRtnTrade" protocolType="B" 
@@ -185,7 +187,7 @@
 				<item name="Direction" value="0" desc="买卖方向"/>
 				<item name="OffsetFlag" value="0" desc="开平标志"/>
 				<item name="HedgeFlag" value="1" desc="投保标志"/>
-				<item name="BrokerOrderID" value="164" desc="柜台报单编号"/>
+				<item name="OrderLocalID" value="164" desc="柜台报单编号"/>
 				<item name="Volume" value="1" desc="数量"/>
 				<item name="TradeDate" value="20210701" desc="成交日期"/>
 				<item name="TradingDay" value="20210701" desc="交易日"/>
@@ -213,7 +215,7 @@
 				<item name="Reserve3" value="" desc="保留字段"/>
 				<item name="Reserve4" value="" desc="保留字段"/>
 				<item name="ChannelID" value="18" desc="上手编号"/>
-				<item name="BrokerOrderID" value="" desc="柜台报单编号"/>
+				<item name="OrderLocalID" value="" desc="柜台报单编号"/>
 				<item name="OrderRef" value="" desc="报单引用"/>
 				<item name="FrontID" value="" desc="前置编号"/>
 				<item name="SessionID" value="" desc="会话编号"/>
@@ -227,7 +229,7 @@
 			<primarykey>
 				<item name="TradingDay"/>
 				<item name="ExchangeID"/>
-				<item name="BrokerOrderID"/>
+				<item name="OrderLocalID"/>
 				<item name="OrderSysID"/>
 				<item name="OrderRef"/>
 			</primarykey>

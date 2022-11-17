@@ -6,8 +6,13 @@
 		<item name="UdpIP" type="string"></item>
 		<item name="UdpPort" type="string"></item>
 		<item name="LogLevel" type="int"></item>
-		<item name="CommodityFile" type="string"></item>
-		<item name="Account" type="string"></item>
+		<item name="User" type="string"></item>
 		<item name="Password" type="string"></item>
+		<item name="ExchangeAddress" type="string"></item>
+		<item name="AppID" type="string"></item>
+		<item name="AppVersion" type="string"></item>
+		<item name="AuthorCode" type="string"></item>
+		<item name="MacAddress" type="string"></item>
+		<item name="ComputerName" type="string"></item>
 	</items>
 </config>

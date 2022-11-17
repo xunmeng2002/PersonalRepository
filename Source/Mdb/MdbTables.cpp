@@ -40,17 +40,17 @@ int OrderSequence::OnSelectCallback(void* callback, int colCount, char** colValu
 
 int Order::ToStream(char* buff, int size) const
 {
-	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%c',  '%c',  '%c',  '%f',  '%d',  '%d',  '%c',  '%d',  '%s',  '%s',  '%s',  '%s',  '%d',  '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%c',  '%s',  '%c',  '%s',  '%c',  '%d',  '%c',  '%f',  '%d'",
-		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrderSysID.c_str(), Direction, OffsetFlag, HedgeFlag, OrderPriceType, Price, Volume, VolumeTraded, OrderStatus, ErrorID, ErrorMsg.c_str(), StatusMsg.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID, InsertDate.c_str(), InsertTime.c_str(), ExchangeInsertDate.c_str(), ExchangeInsertTime.c_str(), CancelDate.c_str(), CancelTime.c_str(), ForceCloseReason, IsLocalOrder, UserProductInfo.c_str(), TimeCondition, GTDDate.c_str(), VolumeCondition, MinVolume, ContingentCondition, StopPrice, IsSwapOrder);
+	return snprintf(buff, size, " '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%c',  '%c',  '%c',  '%f',  '%d',  '%d',  '%c',  '%d',  '%s',  '%s',  '%s',  '%d',  '%s',  '%s',  '%s',  '%s',  '%s',  '%s',  '%c',  '%c',  '%s',  '%c',  '%s',  '%c',  '%d',  '%c',  '%f',  '%d',  '%d'",
+		TradingDay.c_str(), AccountID.c_str(), CurrencyID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrderSysID.c_str(), Direction, OffsetFlag, HedgeFlag, OrderPriceType, Price, Volume, VolumeTraded, OrderStatus, ErrorID, ErrorMsg.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID, InsertDate.c_str(), InsertTime.c_str(), ExchangeInsertDate.c_str(), ExchangeInsertTime.c_str(), CancelDate.c_str(), CancelTime.c_str(), ForceCloseReason, IsLocalOrder, UserProductInfo.c_str(), TimeCondition, GTDDate.c_str(), VolumeCondition, MinVolume, ContingentCondition, StopPrice, IsSwapOrder, T1Valid);
 }
 int Order::ToString(char* buff, int size) const
 {
-	return snprintf(buff, size, "MdbOrder: TradingDay:[%s], AccountID:[%s], ExchangeID:[%s], InstrumentID:[%s], OrderLocalID:[%s], OrderSysID:[%s], Direction:[%c], OffsetFlag:[%c], HedgeFlag:[%c], OrderPriceType:[%c], Price:[%f], Volume:[%d], VolumeTraded:[%d], OrderStatus:[%c], ErrorID:[%d], ErrorMsg:[%s], StatusMsg:[%s], RequestID:[%s], FrontID:[%s], SessionID:[%d], InsertDate:[%s], InsertTime:[%s], ExchangeInsertDate:[%s], ExchangeInsertTime:[%s], CancelDate:[%s], CancelTime:[%s], ForceCloseReason:[%c], IsLocalOrder:[%c], UserProductInfo:[%s], TimeCondition:[%c], GTDDate:[%s], VolumeCondition:[%c], MinVolume:[%d], ContingentCondition:[%c], StopPrice:[%f], IsSwapOrder:[%d]",
-		TradingDay.c_str(), AccountID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrderSysID.c_str(), Direction, OffsetFlag, HedgeFlag, OrderPriceType, Price, Volume, VolumeTraded, OrderStatus, ErrorID, ErrorMsg.c_str(), StatusMsg.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID, InsertDate.c_str(), InsertTime.c_str(), ExchangeInsertDate.c_str(), ExchangeInsertTime.c_str(), CancelDate.c_str(), CancelTime.c_str(), ForceCloseReason, IsLocalOrder, UserProductInfo.c_str(), TimeCondition, GTDDate.c_str(), VolumeCondition, MinVolume, ContingentCondition, StopPrice, IsSwapOrder);
+	return snprintf(buff, size, "MdbOrder: TradingDay:[%s], AccountID:[%s], CurrencyID:[%s], ExchangeID:[%s], InstrumentID:[%s], OrderLocalID:[%s], OrderSysID:[%s], Direction:[%c], OffsetFlag:[%c], HedgeFlag:[%c], OrderPriceType:[%c], Price:[%f], Volume:[%d], VolumeTraded:[%d], OrderStatus:[%c], ErrorID:[%d], ErrorMsg:[%s], RequestID:[%s], FrontID:[%s], SessionID:[%d], InsertDate:[%s], InsertTime:[%s], ExchangeInsertDate:[%s], ExchangeInsertTime:[%s], CancelDate:[%s], CancelTime:[%s], ForceCloseReason:[%c], IsLocalOrder:[%c], UserProductInfo:[%s], TimeCondition:[%c], GTDDate:[%s], VolumeCondition:[%c], MinVolume:[%d], ContingentCondition:[%c], StopPrice:[%f], IsSwapOrder:[%d], T1Valid:[%d]",
+		TradingDay.c_str(), AccountID.c_str(), CurrencyID.c_str(), ExchangeID.c_str(), InstrumentID.c_str(), OrderLocalID.c_str(), OrderSysID.c_str(), Direction, OffsetFlag, HedgeFlag, OrderPriceType, Price, Volume, VolumeTraded, OrderStatus, ErrorID, ErrorMsg.c_str(), RequestID.c_str(), FrontID.c_str(), SessionID, InsertDate.c_str(), InsertTime.c_str(), ExchangeInsertDate.c_str(), ExchangeInsertTime.c_str(), CancelDate.c_str(), CancelTime.c_str(), ForceCloseReason, IsLocalOrder, UserProductInfo.c_str(), TimeCondition, GTDDate.c_str(), VolumeCondition, MinVolume, ContingentCondition, StopPrice, IsSwapOrder, T1Valid);
 }
 string Order::CreateSql()
 {
-	return "CREATE TABLE IF NOT EXISTS t_MdbOrder(TradingDay char(32), AccountID char(32), ExchangeID char(32), InstrumentID char(32), OrderLocalID char(32), OrderSysID char(64), Direction char(32), OffsetFlag char(32), HedgeFlag char(32), OrderPriceType char(32), Price char(32), Volume char(32), VolumeTraded char(32), OrderStatus char(32), ErrorID char(32), ErrorMsg char(255), StatusMsg char(255), RequestID char(32), FrontID char(32), SessionID char(32), InsertDate char(32), InsertTime char(32), ExchangeInsertDate char(32), ExchangeInsertTime char(32), CancelDate char(32), CancelTime char(32), ForceCloseReason char(32), IsLocalOrder char(32), UserProductInfo char(32), TimeCondition char(32), GTDDate char(32), VolumeCondition char(32), MinVolume char(32), ContingentCondition char(32), StopPrice char(32), IsSwapOrder char(32), PRIMARY KEY(TradingDay, OrderLocalID));";
+	return "CREATE TABLE IF NOT EXISTS t_MdbOrder(TradingDay char(32), AccountID char(32), CurrencyID char(32), ExchangeID char(32), InstrumentID char(32), OrderLocalID char(32), OrderSysID char(64), Direction char(32), OffsetFlag char(32), HedgeFlag char(32), OrderPriceType char(32), Price char(32), Volume char(32), VolumeTraded char(32), OrderStatus char(32), ErrorID char(32), ErrorMsg char(255), RequestID char(32), FrontID char(32), SessionID char(32), InsertDate char(32), InsertTime char(32), ExchangeInsertDate char(32), ExchangeInsertTime char(32), CancelDate char(32), CancelTime char(32), ForceCloseReason char(32), IsLocalOrder char(32), UserProductInfo char(32), TimeCondition char(32), GTDDate char(32), VolumeCondition char(32), MinVolume char(32), ContingentCondition char(32), StopPrice char(32), IsSwapOrder char(32), T1Valid char(32), PRIMARY KEY(TradingDay, OrderLocalID));";
 }
 string Order::InsertSql()
 {
@@ -63,21 +63,21 @@ int Order::OnSelectCallback(void* callback, int colCount, char** colValues, char
 	auto field = new Order();
 	field->TradingDay = colValues[0];
 	field->AccountID = colValues[1];
-	field->ExchangeID = colValues[2];
-	field->InstrumentID = colValues[3];
-	field->OrderLocalID = colValues[4];
-	field->OrderSysID = colValues[5];
-	field->Direction = ConvertToDirection(colValues[6]);
-	field->OffsetFlag = ConvertToOffsetFlag(colValues[7]);
-	field->HedgeFlag = ConvertToHedgeFlag(colValues[8]);
-	field->OrderPriceType = ConvertToOrderPriceType(colValues[9]);
-	field->Price = atof(colValues[10]);
-	field->Volume = atoi(colValues[11]);
-	field->VolumeTraded = atoi(colValues[12]);
-	field->OrderStatus = ConvertToOrderStatus(colValues[13]);
-	field->ErrorID = atoi(colValues[14]);
-	field->ErrorMsg = colValues[15];
-	field->StatusMsg = colValues[16];
+	field->CurrencyID = colValues[2];
+	field->ExchangeID = colValues[3];
+	field->InstrumentID = colValues[4];
+	field->OrderLocalID = colValues[5];
+	field->OrderSysID = colValues[6];
+	field->Direction = ConvertToDirection(colValues[7]);
+	field->OffsetFlag = ConvertToOffsetFlag(colValues[8]);
+	field->HedgeFlag = ConvertToHedgeFlag(colValues[9]);
+	field->OrderPriceType = ConvertToOrderPriceType(colValues[10]);
+	field->Price = atof(colValues[11]);
+	field->Volume = atoi(colValues[12]);
+	field->VolumeTraded = atoi(colValues[13]);
+	field->OrderStatus = ConvertToOrderStatus(colValues[14]);
+	field->ErrorID = atoi(colValues[15]);
+	field->ErrorMsg = colValues[16];
 	field->RequestID = colValues[17];
 	field->FrontID = colValues[18];
 	field->SessionID = atoi(colValues[19]);
@@ -97,6 +97,7 @@ int Order::OnSelectCallback(void* callback, int colCount, char** colValues, char
 	field->ContingentCondition = ConvertToContingentCondition(colValues[33]);
 	field->StopPrice = atof(colValues[34]);
 	field->IsSwapOrder = atoi(colValues[35]);
+	field->T1Valid = atoi(colValues[36]);
 
 	((MdbCallback*)callback)->SelectMdbOrderCallback(field);
 	return 0;
