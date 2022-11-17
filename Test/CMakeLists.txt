@@ -9,6 +9,7 @@ add_subdirectory(TestCtpApi)
 add_subdirectory(TestOpenSSL)
 add_subdirectory(TestSQLite)
 add_subdirectory(TestMysqlConnector)
+add_subdirectory(TestDbo)
 
 add_subdirectory(TestNamedPipe)
 add_subdirectory(TestNamedPipe2)

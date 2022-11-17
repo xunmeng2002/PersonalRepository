@@ -1,5 +1,6 @@
 #pragma warning(disable: 4311)
 #include "Dbo.h"
+#include <string.h>
 
 !!formats = {}!!
 !!dataTypes = {}!!
