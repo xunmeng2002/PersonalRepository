@@ -1,0 +1,10 @@
+<pumplist>
+	<pump dest="./Source/Dbo/DboDataType.h" tpl="./Source/Dbo/DboDataType.h.tpl" model="./Model/Dbo/DataType.xml"/>
+	<pump dest="./Source/Dbo/DboDataType.cpp" tpl="./Source/Dbo/DboDataType.cpp.tpl" model="./Model/Dbo/DataType.xml"/>
+	
+	<pump dest="./Source/Dbo/DboDataStruct.h" tpl="./Source/Dbo/DboDataStruct.h.tpl" model="./Model/Dbo/TradeTables.xml"/>
+	<pump dest="./Source/Dbo/DboDataStruct.cpp" tpl="./Source/Dbo/DboDataStruct.cpp.tpl" model="./Model/Dbo/TradeTables.xml ./Model/Dbo/DataType.xml"/>
+
+	<pump dest="./Source/Dbo/Dbo.h" tpl="./Source/Dbo/Dbo.h.tpl" model="./Model/Dbo/TradeTables.xml"/>
+	<pump dest="./Source/Dbo/Dbo.cpp" tpl="./Source/Dbo/Dbo.cpp.tpl" model="./Model/Dbo/TradeTables.xml ./Model/Dbo/DataType.xml"/>
+</pumplist>
