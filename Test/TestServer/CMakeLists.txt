@@ -31,19 +31,12 @@ include_package(ProtoBuf ${CMAKE_SOURCE_DIR}/LibHeads/ProtoBuf/3.21.1/include)
 
 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
-	if(${CMAKE_CL_64})
-		message(STATUS ${CMAKE_SOURCE_DIR}../Libs/Zlib/1.2.11/win64)
-		link_directories(${CMAKE_SOURCE_DIR}../Libs/Zlib/1.2.11/win64)
-	ELSE(${CMAKE_CL_64})
-		link_directories(${CMAKE_SOURCE_DIR}../Libs/Zlib/1.2.11/win32)
-	endif(${CMAKE_CL_64})
-
+	link_directories(${CMAKE_SOURCE_DIR}/../Libs/Zlib/1.2.11/win64)
 	add_executable(${PROJECT_NAME} ${all_file})
-
 	target_link_libraries(${PROJECT_NAME} debug zlibstaticd.lib)
 	target_link_libraries(${PROJECT_NAME} optimized zlibstatic.lib)
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
-	link_directories(${CMAKE_SOURCE_DIR}../Libs/Zlib/1.2.11/linux64/Debug)
+	link_directories(${CMAKE_SOURCE_DIR}/../Libs/Zlib/1.2.11/linux64/Debug)
 	add_executable(${PROJECT_NAME} ${all_file})
 	target_link_libraries(${PROJECT_NAME} pthread z)
 endif()

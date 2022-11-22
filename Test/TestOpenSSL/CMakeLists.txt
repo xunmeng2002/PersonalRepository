@@ -10,9 +10,9 @@ include_package(OpenSSL ${CMAKE_SOURCE_DIR}/LibHeads/openssl/3.0.5/include)
 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
 	if(${CMAKE_CL_64})
-		link_directories(${CMAKE_SOURCE_DIR}../Libs/openssl/3.0.5/win64_2022)
+		link_directories(${CMAKE_SOURCE_DIR}/../Libs/openssl/3.0.5/win64_2022)
 	ELSE(${CMAKE_CL_64})
-		link_directories(${CMAKE_SOURCE_DIR}../Libs/openssl/3.0.5/win32_2022)
+		link_directories(${CMAKE_SOURCE_DIR}/../Libs/openssl/3.0.5/win32_2022)
 	endif(${CMAKE_CL_64})
 	add_executable(${PROJECT_NAME} ${all_file})
 	

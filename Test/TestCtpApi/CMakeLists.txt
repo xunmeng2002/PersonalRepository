@@ -21,16 +21,16 @@ include_package(Ctp ${CMAKE_SOURCE_DIR}/LibHeads/CTP/${APIVersion}/include)
 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
 	if(${CMAKE_CL_64})
-		link_directories(${CMAKE_SOURCE_DIR}../Libs/CTP/${APIVersion}/win64)
+		link_directories(${CMAKE_SOURCE_DIR}/../Libs/CTP/${APIVersion}/win64)
 	ELSE(${CMAKE_CL_64})
-		link_directories(${CMAKE_SOURCE_DIR}../Libs/CTP/${APIVersion}/win32)
+		link_directories(${CMAKE_SOURCE_DIR}/../Libs/CTP/${APIVersion}/win32)
 	endif(${CMAKE_CL_64})
 
 	add_executable(${PROJECT_NAME} ${all_file})
 	
 	target_link_libraries(${PROJECT_NAME} thosttraderapi_se)
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
-	link_directories(${CMAKE_SOURCE_DIR}../Libs/CTP/${APIVersion}/linux)
+	link_directories(${CMAKE_SOURCE_DIR}/../Libs/CTP/${APIVersion}/linux)
 	
 	add_executable(${PROJECT_NAME} ${all_file})
 	
