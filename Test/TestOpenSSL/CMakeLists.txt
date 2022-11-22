@@ -18,7 +18,6 @@ IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
 	
 	target_link_libraries(${PROJECT_NAME} libcrypto_static.lib libssl_static.lib WS2_32.LIB)
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
-	link_directories(${CMAKE_SOURCE_DIR}/Libs/openssl/3.0.5/linux)
 	add_executable(${PROJECT_NAME} ${all_file})
 	target_link_libraries(${PROJECT_NAME} crypto ssl pthread dl)
 endif()
