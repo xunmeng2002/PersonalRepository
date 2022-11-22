@@ -40,7 +40,7 @@ def DoParse(fileName):
 
 
 if __name__ == "__main__":
-    excludes = ['.sv', '.vs', 'build', 'out']
+    excludes = ['.sv', '.vs', 'build', 'out', "Branches"]
     includes = ["../Libs"]
     parsefiles = []
     Search(".", "parselist.xml", excludes, parsefiles)

@@ -26,7 +26,7 @@ def clear(pumpfile):
             os.remove(dest)
 	
 if __name__ == "__main__":
-    excludes = ['inttools']
+    excludes = ['.sv', '.vs', 'build', 'out', "Branches"]
     includes = ["../Libs"]
     parsefiles = []
     Search(".","parselist.xml", excludes, parsefiles)

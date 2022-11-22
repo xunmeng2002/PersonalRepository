@@ -40,7 +40,7 @@ def DoPump(fileName):
                 exit()
 
 if __name__ == "__main__":
-    excludes = ['inttools']
+    excludes = ['.sv', '.vs', 'build', 'out', "Branches"]
     includes = ["../Libs"]
     pumpfiles = []
     Search(".", "pumplist.xml", excludes, pumpfiles)
