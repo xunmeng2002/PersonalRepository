@@ -6,7 +6,7 @@ add_subdirectory(TestSharedMemoryServer)
 
 add_subdirectory(TestCtpApi)
 
-add_subdirectory(TestOpenSSL)
+add_subdirectory(TestOpenssl)
 add_subdirectory(TestSQLite)
 add_subdirectory(TestMysqlConnector)
 add_subdirectory(TestDbo)

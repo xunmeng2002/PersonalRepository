@@ -3,5 +3,5 @@
 
 
 
-std::string calculateHMACOpenSSL(const std::string& key, const std::string& canonicalRequest);
+std::string calculateHMACOpenssl(const std::string& key, const std::string& canonicalRequest);
 

@@ -1,5 +1,5 @@
 #include <openssl/hmac.h>
-#include "OpenSSL.h"
+#include "Openssl.h"
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
@@ -17,27 +17,27 @@ void HmacCalculate(const char* name, unsigned char* inData, int inLen, unsigned 
 {
 	if (strcmp(name, "SHA1") == 0)
 	{
-		OpenSSL::HmacSHA1(inData, inLen, key, keyLen, outData, outLen);
+		Openssl::HmacSHA1(inData, inLen, key, keyLen, outData, outLen);
 	}
 	else if (strcmp(name, "SHA224") == 0)
 	{
-		OpenSSL::HmacSHA224(inData, inLen, key, keyLen, outData, outLen);
+		Openssl::HmacSHA224(inData, inLen, key, keyLen, outData, outLen);
 	}
 	else if (strcmp(name, "SHA256") == 0)
 	{
-		OpenSSL::HmacSHA256(inData, inLen, key, keyLen, outData, outLen);
+		Openssl::HmacSHA256(inData, inLen, key, keyLen, outData, outLen);
 	}
 	else if (strcmp(name, "SHA384") == 0)
 	{
-		OpenSSL::HmacSHA384(inData, inLen, key, keyLen, outData, outLen);
+		Openssl::HmacSHA384(inData, inLen, key, keyLen, outData, outLen);
 	}
 	else if (strcmp(name, "SHA512") == 0)
 	{
-		OpenSSL::HmacSHA512(inData, inLen, key, keyLen, outData, outLen);
+		Openssl::HmacSHA512(inData, inLen, key, keyLen, outData, outLen);
 	}
 	else if (strcmp(name, "MD5") == 0)
 	{
-		OpenSSL::HmacMD5(inData, inLen, key, keyLen, outData, outLen);
+		Openssl::HmacMD5(inData, inLen, key, keyLen, outData, outLen);
 	}
 	printf("HMAC By:[%s], hmacOutLen:[%d] strlen(hmacOut):[%lld]\n", name, outLen, (long long)strlen((char*)outData));
 	Print(outData, outLen);
@@ -52,7 +52,7 @@ int main()
 	int inLen = int(strlen((const char*)key));
 
 	unsigned char decodeKey[1024] = { 0 };
-	auto decodeKeyLen = OpenSSL::Base64UrlDecode(key, inLen, decodeKey);
+	auto decodeKeyLen = Openssl::Base64UrlDecode(key, inLen, decodeKey);
 
 	Print(decodeKey, decodeKeyLen);
 	printf("decodeKeyLen:[%d], strlen(decodeKey):[%lld]\n", decodeKeyLen, (long long)strlen((const char*)decodeKey));
@@ -74,7 +74,7 @@ int main()
 
 
 	unsigned char* encodeData = new unsigned char[1024]{ 0 };
-	int encodeLen = OpenSSL::Base64UrlEncode(hmacOut, int(strlen((char*)hmacOut)), encodeData);
+	int encodeLen = Openssl::Base64UrlEncode(hmacOut, int(strlen((char*)hmacOut)), encodeData);
 	printf("encodeLen:[%d], encodeData:[%s]\n", encodeLen, encodeData);
 
 	return 0;
