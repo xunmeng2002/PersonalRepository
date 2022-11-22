@@ -135,46 +135,7 @@ void ItsEngine::OnRtnOrder(Order* field)
 	}
 	m_Sqlite->OnOrder(order);
 
-	ItsOrder* itsOrder = new ItsOrder();
-	itsOrder->ProtocolType = "B";
-	itsOrder->Command = std::to_string(CMS_CID_BROADCAST_MA_ORDER);
-	itsOrder->ChannelID = m_ChannelID;
-	itsOrder->ExchangeID = order->ExchangeID;
-	itsOrder->InstrumentID = order->InstrumentID;
-	itsOrder->OrderRef = "";
-	itsOrder->InsertTime = order->InsertTime;
-	itsOrder->CancelTime = order->CancelTime;
-	itsOrder->OrderSysID = order->OrderSysID;
-	itsOrder->StatusMsg = order->ErrorMsg;
-	itsOrder->Direction = (char)order->Direction;
-	itsOrder->CombOffsetFlag = (char)order->OffsetFlag;
-	itsOrder->CombHedgeFlag = (char)order->HedgeFlag;
-	itsOrder->OrderPriceType = (char)order->OrderPriceType;
-	itsOrder->OrderStatus = (char)order->OrderStatus;
-	itsOrder->ForceCloseReason = (char)order->ForceCloseReason;
-	itsOrder->RequestID = order->RequestID;
-	itsOrder->FrontID = order->FrontID;
-	itsOrder->SessionID = std::to_string(order->SessionID);
-	itsOrder->OrderLocalID = order->OrderLocalID;
-	itsOrder->VolumeTotalOriginal = std::to_string(order->Volume);
-	itsOrder->VolumeTraded = std::to_string(order->VolumeTraded);
-	itsOrder->InsertDate = order->InsertDate;
-	itsOrder->TradingDay = order->InsertDate;
-	itsOrder->LimitPrice = std::to_string(order->Price);
-	itsOrder->IsLocalOrder = (char)order->IsLocalOrder;
-	itsOrder->UserProductInfo = order->UserProductInfo;
-	itsOrder->TimeCondition = (char)order->TimeCondition;
-	itsOrder->GTDDate = order->GTDDate;
-	itsOrder->VolumeCondition = (char)order->VolumeCondition;
-	itsOrder->MinVolume = order->MinVolume;
-	itsOrder->ContingentCondition = (char)order->ContingentCondition;
-	itsOrder->StopPrice = std::to_string(order->StopPrice);
-	itsOrder->IsSwapOrder = std::to_string(order->IsSwapOrder);
-
-	SendUdp(itsOrder);
-	itsOrder->ToString(m_LogBuff, BuffSize);
-	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
-	m_Sqlite->OnItsRtnOrder(itsOrder);
+	PushOrder(order);
 }
 void ItsEngine::OnRtnTrade(Trade* field)
 {
@@ -186,32 +147,7 @@ void ItsEngine::OnRtnTrade(Trade* field)
 	m_AccountInfo->TradeVolume += field->Volume;
 	m_OfferDlg->UpdateRtnTradeNum(m_AccountInfo->AccountID, m_AccountInfo->TradeVolume);
 
-	ItsTrade* itsTrade = new ItsTrade();
-	itsTrade->ProtocolType = "B";
-	itsTrade->Command = std::to_string(CMS_CID_BROADCAST_MA_TRADE);
-	itsTrade->ChannelID = m_ChannelID;
-	itsTrade->ExchangeID = field->ExchangeID;
-	itsTrade->InstrumentID = field->InstrumentID;
-	itsTrade->OrderRef = "";
-	itsTrade->OrderSysID = field->OrderSysID;
-	itsTrade->TradeTime = field->TradeTime;
-	itsTrade->TradeID = field->TradeID;
-	itsTrade->Direction = (char)field->Direction;
-	itsTrade->OffsetFlag = (char)field->OffsetFlag;
-	itsTrade->HedgeFlag = (char)field->HedgeFlag;
-	itsTrade->OrderLocalID = field->OrderLocalID;
-	itsTrade->Volume = std::to_string(field->Volume);
-	itsTrade->TradeDate = field->TradeDate;
-	itsTrade->TradingDay = field->TradeDate;
-	itsTrade->Price = std::to_string(field->Price);
-	itsTrade->TradeType = (char)TradeType::Common;
-	itsTrade->ExchangeTradeID = field->TradeID;
-	
-	SendUdp(itsTrade);
-	itsTrade->ToString(m_LogBuff, BuffSize);
-	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
-	m_Sqlite->OnItsRtnTrade(itsTrade);
-
+	PushTrade(field);
 	CheckAndAddTrade(field);
 }
 void ItsEngine::OnErrRtnOrderCancel(OrderCancel* field)
@@ -235,24 +171,7 @@ void ItsEngine::OnErrRtnOrderCancel(OrderCancel* field)
 	}
 	m_Sqlite->OnOrderCancel(orderCancel);
 
-	ItsErrRtnOrderCancel* itsErrRtnOrderCancel = new ItsErrRtnOrderCancel();
-	itsErrRtnOrderCancel->ProtocolType = "B";
-	itsErrRtnOrderCancel->Command = std::to_string(CMS_CID_BROADCAST_MA_CANCEL_FAILED);
-	itsErrRtnOrderCancel->ChannelID = m_ChannelID;
-	itsErrRtnOrderCancel->OrderLocalID = orderCancel->OrigOrderLocalID;
-	itsErrRtnOrderCancel->OrderRef = orderCancel->OrderRef;
-	itsErrRtnOrderCancel->FrontID = orderCancel->FrontID;
-	itsErrRtnOrderCancel->SessionID = std::to_string(orderCancel->SessionID);
-	itsErrRtnOrderCancel->ExchangeID = orderCancel->ExchangeID;
-	itsErrRtnOrderCancel->OrderSysID = orderCancel->OrderSysID;
-	itsErrRtnOrderCancel->ErrorID = std::to_string(orderCancel->ErrorID);
-	itsErrRtnOrderCancel->ErrorMsg = orderCancel->ErrorMsg;
-	itsErrRtnOrderCancel->TradingDay = orderCancel->CancelDate;
-
-	SendUdp(itsErrRtnOrderCancel);
-	itsErrRtnOrderCancel->ToString(m_LogBuff, BuffSize);
-	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
-	m_Sqlite->OnItsRtnOrderCancel(itsErrRtnOrderCancel);
+	PushOrderCancel(field);
 }
 
 
@@ -462,8 +381,118 @@ void ItsEngine::ItsHandleCancelOrder(int sessionID, ItsInsertOrderCancel* field)
 	m_Sqlite->OnItsInsertOrderCancel(field);
 
 	m_OfferDlg->UpdateReqCancelNum(m_AccountInfo->AccountID, ++m_AccountInfo->ReqCancelNum);
+
+	if (order->OrderStatus == OrderStatus::Canceled || order->OrderStatus == OrderStatus::AllTraded || order->OrderStatus == OrderStatus::PartTradedCanceled || order->OrderStatus == OrderStatus::Error)
+	{
+		PushOrder(order);
+		if (order->OrderStatus == OrderStatus::AllTraded || order->OrderStatus == OrderStatus::PartTradedCanceled)
+		{
+			PushTradeOfOrder(order);
+		}
+	}
 }
 
+void ItsEngine::PushOrder(Order* order)
+{
+	ItsOrder* itsOrder = new ItsOrder();
+	itsOrder->ProtocolType = "B";
+	itsOrder->Command = std::to_string(CMS_CID_BROADCAST_MA_ORDER);
+	itsOrder->ChannelID = m_ChannelID;
+	itsOrder->ExchangeID = order->ExchangeID;
+	itsOrder->InstrumentID = order->InstrumentID;
+	itsOrder->OrderRef = "";
+	itsOrder->InsertTime = order->InsertTime;
+	itsOrder->CancelTime = order->CancelTime;
+	itsOrder->OrderSysID = order->OrderSysID;
+	itsOrder->StatusMsg = order->ErrorMsg;
+	itsOrder->Direction = (char)order->Direction;
+	itsOrder->CombOffsetFlag = (char)order->OffsetFlag;
+	itsOrder->CombHedgeFlag = (char)order->HedgeFlag;
+	itsOrder->OrderPriceType = (char)order->OrderPriceType;
+	itsOrder->OrderStatus = (char)order->OrderStatus;
+	itsOrder->ForceCloseReason = (char)order->ForceCloseReason;
+	itsOrder->RequestID = order->RequestID;
+	itsOrder->FrontID = order->FrontID;
+	itsOrder->SessionID = std::to_string(order->SessionID);
+	itsOrder->OrderLocalID = order->OrderLocalID;
+	itsOrder->VolumeTotalOriginal = std::to_string(order->Volume);
+	itsOrder->VolumeTraded = std::to_string(order->VolumeTraded);
+	itsOrder->InsertDate = order->InsertDate;
+	itsOrder->TradingDay = order->InsertDate;
+	itsOrder->LimitPrice = std::to_string(order->Price);
+	itsOrder->IsLocalOrder = (char)order->IsLocalOrder;
+	itsOrder->UserProductInfo = order->UserProductInfo;
+	itsOrder->TimeCondition = (char)order->TimeCondition;
+	itsOrder->GTDDate = order->GTDDate;
+	itsOrder->VolumeCondition = (char)order->VolumeCondition;
+	itsOrder->MinVolume = order->MinVolume;
+	itsOrder->ContingentCondition = (char)order->ContingentCondition;
+	itsOrder->StopPrice = std::to_string(order->StopPrice);
+	itsOrder->IsSwapOrder = std::to_string(order->IsSwapOrder);
+
+	SendUdp(itsOrder);
+	itsOrder->ToString(m_LogBuff, BuffSize);
+	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
+	m_Sqlite->OnItsRtnOrder(itsOrder);
+}
+void ItsEngine::PushTrade(Trade* field)
+{
+	ItsTrade* itsTrade = new ItsTrade();
+	itsTrade->ProtocolType = "B";
+	itsTrade->Command = std::to_string(CMS_CID_BROADCAST_MA_TRADE);
+	itsTrade->ChannelID = m_ChannelID;
+	itsTrade->ExchangeID = field->ExchangeID;
+	itsTrade->InstrumentID = field->InstrumentID;
+	itsTrade->OrderRef = "";
+	itsTrade->OrderSysID = field->OrderSysID;
+	itsTrade->TradeTime = field->TradeTime;
+	itsTrade->TradeID = field->TradeID;
+	itsTrade->Direction = (char)field->Direction;
+	itsTrade->OffsetFlag = (char)field->OffsetFlag;
+	itsTrade->HedgeFlag = (char)field->HedgeFlag;
+	itsTrade->OrderLocalID = field->OrderLocalID;
+	itsTrade->Volume = std::to_string(field->Volume);
+	itsTrade->TradeDate = field->TradeDate;
+	itsTrade->TradingDay = field->TradeDate;
+	itsTrade->Price = std::to_string(field->Price);
+	itsTrade->TradeType = (char)TradeType::Common;
+	itsTrade->ExchangeTradeID = field->TradeID;
+
+	SendUdp(itsTrade);
+	itsTrade->ToString(m_LogBuff, BuffSize);
+	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
+	m_Sqlite->OnItsRtnTrade(itsTrade);
+}
+void ItsEngine::PushTradeOfOrder(Order* order)
+{
+	for (auto it = find_if(m_Trades.begin(), m_Trades.end(), [&](Trade* trade) { return trade->OrderSysID == order->OrderSysID; });
+		it != m_Trades.end(); 
+		it = find_if(++it, m_Trades.end(), [&](Trade* trade) { return trade->OrderSysID == order->OrderSysID; }))
+	{
+		PushTrade(*it);
+	}
+}
+void ItsEngine::PushOrderCancel(OrderCancel* orderCancel)
+{
+	ItsErrRtnOrderCancel* itsErrRtnOrderCancel = new ItsErrRtnOrderCancel();
+	itsErrRtnOrderCancel->ProtocolType = "B";
+	itsErrRtnOrderCancel->Command = std::to_string(CMS_CID_BROADCAST_MA_CANCEL_FAILED);
+	itsErrRtnOrderCancel->ChannelID = m_ChannelID;
+	itsErrRtnOrderCancel->OrderLocalID = orderCancel->OrigOrderLocalID;
+	itsErrRtnOrderCancel->OrderRef = orderCancel->OrderRef;
+	itsErrRtnOrderCancel->FrontID = orderCancel->FrontID;
+	itsErrRtnOrderCancel->SessionID = std::to_string(orderCancel->SessionID);
+	itsErrRtnOrderCancel->ExchangeID = orderCancel->ExchangeID;
+	itsErrRtnOrderCancel->OrderSysID = orderCancel->OrderSysID;
+	itsErrRtnOrderCancel->ErrorID = std::to_string(orderCancel->ErrorID);
+	itsErrRtnOrderCancel->ErrorMsg = orderCancel->ErrorMsg;
+	itsErrRtnOrderCancel->TradingDay = orderCancel->CancelDate;
+
+	SendUdp(itsErrRtnOrderCancel);
+	itsErrRtnOrderCancel->ToString(m_LogBuff, BuffSize);
+	WRITE_LOG(LogLevel::Info, "%s", m_LogBuff);
+	m_Sqlite->OnItsRtnOrderCancel(itsErrRtnOrderCancel);
+}
 
 
 string ItsEngine::GetNextOrderLocalID(const string& tradingDay)

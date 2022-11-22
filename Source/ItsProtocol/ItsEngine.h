@@ -57,6 +57,11 @@ protected:
 	void ItsHandleInsertOrder(int sessionID, ItsInsertOrder* itsInsertOrder);
 	void ItsHandleCancelOrder(int sessionID, ItsInsertOrderCancel* itsInsertOrderCancel);
 
+	void PushOrder(Order* field);
+	void PushTrade(Trade* field);
+	void PushTradeOfOrder(Order* order);
+	void PushOrderCancel(OrderCancel* field);
+
 
 	template<typename T>
 	void SendUdp(T* field)
